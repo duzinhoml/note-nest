@@ -1,0 +1,30 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "npx nodemon src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Mathew Lopez",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@apollo/server": "^4.11.3",
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "graphql": "^16.10.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.10.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.8",
+    "nodemon": "^3.1.9"
+  }
+}
