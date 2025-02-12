@@ -8,7 +8,7 @@ import { typeDefs, resolvers } from './schemas/index.js';
 // import { authenticateToken } from './utils/auth.js';
 import path from 'node:path';
 
-const __dirname = path.resolve();
+// const __dirname = path.resolve();
 
 const server = new ApolloServer({
     typeDefs,
@@ -17,16 +17,6 @@ const server = new ApolloServer({
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-
-// app.use(express.urlencoded({ extended: true }));
-// app.use(express.json());
-
-// app.use('/graphql', expressMiddleware(server));
-
-// app.listen(PORT, () => {
-//     console.log(`API server running on port ${PORT}!`);
-//     console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);
-// });
 
 // app.use('graphql', expressMiddleware(server,
 //     {
@@ -44,13 +34,14 @@ const startApolloServer = async () => {
     app.use('/graphql', expressMiddleware(server));
 
 
-    // if (process.env.NODE_ENV === 'production') {
-    //     app.use(express.static(path.join(__dirname, '../client/dist')));
-        
-    //     app.get('*', (_req, res) => {
-    //         res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-    //     });
-    // };
+    if (process.env.NODE_ENV === 'production') {
+        const __dirname = path.dirname(new URL(import.meta.url).pathname);
+        app.use(express.static(path.join(__dirname, '../../client/dist')));
+    
+        app.get('*', (_req, res) => {
+            res.sendFile(path.join(__dirname, '../../client/dist/index.html'));
+        });
+    }
 
     app.listen(PORT, () => {
         console.log(`API server running on port ${PORT}!`);
@@ -59,4 +50,3 @@ const startApolloServer = async () => {
 };
 
 startApolloServer();
-
