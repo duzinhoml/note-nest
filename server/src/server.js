@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import db from './config/connection.js';
 
 import { ApolloServer } from '@apollo/server';
@@ -30,6 +31,7 @@ const startApolloServer = async () => {
 
     app.use(express.urlencoded({ extended: true }));
     app.use(express.json());
+    app.use(cors());
 
     app.use('/graphql', expressMiddleware(server));
 

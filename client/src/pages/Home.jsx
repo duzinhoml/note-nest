@@ -1,32 +1,62 @@
 import '../App.css'
 
 import { useQuery } from '@apollo/client';
-import { QUERY_NOTES } from '../utils/queries.js';
+import { QUERY_NOTES, QUERY_FOLDERS } from '../utils/queries.js';
 
 function Home() {
     console.log("✅ Home page is rendering!")
 
-    const { loading, error, data } = useQuery(QUERY_NOTES);
+    const { loading: loadingFolders, error: errorFolders, data: dataFolders } = useQuery(QUERY_FOLDERS);
+    const { loading: loadingNotes, error: errorNotes, data: dataNotes } = useQuery(QUERY_NOTES);
 
-    console.log("🔍 Loading:", loading);
-    console.log("❌ Error:", error);
-    console.log("📊 Data:", data);
+    let noteCount = 1;
+    let folderCount = 1;
 
-    const notes = data?.notes || [];
+    console.log("🔍 Loading:", loadingFolders);
+    console.log("❌ Error:", errorFolders);
+    console.log("📊 Data:", dataFolders);
 
-    if (error) return <div>Error: {error.message}</div>;
+    console.log("🔍 Loading:", loadingNotes);
+    console.log("❌ Error:", errorNotes);
+    console.log("📊 Data:", dataNotes);
+
+    const folders = dataFolders?.folders || [];
+    const notes = dataNotes?.notes || [];
+
+    if (errorNotes) return <div>Error: {errorNotes.message}</div>;
 
     return (
         <div>
             <h1>Here are all of my Notes</h1>
-            {loading ? (
+            {loadingNotes ? (
                 <div>Loading...</div>
             ) : (
                 notes.map(note => (
                     <div key={note._id}>
-                        <h2>{note.title}</h2>
+                        <h2>{`${noteCount++}.) ${note.title}`}</h2>
                         <p>{note.text}</p>
-                        <p>Created At: {note.createdAt}</p>
+                        <p><i>Created On: {note.createdAt}</i></p>
+                    </div>
+                ))
+            )}
+            <hr />
+            <h1>Here are all of my Folders</h1>
+            {loadingFolders ? (
+                <div>Loading...</div>
+            ): (
+                folders.map(folder => (
+                    <div key={folder._id}>
+                        <h2>{`${folderCount++}.) ${folder.title}`}</h2>
+                        <p>{folder.description}</p>
+                        <h3><u>Folder Notes</u></h3>
+                        {folder.notes?.map(note => (
+                            <div key={note._id}>
+                                <h4>{note.title}</h4>
+                                <p>{note.text}</p>
+                            </div>
+                        ))}
+                        <br />
+                        <p><i>Folder created on: {folder.createdAt}</i></p>
                     </div>
                 ))
             )}

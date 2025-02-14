@@ -1,5 +1,21 @@
 import { gql } from '@apollo/client';
 
+export const QUERY_FOLDERS = gql`
+    query allFolders {
+        folders {
+            _id
+            title
+            description
+            notes {
+                _id
+                title
+                text
+            }
+            createdAt
+        }
+    }
+`;
+
 export const QUERY_NOTES = gql`
     query allNotes {
         notes {

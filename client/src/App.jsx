@@ -4,7 +4,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { Outlet } from 'react-router-dom';
 
 const client = new ApolloClient({
-  uri: '/graphql',
+  uri: process.env.NODE_ENV === 'production' ? '/graphql' : 'http://localhost:3001/graphql',
   cache: new InMemoryCache(),
 });
 
