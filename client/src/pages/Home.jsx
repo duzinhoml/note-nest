@@ -1,5 +1,7 @@
 import '../App.css'
 
+import Card from '../components/Card.jsx';
+
 import { useQuery } from '@apollo/client';
 import { QUERY_NOTES, QUERY_FOLDERS } from '../utils/queries.js';
 
@@ -27,6 +29,8 @@ function Home() {
 
     return (
         <div>
+            <Card/>
+            <br />
             <h1>Here are all of my Notes</h1>
             {loadingNotes ? (
                 <div>Loading...</div>
