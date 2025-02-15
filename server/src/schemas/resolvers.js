@@ -49,30 +49,31 @@ const resolvers = {
         },
         createFolder: async (_, { input }) => {
             try {
-                // const folder = await Folder.create({ ...input });
-                // return `The folder '${folder.title}' has been successfully created.`;
-                const { title, description, userId } = input;
+                // UNCOMMENT LATER //////////////////////////////////////////////////////////////////
+                
+                // const { title, description, userId } = input;
+                const { title, description } = input;
 
-                if (userId === '' || userId === undefined) {
-                    return 'User not found'
-                }
+                // if (userId === '' || userId === undefined) {
+                //     return 'User not found'
+                // }
 
-                const user = await User.findOne({ _id: userId })
-                if (!user) {
-                    return 'User not found'
-                }
+                // const user = await User.findOne({ _id: userId })
+                // if (!user) {
+                //     return 'User not found'
+                // }
 
                 const folder = await Folder.create({ title, description });
 
-                const updatedUser = await User.findOneAndUpdate(
-                    { _id: userId },
-                    { $addToSet: {
-                        folders: folder._id
-                    }},
-                    { new: true }
-                );
+                // const updatedUser = await User.findOneAndUpdate(
+                //     { _id: userId },
+                //     { $addToSet: {
+                //         folders: folder._id
+                //     }},
+                //     { new: true }
+                // );
 
-                return `${updatedUser.fullName}, your folder '${folder.title}' has been successfully created.`;
+                // return `${updatedUser.fullName}, your folder '${folder.title}' has been successfully created.`;
             } 
             catch (err) {
                 return `Failed to create folder: ${err.message}`;

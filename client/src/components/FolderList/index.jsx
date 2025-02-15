@@ -1,21 +1,21 @@
-import { useState } from "react";
-import { useQuery } from "@apollo/client";
-import { QUERY_FOLDERS, QUERY_NOTES } from "../utils/queries";
+import AddNote from '../AddNote/index.jsx';
 
-function Card() {
+import { useState } from 'react';
+import { useQuery } from "@apollo/client";
+import { QUERY_FOLDERS } from "../../utils/queries";
+
+function FolderList() {
+    const [currentFolderId, setCurrentFolderId] = useState(null);
 
     const { loading: loadingFolders, error: errorFolders, data: dataFolders } = useQuery(QUERY_FOLDERS)
-    const { loading: loadingNotes, error: errorNotes, data: dataNotes } = useQuery(QUERY_NOTES);
-
     const folders = dataFolders?.folders || [];
-    const notes = dataNotes?.notes || [];
 
-    if (errorFolders || errorNotes) return <div>Error: {errorFolders.messsage || errorNotes.message}</div>;
+    if (errorFolders) return <div>Error: {errorFolders.message}</div>;
 
     return (
         <>
             <div className="row">
-                {loadingFolders || loadingNotes ? (
+                {loadingFolders ? (
                     <div>Loading...</div>
                 ): (
                     folders.map(folder => (
@@ -24,8 +24,25 @@ function Card() {
                                     <div class="card-body">
                                         <h5 class="card-title">{folder.title}</h5>
                                         <p class="d-inline-flex gap-1">
-                                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target={`#collapseExample${folder._id}`} aria-expanded="false" aria-controls="collapseExample">
+                                            <button 
+                                                class="btn btn-primary" 
+                                                type="button" 
+                                                data-bs-toggle="collapse" 
+                                                data-bs-target={`#collapseExample${folder._id}`} 
+                                                aria-expanded="false" 
+                                                aria-controls="collapseExample"
+                                            >
                                                 Notes
+                                            </button>
+                                            {/* <!-- Button trigger modal --> */}
+                                            <button 
+                                                type="button" 
+                                                class="btn btn-primary" 
+                                                data-bs-toggle="modal" 
+                                                data-bs-target="#staticBackdrop" 
+                                                onClick={() => setCurrentFolderId(folder._id)} 
+                                            >
+                                                + Note
                                             </button>
                                         </p>
                                         <div class="collapse" id={`collapseExample${folder._id}`}>
@@ -45,8 +62,9 @@ function Card() {
                     ))
                 )}
             </div>
+            <AddNote folderId={currentFolderId}/>
         </>
     );
 };
 
-export default Card;
+export default FolderList;

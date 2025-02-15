@@ -1,5 +1,11 @@
 import { gql } from "@apollo/client";
 
+export const CREATE_FOLDER = gql`
+    mutation createFolder($input: CreateFolderInput!) {
+        createFolder(input: $input)
+    }
+`;
+
 export const CREATE_NOTE = gql`
     mutation createNote($input: CreateNoteInput!) {
         createNote(input: $input)

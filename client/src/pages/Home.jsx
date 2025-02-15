@@ -1,6 +1,5 @@
-import '../App.css'
-
-import Card from '../components/Card.jsx';
+import AddFolder from '../components/AddFolder/index.jsx';
+import FolderList from '../components/FolderList/index.jsx';
 
 import { useQuery } from '@apollo/client';
 import { QUERY_NOTES, QUERY_FOLDERS } from '../utils/queries.js';
@@ -28,8 +27,8 @@ function Home() {
     if (errorNotes) return <div>Error: {errorNotes.message}</div>;
 
     return (
-        <div>
-            <Card/>
+        <>
+            <FolderList/>
             <br />
             <h1>Here are all of my Notes</h1>
             {loadingNotes ? (
@@ -64,7 +63,8 @@ function Home() {
                     </div>
                 ))
             )}
-        </div>
+            <AddFolder/>
+        </>
     );
 }
 

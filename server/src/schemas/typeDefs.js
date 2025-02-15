@@ -40,7 +40,7 @@ const typeDefs = `
         title: String!
         description: String
         notes: [ID!]
-        userId: ID!
+        userId: ID
     }
 
     input CreateNoteInput {
