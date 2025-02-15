@@ -1,7 +1,20 @@
-import { Folder, Note } from '../models/index.js';
+import { User, Folder, Note } from '../models/index.js';
 
 const resolvers = {
     Query: {
+        users: async () => {
+            return await User.find({});
+        },
+        user: async (_, { userId }) => {
+            const user = await User.findOne({ _id: userId }).populate('folders').populate({
+                path: 'folders',
+                populate: 'notes'
+            });
+            if (!user) {
+                return 'User not found';
+            }
+            return user;
+        },
         folders: async () => {
             return await Folder.find({}).populate('notes');
         },
@@ -24,23 +37,54 @@ const resolvers = {
         }
     },
     Mutation: {
-        createFolder: async (_, { input }) => {
+        createUser: async (_, { input }) => {
             try {
-                const folder = await Folder.create({ ...input });
-                return `The folder '${folder.title}' has been successfully created`;
+                const user = await User.create({ ...input });
+                const userObj = user.toJSON();
+                return `${userObj.fullName}, your account has been sucessfully created.`
             } 
             catch (err) {
-                return 'Failed to create folder'
+                return `Failed to create user: ${err.message}`;
+            }
+        },
+        createFolder: async (_, { input }) => {
+            try {
+                // const folder = await Folder.create({ ...input });
+                // return `The folder '${folder.title}' has been successfully created.`;
+                const { title, description, userId } = input;
+
+                if (userId === '' || userId === undefined) {
+                    return 'User not found'
+                }
+
+                const user = await User.findOne({ _id: userId })
+                if (!user) {
+                    return 'User not found'
+                }
+
+                const folder = await Folder.create({ title, description });
+
+                const updatedUser = await User.findOneAndUpdate(
+                    { _id: userId },
+                    { $addToSet: {
+                        folders: folder._id
+                    }},
+                    { new: true }
+                );
+
+                return `${updatedUser.fullName}, your folder '${folder.title}' has been successfully created.`;
+            } 
+            catch (err) {
+                return `Failed to create folder: ${err.message}`;
             }
         },
         createNote: async (_, { input }) => {
             try {
-                // const note = await Note.create({ ...input });
                 const { title, text, folderId } = input;
 
                 if (folderId === '' || folderId === undefined) {
                     const note = await Note.create({ title, text });
-                    return `The note '${note.title}' has been successfully created`;
+                    return `The note '${note.title}' has been successfully created.`;
                 }
 
                 const folder = await Folder.findOne({ _id: folderId });
@@ -52,16 +96,33 @@ const resolvers = {
 
                 const updatedFolder = await Folder.findOneAndUpdate(
                     { _id: folderId },
-                    { $push: {
+                    { $addToSet: {
                         notes: note._id
                     }},
                     { new: true }
                 );
 
-                return `The note '${note.title}' has been successfully created in the folder '${updatedFolder.title}'`;
+                return `The note '${note.title}' has been successfully created in the folder '${updatedFolder.title}'.`;
             } 
             catch (err) {
-                return 'Failed to create note'
+                return `Failed to create note: ${err.message}`;
+            }
+        },
+        updateUser: async (_, { userId, input}) => {
+            try {
+                const user = await User.findOneAndUpdate(
+                    { _id: userId },
+                    { $set: { ...input }},
+                    { new: true }
+                ).populate('folders');
+
+                if (!user) {
+                    return 'User not found'
+                }
+                return user;
+            } 
+            catch (err) {
+                return `Failed to update user: ${err.message}`;
             }
         },
         updateFolder: async (_, { folderId, input }) => {
@@ -74,7 +135,7 @@ const resolvers = {
                 };
 
                 if (input.notes && input.notes !== "") {
-                    updateData.$push = {
+                    updateData.$addToSet = {
                         notes: {
                             $each: [input.notes]
                         }
@@ -88,12 +149,12 @@ const resolvers = {
                 ).populate('notes');
 
                 if (!folder) {
-                    return { error: 'Folder not found' };
+                    return 'Folder not found';
                 }
                 return folder;
             } 
             catch (err) {
-                return 'Failed to update folder'
+                return `Failed to update folder: ${err.message}`;
             }
         },
         updateNote: async (_, { noteId, input }) => {
@@ -110,7 +171,44 @@ const resolvers = {
                 return note;
             } 
             catch (err) {
-                return 'Failed to update note'
+                return `Failed to update note: ${err.message}`;
+            }
+        },
+        deleteUser: async (_, { userId }) => {
+            try {
+                const user = await User.findOne({ _id: userId })
+                    .populate('folders')
+                    .populate({
+                        path: 'folders',
+                        populate: 'notes' });
+                if (!user) {
+                    return 'User not found';
+                }
+
+                const userObj = user.toJSON();
+
+                const noteIds = user.folders.reduce((acc, folder) => {
+                    return acc.concat(folder.notes);
+                }, []);
+
+                await Folder.deleteMany({
+                    _id: { 
+                        $in: user.folders.map(folder => folder._id) 
+                    }
+                });
+
+                await Note.deleteMany({
+                    _id: { 
+                        $in: noteIds 
+                    }
+                });
+                
+                await User.findOneAndDelete({ _id: userId });
+
+                return `${userObj.fullName}, your account and it's associated notes have been deleted.`
+            } 
+            catch (err) {
+                return `Failed to delete user: ${err.message}`;
             }
         },
         deleteFolder: async (_, { folderId }) => {
@@ -130,7 +228,7 @@ const resolvers = {
                 return `The folder '${folder.title}' and its associated notes have been successfully deleted.`;
             } 
             catch (err) {
-                return 'Failed to delete note'
+                return `Failed to delete folder: ${err.message}`;
             }
         },
         deleteNoteFromFolder: async (_, { folderId, noteId }) => {
@@ -156,7 +254,7 @@ const resolvers = {
                 return `The note '${note.title}' has been successfully deleted from the folder '${folder.title}'.`;
             } 
             catch (err) {
-                return 'Failed to delete note'
+                return `Failed to delete note: ${err.message}`;
             }
         },
         deleteNote: async (_, { noteId }) => {
@@ -187,7 +285,7 @@ const resolvers = {
                 // )
             } 
             catch (err) {
-                return 'Failed to delete note'
+                return `Failed to delete note: ${err.message}`;
             }
         }
     }

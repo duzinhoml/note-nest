@@ -1,4 +1,5 @@
+import User from './User.js'
 import Folder from './Folder.js'
 import Note from './Note.js';
 
-export { Folder, Note };
+export { User, Folder, Note };
