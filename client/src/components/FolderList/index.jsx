@@ -39,7 +39,7 @@ function FolderList() {
                                                 type="button" 
                                                 class="btn btn-primary" 
                                                 data-bs-toggle="modal" 
-                                                data-bs-target="#staticBackdrop" 
+                                                data-bs-target="#noteModal" 
                                                 onClick={() => setCurrentFolderId(folder._id)} 
                                             >
                                                 + Note
