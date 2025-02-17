@@ -1,19 +1,22 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 
-import { QUERY_FOLDERS } from "../../utils/queries";
-import { CREATE_FOLDER } from "../../utils/mutations";
+import { QUERY_NOTES, QUERY_FOLDERS } from "../../../utils/queries";
+import { CREATE_NOTE } from "../../../utils/mutations";
 
-function AddFolder() {
+function AddNote({ folder }) {
+    const { _id } = folder || {};
+    const folderId = _id;
+
     const [formData, setFormData] = useState({
         title: '',
-        description: ''
+        text: ''
     });
 
-    const [createFolder, { error }] = useMutation(CREATE_FOLDER, {
+    const [createNote, { error }] = useMutation(CREATE_NOTE, {
         refetchQueries: [
             QUERY_FOLDERS,
-            'allFolders'
+            QUERY_NOTES
         ]
     });
 
@@ -29,72 +32,69 @@ function AddFolder() {
         e.preventDefault();
 
         try {
-            await createFolder({
+            await createNote({
                 variables: {
+                    folderId,
                     input: {
-                        ...formData
+                        ...formData,
                     }
                 }
             });
 
             setFormData({
                 title: '',
-                description: ''
+                text: ''
             });
 
-            document.getElementById('closeFolderModalBtn').click();
+            document.getElementById('closeAddNoteModalBtn').click();
         } 
         catch (err) {
             console.error(err)
         }
     }
 
+
+
     return (
         <>
-            {/* <!-- Button trigger modal --> */}
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#folderModal">
-            + Folder
-            </button>
-
-            {/* <!-- Modal --> */}
-            <div class="modal fade" id="folderModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="addNoteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Create a New Folder</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" id="closeFolderModalBtn" aria-label="Close"></button>
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Create a New Note</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" id="closeAddNoteModalBtn" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <form onSubmit={handleFormSubmit}>
                                 <div class="mb-3">
-                                    <label for="folderTitleInput" class="form-label">Folder Name</label>
+                                    <label for="noteTitleInput" class="form-label">Note Title</label>
                                     <input 
-                                        type="text" 
+                                        type="text"
                                         className="form-control" 
-                                        id="folderTitleInput" 
+                                        id="noteTitleInput" 
                                         name="title"
-                                        placeholder="Please enter a folder name..." 
+                                        placeholder="Please provide a title for the note..." 
                                         value={formData.title}
                                         onChange={handleInputChange}
                                         required
                                     />
                                 </div>
                                 <div class="mb-3">
-                                    <label for="folderDescriptionInput" class="form-label">Folder Description</label>
-                                    <input 
+                                    <label for="noteTextInput" class="form-label">Note Content</label>
+                                    <textarea 
                                         type="text" 
                                         className="form-control" 
-                                        id="folderDescriptionInput" 
-                                        name="description"
-                                        placeholder="Provide a brief description of this folder..."
-                                        value={formData.description}
+                                        id="noteTextInput" 
+                                        name="text"
+                                        placeholder="Please enter the content of the note..."
+                                        value={formData.text}
                                         onChange={handleInputChange}
                                         required
                                     />
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-primary">Create Folder</button>
+                                    <button type="submit" class="btn btn-primary">Create Note</button>
                                 </div>
                             </form>
                         </div>
@@ -105,4 +105,4 @@ function AddFolder() {
     );
 };
 
-export default AddFolder;
+export default AddNote;

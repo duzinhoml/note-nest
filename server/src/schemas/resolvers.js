@@ -50,7 +50,7 @@ const resolvers = {
         createFolder: async (_, { input }) => {
             try {
                 // UNCOMMENT LATER //////////////////////////////////////////////////////////////////
-                
+
                 // const { title, description, userId } = input;
                 const { title, description } = input;
 
@@ -74,14 +74,15 @@ const resolvers = {
                 // );
 
                 // return `${updatedUser.fullName}, your folder '${folder.title}' has been successfully created.`;
+                return `${folder.title} has been successfully created`;
             } 
             catch (err) {
                 return `Failed to create folder: ${err.message}`;
             }
         },
-        createNote: async (_, { input }) => {
+        createNote: async (_, { folderId, input }) => {
             try {
-                const { title, text, folderId } = input;
+                const { title, text } = input;
 
                 if (folderId === '' || folderId === undefined) {
                     const note = await Note.create({ title, text });

@@ -1,5 +1,5 @@
-import AddFolder from '../components/AddFolder/index.jsx';
-import FolderList from '../components/FolderList/index.jsx';
+import AddFolder from '../components/CRUD/AddFolder/index.jsx';
+import FolderList from '../components/CRUD/FolderList/index.jsx';
 
 import { useQuery } from '@apollo/client';
 import { QUERY_NOTES, QUERY_FOLDERS } from '../utils/queries.js';

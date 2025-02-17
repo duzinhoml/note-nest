@@ -40,13 +40,11 @@ const typeDefs = `
         title: String!
         description: String
         notes: [ID!]
-        userId: ID
     }
 
     input CreateNoteInput {
         title: String!
         text: String!
-        folderId: ID
     }
 
     input UpdateUserInput {
@@ -77,8 +75,8 @@ const typeDefs = `
 
     type Mutation {
         createUser(input: CreateUserInput!): String
-        createFolder(input: CreateFolderInput!): String
-        createNote(input: CreateNoteInput!): String
+        createFolder(userId: ID, input: CreateFolderInput!): String
+        createNote(folderId: ID, input: CreateNoteInput!): String
 
         updateUser(userId: ID!, input: UpdateUserInput!): User
         updateFolder(folderId: ID!, input: UpdateFolderInput!): Folder
