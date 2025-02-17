@@ -22,12 +22,13 @@ function FolderList() {
                     <div>Loading...</div>
                 ): (
                     folders.map(folder => (
-                            <div className="col-sm-6 mb-3 mb-sm-0" key={folder._id}>
-                                <div class="card">
+                            <div className="col-12 col-md-6 col-lg-4 mb-3" key={folder._id}>
+                                <div class="card h-100">
                                     <div class="card-body">
                                         <h5 class="card-title">{folder.title}</h5>
                                         <p>{folder.description}</p>
-                                        <p class="d-inline-flex gap-1">
+                                        {/* <p class="d-inline-flex gap-1"> */}
+                                        <div className='d-flex flex-wrap gap-2 mt-auto'>
                                             <button 
                                                 class="btn btn-primary" 
                                                 type="button" 
@@ -41,7 +42,7 @@ function FolderList() {
                                             {/* <!-- Add Note Button trigger modal --> */}
                                             <button 
                                                 type="button" 
-                                                class="btn btn-primary" 
+                                                class="btn btn-success" 
                                                 data-bs-toggle="modal" 
                                                 data-bs-target="#addNoteModal" 
                                                 onClick={() => setCurrentFolder(folder)}
@@ -51,7 +52,7 @@ function FolderList() {
                                             {/* <!-- Update Button trigger modal --> */}
                                             <button 
                                                 type="button" 
-                                                class="btn btn-primary" 
+                                                class="btn btn-warning" 
                                                 data-bs-toggle="modal" 
                                                 data-bs-target="#updateFolderModal"
                                                 onClick={() => setCurrentFolder(folder)}
@@ -61,15 +62,16 @@ function FolderList() {
                                             {/* <!-- Delete Button trigger modal --> */}
                                             <button 
                                                 type="button" 
-                                                class="btn btn-primary" 
+                                                class="btn btn-danger" 
                                                 data-bs-toggle="modal" 
                                                 data-bs-target="#deleteFolderModal"
                                                 onClick={() => setCurrentFolder(folder)}
                                             >
                                                 Delete Folder
                                             </button>
-                                        </p>
-                                        <div class="collapse" id={`collapseExample${folder._id}`}>
+                                        {/* </p> */}
+                                        </div>
+                                        <div class="collapse mt-2" id={`collapseExample${folder._id}`}>
                                             {folder.notes.length > 0 ? (
                                                 folder.notes.map(note => (
                                                     <div class="card card-body" key={note._id}>
