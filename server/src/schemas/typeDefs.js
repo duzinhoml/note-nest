@@ -28,6 +28,11 @@ const typeDefs = `
         createdAt: String!
     }
 
+    type Auth {
+        token: ID!
+        user: User
+    }
+
     input CreateUserInput {
         firstName: String!
         lastName: String!
@@ -39,7 +44,6 @@ const typeDefs = `
     input CreateFolderInput {
         title: String!
         description: String
-        notes: [ID!]
     }
 
     input CreateNoteInput {
@@ -67,6 +71,7 @@ const typeDefs = `
     type Query {
         users: [User]
         user(userId: ID!): User
+        me: User
         folders: [Folder]
         folder(folderId: ID!): Folder
         notes: [Note]
@@ -74,17 +79,18 @@ const typeDefs = `
     }
 
     type Mutation {
-        createUser(input: CreateUserInput!): String
-        createFolder(userId: ID, input: CreateFolderInput!): String
+        createUser(input: CreateUserInput!): Auth
+        login(email: String, username: String, password: String!): Auth
+        createFolder(input: CreateFolderInput!): Folder
         createNote(folderId: ID, input: CreateNoteInput!): String
 
         updateUser(userId: ID!, input: UpdateUserInput!): User
         updateFolder(folderId: ID!, input: UpdateFolderInput!): Folder
         updateNote(noteId: ID!, input: UpdateNoteInput!): Note
 
-        deleteUser(userId: ID!): String
+        deleteUser: String
         deleteFolder(folderId: ID!): String
-        deleteNoteFromFolder(folderId: ID!, noteId: ID!): String
+        deleteNoteFromFolder(folderId: ID!, noteId: ID!): Folder
         deleteNote(noteId: ID!): String
     }
 `;

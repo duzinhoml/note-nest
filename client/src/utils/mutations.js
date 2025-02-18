@@ -1,14 +1,42 @@
 import { gql } from "@apollo/client";
 
+export const LOGIN_USER = gql`
+    mutation login($password: String!, $email: String, $username: String) {
+        login(password: $password, email: $email, username: $username) {
+            token
+            user {
+                _id
+                username
+            }
+        }
+    }
+`;
+
 export const CREATE_USER = gql`
     mutation createUser($input: CreateUserInput!) {
-        createUser(input: $input)
+        createUser(input: $input) {
+            token
+            user {
+                _id
+                username
+            }
+        }
     }
 `;
 
 export const CREATE_FOLDER = gql`
-    mutation createFolder($userId: ID, $input: CreateFolderInput!) {
-        createFolder(userId: $userId, input: $input)
+    mutation createFolder($input: CreateFolderInput!) {
+        createFolder(input: $input) {
+            _id
+            title
+            description
+            createdAt
+            notes {
+                _id
+                title
+                text
+            }
+        }
     }
 `;
 
@@ -45,9 +73,25 @@ export const UPDATE_NOTE = gql`
     }
 `;
 
+export const DELETE_USER = gql`
+    mutation deleteUser {
+        deleteUser
+    }
+`;
+
 export const DELETE_FOLDER = gql`
     mutation deleteFolder($folderId: ID!) {
         deleteFolder(folderId: $folderId)
+    }
+`;
+
+export const DELETE_NOTE_FROM_FOLDER = gql`
+    mutation deleteNoteFromFolder($folderId: ID!, $noteId: ID!) {
+        deleteNoteFromFolder(folderId: $folderId, noteId: $noteId) {
+            _id
+            title
+            description
+        }
     }
 `;
 
