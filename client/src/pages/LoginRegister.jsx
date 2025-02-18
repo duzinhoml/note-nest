@@ -6,7 +6,6 @@ function LoginRegister() {
         <>
             <div>
                 <Register/>
-                <h1>Log-in here</h1>
             </div>
         </>
     );
