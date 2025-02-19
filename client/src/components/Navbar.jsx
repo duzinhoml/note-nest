@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import Auth from '../utils/auth.js';
 
@@ -17,13 +17,17 @@ function Navbar() {
         checkLogin();
     }, [loginCheck]);
 
+    const location = useLocation();
+
     return (
         <div>
-            <div className='nav-title'>
-                <Link to='/'>Home Page</Link>
-            </div>
+            {location.pathname !== '/' && (
+                <div className='nav-title'>
+                    <Link to='/'>Home Page</Link>
+                </div>
+            )}
             <ul>
-                {!loginCheck ? (
+                {/* {!loginCheck ? (
                     <li className='nav-item'>
                         <button type='button'>
                         <Link to='/login'>Login</Link>
@@ -35,6 +39,15 @@ function Navbar() {
                         Auth.logout();
                         }}>Logout</button>
                     </li>
+                )} */}
+                {!loginCheck ? '' : (
+                    <li className="nav-item pt-3">
+                    <button type="button" onClick={() => {
+                        Auth.logout();
+                    }}>
+                        Logout
+                    </button>
+                </li>
                 )}
             </ul>
         </div>

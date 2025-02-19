@@ -5,6 +5,15 @@
   text-align: center;
 } */
 
+html, .ml-background {
+  background-color: #262730;
+  color: #a8a8a8
+}
+
+button {
+  border-color: #ba0837;
+}
+
 /* .logo {
   height: 6em;
   padding: 1.5em;

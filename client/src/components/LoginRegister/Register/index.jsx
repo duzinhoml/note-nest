@@ -5,7 +5,7 @@ import { CREATE_USER } from '../../../utils/mutations.js';
 
 import Auth from '../../../utils/auth.js';
 
-function Register() {
+function Register({ setAccountStep }) {
     const [currentStep, setCurrentStep] = useState(1);
     const [formData, setFormData] = useState({
         firstName: '',
@@ -54,21 +54,21 @@ function Register() {
     }
 
     return (
-        <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: '75vh' }}>
-            <div className="row w-100 justify-content-center">
-                <div className="col-12 col-md-5 d-flex justify-content-center align-items-center" style={{ paddingRight: '50px' }}>
+        <div className="container d-flex justify-content-center align-items-center min-vh-100">
+            <div className="row w-100 justify-content-center flex-column flex-md-row">
+                <div className="col-12 col-md-5 d-flex justify-content-center align-items-center text-center text-md-start pe-md-5">
                     <div className="text-center">
-                        <h1>NoteNest</h1>
-                        <p>Nest Your Ideas, Watch Them Grow</p> 
+                        <h1 className='text-light'>NoteNest</h1>
+                        <p style={{ color: '#F63366' }}>Nest Your Ideas, Watch Them Grow</p> 
                     </div>
                 </div>
 
-                <div className="col-12 col-md-5" style={{ paddingLeft: '50px' }}>
+                <div className="col-12 col-md-5 ps-md-5">
 
                         {/* Step 1: First Name and Last Name */}
                         {currentStep === 1 && (
                                 <form className="border border-5 rounded p-4" onSubmit={handleNextStep}>
-                                    <h2 className="text-center mb-4">Create Account</h2>
+                                    <h2 className="text-center mb-4 text-light">Create Account</h2>
                                     <div className="row gy-3">
                                         <div className="col-12 has-validation">
                                             <input
@@ -102,9 +102,17 @@ function Register() {
                                             <button
                                                 type="submit"
                                                 className="btn btn-primary btn-lg w-100"
+                                                style={{ backgroundColor: '#F63366', borderColor: '#ba0837' }}
                                             >
                                                 Next
                                             </button>
+                                        </div>
+
+                                        <div className="col-12">
+                                            <p className="text-center text-light">
+                                                Already have an account? <span onClick={() => setAccountStep('login')} style={{ cursor: 'pointer', textDecoration: 'underline', color: '#F63366' }}>Login</span>
+                                            </p>
+                                            {error && <div className="alert alert-danger">{error.message}</div>}
                                         </div>
                                     </div>
                                 </form>
@@ -113,6 +121,7 @@ function Register() {
                         {/* Step 2: Username, Email, Password */}
                         {currentStep === 2 && (
                             <form className="border border-5 rounded p-4" onSubmit={handleFormSubmit}>
+                                <h2 className="text-center mb-4">Create Account</h2>
                                 <div className="row gy-3">
                                     <div className="col-12">
                                         <input
@@ -159,14 +168,16 @@ function Register() {
                                     <div className="col-12">
                                         <button
                                             type="button"
-                                            className="btn btn-secondary btn-lg w-100"
+                                            className="btn btn-secondary btn-lg w-100 text-dark"
                                             onClick={handlePrevStep}
+                                            style={{ backgroundColor: '#c2c2c2', borderColor: '#a8a8a8' }}
                                         >
                                             Previous
                                         </button>
                                         <button
                                             type="submit"
                                             className="btn btn-primary btn-lg w-100 mt-3"
+                                            style={{ backgroundColor: '#F63366', borderColor: '#ba0837' }}
                                         >
                                             Sign Up
                                         </button>
