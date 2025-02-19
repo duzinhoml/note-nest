@@ -4,12 +4,9 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import App from './App.jsx'
-// import Home from './pages/Home.jsx';
-// import LoginRegister from './pages/LoginRegister.jsx';
-import TestHome from './pages/TestHome.jsx';
+import Home from './pages/Home.jsx';
 import TestLogin from './pages/TestLogin.jsx';
-// import TestSignUp 
-import TestProfile from './pages/TestProfile.jsx';
+// import TestProfile from './pages/TestProfile.jsx';
 
 const router = createBrowserRouter([
     {
@@ -19,7 +16,7 @@ const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <TestHome/>
+                element: <Home/>
             },
             {
                 path: '/login',
@@ -29,14 +26,14 @@ const router = createBrowserRouter([
             //     path: '/signup',
             //     element: <LoginRegister/>
             // },
-            {
-                path: '/profiles/:username',
-                element: <TestProfile/>
-            },
-            {
-                path: '/me',
-                element: <TestProfile/>
-            }
+            // {
+            //     path: '/profiles/:username',
+            //     element: <TestProfile/>
+            // },
+            // {
+            //     path: '/me',
+            //     element: <TestProfile/>
+            // }
             // {
             //     path: '/notes/:noteId',
             //     element: <SingleNote/>

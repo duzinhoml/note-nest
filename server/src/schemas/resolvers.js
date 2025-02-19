@@ -6,8 +6,8 @@ const resolvers = {
         users: async () => {
             return await User.find({});
         },
-        user: async (_, { userId }) => {
-            const user = await User.findOne({ _id: userId })
+        user: async (_, { username }) => {
+            const user = await User.findOne({ username })
                 .populate('folders')
                 .populate({
                     path: 'folders',

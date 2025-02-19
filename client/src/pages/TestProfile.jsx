@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 
@@ -8,6 +9,10 @@ import { QUERY_USER, QUERY_ME } from "../utils/queries";
 import Auth from '../utils/auth.js';
 
 function TestProfile() {
+    if (!Auth.loggedIn()) {
+        return <Navigate to="/login"/>;
+    }
+
     const { username: userParam } = useParams();
 
     const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
@@ -43,7 +48,7 @@ function TestProfile() {
                 <div className="col-12 col-md-10 mb-5">
                     <TestNoteList
                         notes={user.notes}
-                        title={`${user.username}'s thoughts...`}
+                        title={`${user.username}'s notes...`}
                     />
                 </div>
             </div>

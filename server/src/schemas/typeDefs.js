@@ -70,7 +70,7 @@ const typeDefs = `
 
     type Query {
         users: [User]
-        user(userId: ID!): User
+        user(username: String!): User
         me: User
         folders: [Folder]
         folder(folderId: ID!): Folder

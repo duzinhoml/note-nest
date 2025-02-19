@@ -1,71 +1,75 @@
-import AddFolder from '../components/CRUD/AddFolder/index.jsx';
-import FolderList from '../components/CRUD/FolderList/index.jsx';
-
+import { useState, useEffect, useLayoutEffect } from 'react';
 import { useQuery } from '@apollo/client';
-import { QUERY_NOTES, QUERY_FOLDERS } from '../utils/queries.js';
+
+import Register from '../components/LoginRegister/Register/index.jsx';
+import TestNoteList from '../components/TestNoteList/index.jsx';
+
+import { QUERY_ME } from '../utils/queries.js';
+
+import Auth from '../utils/auth.js';
 
 function Home() {
-    console.log("✅ Home page is rendering!")
+    const { loading, error, data} = useQuery(QUERY_ME);
+    const [loginCheck, setLoginCheck] = useState(false);
 
-    const { loading: loadingFolders, error: errorFolders, data: dataFolders } = useQuery(QUERY_FOLDERS);
-    const { loading: loadingNotes, error: errorNotes, data: dataNotes } = useQuery(QUERY_NOTES);
+    const checkLogin = () => {
+        if (Auth.loggedIn()) {
+            setLoginCheck(true);
+        }
+    };
 
-    let noteCount = 1;
-    let folderCount = 1;
+    useLayoutEffect(() => {
+        checkLogin();
+    }, []);
 
-    console.log("🔍 Loading:", loadingFolders);
-    console.log("❌ Error:", errorFolders);
-    console.log("📊 Data:", dataFolders);
+    useEffect(() => {
+        if (loginCheck) {
+            if (error) {
+                console.error('GraphQL Error:', error.message);
+            }
+        }
+    }, [loginCheck, error])
 
-    console.log("🔍 Loading:", loadingNotes);
-    console.log("❌ Error:", errorNotes);
-    console.log("📊 Data:", dataNotes);
+    const user = data?.me || {};
 
-    const folders = dataFolders?.folders || [];
-    const notes = dataNotes?.notes || [];
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
-    if (errorNotes) return <div>Error: {errorNotes.message}</div>;
+    // if (!user?.username) {
+    //     return (
+    //         <h4>
+    //             You need to be logged in to see this. Use the navigation links above to
+    //             sign up or log in!
+    //         </h4>
+    //     );
+    // }
 
     return (
-        <>
-            <FolderList/>
-            <br />
-            <h1>Here are all of my Notes</h1>
-            {loadingNotes ? (
-                <div>Loading...</div>
-            ) : (
-                notes.map(note => (
-                    <div key={note._id}>
-                        <h2>{`${noteCount++}.) ${note.title}`}</h2>
-                        <p>{note.text}</p>
-                        <p><i>Created On: {note.createdAt}</i></p>
+        <div>
+            <div className="flex-row justify-center mb-3">
+                {!loginCheck ? (
+                    <div>
+                        <div>Login/Register to view notes</div>
+                        <Register/>
                     </div>
-                ))
-            )}
-            <hr />
-            <h1>Here are all of my Folders</h1>
-            {loadingFolders ? (
-                <div>Loading...</div>
-            ): (
-                folders.map(folder => (
-                    <div key={folder._id}>
-                        <h2>{`${folderCount++}.) ${folder.title}`}</h2>
-                        <p>{folder.description}</p>
-                        <h3><u>Folder Notes</u></h3>
-                        {folder.notes?.map(note => (
-                            <div key={note._id}>
-                                <h4>{note.title}</h4>
-                                <p>{note.text}</p>
-                            </div>
-                        ))}
-                        <br />
-                        <p><i>Folder created on: {folder.createdAt}</i></p>
+                ) : (
+                    <div>
+                        <h2 className="col-12 col-md-10 bg-dark text-light p-3 mb-5">
+                            Viewing your profile.
+                        </h2>
+
+                        <div className="col-12 col-md-10 mb-5">
+                            <TestNoteList
+                                notes={user.notes}
+                                title={`${user.username}'s notes...`}
+                            />
+                        </div>
                     </div>
-                ))
-            )}
-            <AddFolder/>
-        </>
+                )}
+            </div>
+        </div>
     );
-}
+};
 
 export default Home;
