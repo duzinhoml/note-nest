@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 
-import { QUERY_ME, QUERY_NOTES, QUERY_FOLDERS } from "../../../utils/queries";
+import { QUERY_ME } from "../../../utils/queries";
 import { CREATE_NOTE } from "../../../utils/mutations";
 
 // 'folder' was passed in as a prop from '../FolderList/archiveIndex.jsx'
@@ -34,7 +34,7 @@ function AddNote() {
         try {
             await createNote({
                 variables: {
-                    // folderId,
+                    folderId,
                     input: {
                         ...formData,
                     }

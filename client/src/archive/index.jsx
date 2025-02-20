@@ -1,5 +1,4 @@
-// import { useState } from "react";
-import { useNoteList } from "./NoteListContext.jsx";
+import { useNoteList } from "../components/CRUD/NoteList/NoteListContext.jsx";
 
 
 function NoteList({ notes }) {

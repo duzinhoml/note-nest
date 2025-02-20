@@ -2,12 +2,10 @@ import { useState, useEffect, useRef } from "react";
 import { useNoteList } from "../CRUD/NoteList/NoteListContext.jsx";
 import { useOffcanvas } from "./OffcanvasContext.jsx";
 
-import NoteList from "../CRUD/NoteList/index.jsx";
+import FolderList from "../CRUD/FolderList/index.jsx";
+import AddNote from "../CRUD/AddNote/index.jsx";
 
-function Dashboard({ notes, title }) {
-    // if (!notes.length) {
-    //     return <h3 className="text-light">No Notes Yet</h3>;
-    // };
+function Dashboard({ folders, title }) {
 
     const { currentNote } = useNoteList();
     const { isOffcanvasOpen, toggleOffcanvas } = useOffcanvas();
@@ -55,9 +53,8 @@ function Dashboard({ notes, title }) {
                     ></button>
                 </div>
                 <div class="offcanvas-body bg-secondary">
-                    <NoteList
-                        notes={notes}
-                        title={title}
+                    <FolderList
+                        folders={folders}
                     />
                 </div>
             </div>
@@ -94,6 +91,7 @@ function Dashboard({ notes, title }) {
                     ></textarea>
                 </div>
             </div>
+            <AddNote/>
         </div>
     );
 };

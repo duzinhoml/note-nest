@@ -32,6 +32,13 @@ export const QUERY_ME = gql`
                 _id
                 title
                 description
+                notes {
+                    _id
+                    title
+                    text
+                    createdAt
+                }
+                createdAt
             }
             notes {
                 _id
