@@ -5,6 +5,10 @@ import './App.css'
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { Outlet } from 'react-router-dom';
+
+import { OffcanvasProvider } from './components/Dashboard/OffcanvasContext.jsx';
+import { NoteListProvider } from './components/CRUD/NoteList/NoteListContext.jsx';
+
 import Navbar from './components/Navbar.jsx';
 
 const httpLink = createHttpLink({
@@ -32,8 +36,12 @@ function App() {
   return (
     <>
       <ApolloProvider client={client}>
-        <Navbar/>
-        <Outlet />
+        <NoteListProvider>
+          <OffcanvasProvider>
+            <Navbar/>
+            <Outlet />
+          </OffcanvasProvider>
+        </NoteListProvider>
       </ApolloProvider>
     </>
   )

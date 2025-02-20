@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/client';
 
 import Login from '../components/LoginRegister/Login/index.jsx';
 import Register from '../components/LoginRegister/Register/index.jsx';
+import Dashboard from '../components/Dashboard/index.jsx';
 import NoteList from '../components/CRUD/NoteList/index.jsx';
 
 import { QUERY_ME } from '../utils/queries.js';
@@ -51,18 +52,17 @@ function Home() {
                         )}
                     </div>
                 ) : (
-                    <div>
-                        <h2 className="col-12 bg-dark text-light p-3 mb-5">
-                            Viewing your profile.
-                        </h2>
-
-                        <div className="col-12 col-md-10 mb-5">
-                            <NoteList
-                                notes={user.notes}
-                                title={`${user.username}'s notes...`}
-                            />
-                        </div>
-                    </div>
+                    !user.notes.length ? (
+                        <Dashboard
+                            notes={[]}
+                            title={`${user.fullName}, start nesting your thoughts today!`}
+                        />
+                    ) : (
+                        <Dashboard 
+                            notes={user.notes}
+                            title={`${user.fullName}'s Notes`}
+                        />
+                    )
                 )}
             </div>
             <AddNote/>
