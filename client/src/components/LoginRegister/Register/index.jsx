@@ -110,7 +110,13 @@ function Register({ setAccountStep }) {
 
                                         <div className="col-12">
                                             <p className="text-center text-light">
-                                                Already have an account? <span onClick={() => setAccountStep('login')} style={{ cursor: 'pointer', textDecoration: 'underline', color: '#F63366' }}>Login</span>
+                                                Already have an account? 
+                                                <span 
+                                                    onClick={() => setAccountStep('login')} 
+                                                    style={{ cursor: 'pointer', textDecoration: 'underline', color: '#F63366' }}
+                                                >
+                                                    Login
+                                                </span>
                                             </p>
                                             {error && <div className="alert alert-danger">{error.message}</div>}
                                         </div>

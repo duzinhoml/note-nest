@@ -26,30 +26,52 @@ function Navbar() {
                     <Link to='/'>Home Page</Link>
                 </div>
             )}
-            <ul>
-                {/* {!loginCheck ? (
-                    <li className='nav-item'>
-                        <button type='button'>
-                        <Link to='/login'>Login</Link>
-                        </button>
-                    </li>
-                    ) : (
-                    <li className='nav-item'>
-                        <button type='button' onClick={() => {
-                        Auth.logout();
-                        }}>Logout</button>
-                    </li>
-                )} */}
+
                 {!loginCheck ? '' : (
-                    <li className="nav-item pt-3">
-                    <button type="button" onClick={() => {
-                        Auth.logout();
-                    }}>
-                        Logout
-                    </button>
-                </li>
+                    // <button 
+                    //     type="button" 
+                    //     className="btn btn-light my-3 ms-3 border-2" 
+                    //     onClick={() => Auth.logout()}
+                    //     style={{ borderColor: '#ba0837'}}
+                    // >
+                    //     Logout
+                    // </button>
+                    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                        <div class="container-fluid">
+                            <span class="navbar-brand">NoteNest</span>
+
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+
+                            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <button 
+                                            type="button" 
+                                            class="btn btn-light border-2" 
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#addNoteModal"
+                                            style={{ borderColor: '#ba0837' }}
+                                        >
+                                            Add Note
+                                        </button>
+                                    </li>
+                                    <li class="nav-item">
+                                        <button 
+                                            type="button"
+                                            className="btn btn-light border-2 ms-2"
+                                            onClick={() => Auth.logout()}
+                                            style={{ borderColor: '#ba0837', cursor: 'pointer' }}
+                                        >
+                                            Logout
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
                 )}
-            </ul>
         </div>
     );
 };

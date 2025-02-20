@@ -5,9 +5,8 @@
   text-align: center;
 } */
 
-html, .ml-background {
+html, body, .ml-background {
   background-color: #262730;
-  color: #a8a8a8
 }
 
 button {

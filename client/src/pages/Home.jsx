@@ -3,12 +3,12 @@ import { useQuery } from '@apollo/client';
 
 import Login from '../components/LoginRegister/Login/index.jsx';
 import Register from '../components/LoginRegister/Register/index.jsx';
-// import TestNoteList from '../components/TestNoteList/index.jsx';
 import NoteList from '../components/CRUD/NoteList/index.jsx';
 
 import { QUERY_ME } from '../utils/queries.js';
 
 import Auth from '../utils/auth.js';
+import AddNote from '../components/CRUD/AddNote/index.jsx';
 
 function Home() {
     const [accountStep, setAccountStep] = useState('login');
@@ -39,21 +39,11 @@ function Home() {
         return <div>Loading...</div>;
     }
 
-    // if (!user?.username) {
-    //     return (
-    //         <h4>
-    //             You need to be logged in to see this. Use the navigation links above to
-    //             sign up or log in!
-    //         </h4>
-    //     );
-    // }
-
     return (
         <div className='ml-background'>
             <div className="flex-row justify-center mb-3">
                 {!loginCheck ? (
                     <div>
-                        {/* <div>Login/Register to view notes</div> */}
                         {accountStep === 'login' ? (
                             <Login setAccountStep={setAccountStep}/>
                         ) : (
@@ -75,6 +65,7 @@ function Home() {
                     </div>
                 )}
             </div>
+            <AddNote/>
         </div>
     );
 };

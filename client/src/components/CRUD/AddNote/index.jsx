@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 
-import { QUERY_NOTES, QUERY_FOLDERS } from "../../../utils/queries";
+import { QUERY_ME, QUERY_NOTES, QUERY_FOLDERS } from "../../../utils/queries";
 import { CREATE_NOTE } from "../../../utils/mutations";
 
-function AddNote({ folder }) {
-    const { _id } = folder || {};
-    const folderId = _id;
+// 'folder' was passed in as a prop from '../FolderList/archiveIndex.jsx'
+function AddNote() {
+    // const { _id } = folder || {};
+    // const folderId = _id;
 
     const [formData, setFormData] = useState({
         title: '',
@@ -15,8 +16,7 @@ function AddNote({ folder }) {
 
     const [createNote, { error }] = useMutation(CREATE_NOTE, {
         refetchQueries: [
-            QUERY_FOLDERS,
-            QUERY_NOTES
+            QUERY_ME
         ]
     });
 
@@ -34,7 +34,7 @@ function AddNote({ folder }) {
         try {
             await createNote({
                 variables: {
-                    folderId,
+                    // folderId,
                     input: {
                         ...formData,
                     }
@@ -93,8 +93,20 @@ function AddNote({ folder }) {
                                     />
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-primary">Create Note</button>
+                                    <button 
+                                        type="button" 
+                                        class="btn btn-secondary" 
+                                        data-bs-dismiss="modal"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button 
+                                        type="submit" 
+                                        class="btn btn-primary"
+                                        style={{ backgroundColor: '#F63366', borderColor: '#ba0837' }}
+                                    >
+                                        Create Note
+                                    </button>
                                 </div>
                             </form>
                         </div>
