@@ -65,70 +65,63 @@ function Register({ setAccountStep }) {
 
                 <div className="col-12 col-md-5 ps-md-5">
 
-                        {/* Step 1: First Name and Last Name */}
-                        {currentStep === 1 && (
-                                <form className="border border-5 rounded p-4" onSubmit={handleNextStep}>
-                                    <h2 className="text-center mb-4 text-light">Create Account</h2>
-                                    <div className="row gy-3">
-                                        <div className="col-12 has-validation">
-                                            <input
-                                                type="text"
-                                                className="form-control form-control-lg"
-                                                id="firstName"
-                                                name="firstName"
-                                                placeholder="First Name"
-                                                value={formData.firstName}
-                                                onChange={handleInputChange}
-                                                required
-                                                style={{ fontSize: '16px' }}
-                                            />
-                                        </div>
-
-                                        <div className="col-12">
-                                            <input
-                                                type="text"
-                                                className="form-control form-control-lg"
-                                                id="lastName"
-                                                name="lastName"
-                                                placeholder="Last Name"
-                                                value={formData.lastName}
-                                                onChange={handleInputChange}
-                                                required
-                                                style={{ fontSize: '16px' }}
-                                            />
-                                        </div>
-
-                                        <div className="col-12">
-                                            <button
-                                                type="submit"
-                                                className="btn btn-primary btn-lg w-100"
-                                                style={{ backgroundColor: '#F63366', borderColor: '#ba0837' }}
-                                            >
-                                                Next
-                                            </button>
-                                        </div>
-
-                                        <div className="col-12">
-                                            <p className="text-center text-light">
-                                                Already have an account? 
+                    <form className="border border-5 rounded p-4 position-relative" onSubmit={currentStep === 1 ? handleNextStep : handleFormSubmit}>
+                        <h2 className="text-center mb-4 text-light">Create Account</h2>
+                        <div className="row gy-3">
+                            {currentStep === 1 && (
+                                <>
+                                    <div className="col-12 has-validation">
+                                        <input
+                                            type="text"
+                                            className="form-control form-control-lg"
+                                            id="firstName"
+                                            name="firstName"
+                                            placeholder="First Name"
+                                            value={formData.firstName}
+                                            onChange={handleInputChange}
+                                            required
+                                            style={{ fontSize: '16px' }}
+                                        />
+                                    </div>
+                                    <div className="col-12">
+                                        <input
+                                            type="text"
+                                            className="form-control form-control-lg"
+                                            id="lastName"
+                                            name="lastName"
+                                            placeholder="Last Name"
+                                            value={formData.lastName}
+                                            onChange={handleInputChange}
+                                            required
+                                            style={{ fontSize: '16px' }}
+                                        />
+                                    </div>
+                                    <div className="col-12">
+                                        <button
+                                            type="submit"
+                                            className="btn btn-primary btn-lg w-100"
+                                            style={{ backgroundColor: '#F63366', borderColor: '#ba0837' }}
+                                        >
+                                            Next
+                                        </button>
+                                    </div>
+                                    <div className="col-12">
+                                        <p className="text-center text-light">
+                                            {'Already have an account?' + ' '} 
                                                 <span 
                                                     onClick={() => setAccountStep('login')} 
                                                     style={{ cursor: 'pointer', textDecoration: 'underline', color: '#F63366' }}
                                                 >
                                                     Login
                                                 </span>
-                                            </p>
-                                            {error && <div className="alert alert-danger">{error.message}</div>}
-                                        </div>
+                                        </p>
+                                        {error && <div className="alert alert-danger">{error.message}</div>}
                                     </div>
-                                </form>
-                        )}
+                                </>
+                            )}
 
-                        {/* Step 2: Username, Email, Password */}
-                        {currentStep === 2 && (
-                            <form className="border border-5 rounded p-4" onSubmit={handleFormSubmit}>
-                                <h2 className="text-center mb-4">Create Account</h2>
-                                <div className="row gy-3">
+                            {currentStep === 2 && (
+                                <>
                                     <div className="col-12">
                                         <input
                                             type="email"
@@ -142,7 +135,6 @@ function Register({ setAccountStep }) {
                                             style={{ fontSize: '16px' }}
                                         />
                                     </div>
-
                                     <div className="col-12 col-md-6">
                                         <input
                                             type="text"
@@ -156,7 +148,6 @@ function Register({ setAccountStep }) {
                                             style={{ fontSize: '16px' }}
                                         />
                                     </div>
-
                                     <div className="col-12 col-md-6">
                                         <input
                                             type="password"
@@ -170,7 +161,6 @@ function Register({ setAccountStep }) {
                                             style={{ fontSize: '16px' }}
                                         />
                                     </div>
-
                                     <div className="col-12">
                                         <button
                                             type="button"
@@ -188,9 +178,47 @@ function Register({ setAccountStep }) {
                                             Sign Up
                                         </button>
                                     </div>
-                                </div>
-                            </form>
-                        )}
+                                </>
+                            )}
+                        </div>
+
+                        {/* Progress Bar */}
+                        <div className="position-relative m-4 mx-auto" style={{ width: '50%' }}>
+                            <div 
+                                className="progress" 
+                                role="progressbar" 
+                                aria-valuenow={currentStep === 1 ? "50" : "100"} 
+                                aria-valuemin="0" 
+                                aria-valuemax="100" 
+                                style={{ height: '1px' }}
+                            >
+                                <div 
+                                    className="progress-bar" 
+                                    style={{ 
+                                        background: 'linear-gradient(to right, #59041b, #F63366)',
+                                        width: currentStep === 1 ? '50%' : '100%', 
+                                        transition: 'width 0.5s ease-in-out'
+                                    }}
+                                ></div>
+                            </div>
+                            <button 
+                                type="button" 
+                                className='position-absolute top-0 start-0 translate-middle btn btn-sm rounded-pill' 
+                                style={{ 
+                                    backgroundColor: currentStep === 1? '#F63366' : '#c2c2c2',
+                                    width: '2rem', 
+                                    height: '2rem' }}
+                            >1</button>
+                            <button 
+                                type="button" 
+                                className='position-absolute top-0 start-100 translate-middle btn btn-sm rounded-pill' 
+                                style={{ 
+                                    backgroundColor: currentStep === 2? '#F63366' : '#c2c2c2',
+                                    width: '2rem', 
+                                    height: '2rem' }}
+                            >2</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

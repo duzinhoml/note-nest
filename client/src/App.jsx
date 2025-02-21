@@ -1,13 +1,15 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import './App.css'
 
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { Outlet } from 'react-router-dom';
 
-import { OffcanvasProvider } from './components/Dashboard/OffcanvasContext.jsx';
+import { FolderListProvider } from './components/CRUD/FolderList/FolderListContext.jsx';
 import { NoteListProvider } from './components/CRUD/NoteList/NoteListContext.jsx';
+import { OffcanvasProvider } from './components/Dashboard/OffcanvasContext.jsx';
 
 import Navbar from './components/Navbar.jsx';
 
@@ -36,12 +38,18 @@ function App() {
   return (
     <>
       <ApolloProvider client={client}>
-        <NoteListProvider>
-          <OffcanvasProvider>
-            <Navbar/>
-            <Outlet />
-          </OffcanvasProvider>
-        </NoteListProvider>
+
+        <FolderListProvider>
+          <NoteListProvider>
+            <OffcanvasProvider>
+
+              <Navbar/>
+              <Outlet />
+
+            </OffcanvasProvider>
+          </NoteListProvider>
+        </FolderListProvider>
+        
       </ApolloProvider>
     </>
   )

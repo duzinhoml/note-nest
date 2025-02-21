@@ -1,10 +1,10 @@
-import AddNote from '../AddNote/index.jsx';
-import UpdateFolder from '../UpdateFolder/index.jsx';
-import DeleteFolder from '../DeleteFolder/index.jsx';
+import AddNote from '../components/CRUD/AddNote/index.jsx';
+import UpdateFolder from '../components/CRUD/UpdateFolder/index.jsx';
+import DeleteFolder from '../components/CRUD/DeleteFolder/index.jsx';
 
 import { useState } from 'react';
 import { useQuery } from "@apollo/client";
-import { QUERY_FOLDERS } from "../../../utils/queries.js";
+import { QUERY_FOLDERS } from "../utils/queries.js";
 
 function FolderList() {
     const [currentFolderId, setCurrentFolderId] = useState(null);

@@ -51,17 +51,6 @@ function Navbar() {
 
                             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                                 <ul class="navbar-nav">
-                                    <li class="nav-item">
-                                        <button 
-                                            type="button" 
-                                            class="btn btn-light border-2" 
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#addNoteModal"
-                                            style={{ borderColor: '#ba0837' }}
-                                        >
-                                            Add Note
-                                        </button>
-                                    </li>
                                     <li className="nav-item">
                                         <button 
                                             type="button" data-bs-toggle="offcanvas" 
