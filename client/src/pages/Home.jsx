@@ -52,13 +52,13 @@ function Home() {
                     !user.notes.length ? (
                         <Dashboard
                             notes={[]}
-                            title={`${user.fullName}, start nesting your thoughts today!`}
+                            heading={`${user.fullName}, start nesting your thoughts today!`}
                         />
                     ) : (
                         <Dashboard
                             folders={user.folders}
                             notes={user.notes}
-                            title={`${user.fullName}'s Notes`}
+                            heading={`${user.fullName}'s Notes`}
                         />
                     )
                 )}

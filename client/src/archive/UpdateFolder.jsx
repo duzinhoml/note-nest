@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 
-import { QUERY_FOLDERS, QUERY_NOTES } from "../../../utils/queries";
-import { UPDATE_FOLDER } from "../../../utils/mutations";
+import { QUERY_FOLDERS, QUERY_NOTES } from "../utils/queries";
+import { UPDATE_FOLDER } from "../utils/mutations";
 
 function UpdateFolder({ folder }) {
     const { _id, title, description } = folder || {};

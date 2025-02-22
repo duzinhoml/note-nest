@@ -195,23 +195,25 @@ const resolvers = {
         //         return `Failed to update folder: ${err.message}`;
         //     }
         // },
-        // updateNote: async (_, { noteId, input }) => {
-        //     try {
-        //         const note = await Note.findOneAndUpdate(
-        //             { _id: noteId },
-        //             { $set: { ...input }},
-        //             { new: true }
-        //         );
-
-        //         if (!note) {
-        //             return 'Note not found';
-        //         }
-        //         return note;
-        //     } 
-        //     catch (err) {
-        //         return `Failed to update note: ${err.message}`;
-        //     }
-        // },
+        updateNote: async (_, { noteId, input }, context) => {
+            try {
+                if (context.user) {
+                    const note = await Note.findOneAndUpdate(
+                        { _id: noteId },
+                        { $set: { ...input }},
+                        { new: true }
+                    );
+    
+                    if (!note) {
+                        return 'Note not found';
+                    }
+                    return note;
+                }
+            } 
+            catch (err) {
+                return `Failed to update note: ${err.message}`;
+            }
+        },
         deleteUser: async (_, _args, context) => {
             try {
                 if (context.user) {

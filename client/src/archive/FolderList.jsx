@@ -1,5 +1,5 @@
 import AddNote from '../components/CRUD/AddNote/index.jsx';
-import UpdateFolder from '../components/CRUD/UpdateFolder/index.jsx';
+import UpdateFolder from '../components/CRUD/UpdateNote/index.jsx';
 import DeleteFolder from '../components/CRUD/DeleteFolder/index.jsx';
 
 import { useState } from 'react';
@@ -7,7 +7,6 @@ import { useQuery } from "@apollo/client";
 import { QUERY_FOLDERS } from "../utils/queries.js";
 
 function FolderList() {
-    const [currentFolderId, setCurrentFolderId] = useState(null);
     const [currentFolder, setCurrentFolder] = useState(null);
 
     const { loading: loadingFolders, error: errorFolders, data: dataFolders } = useQuery(QUERY_FOLDERS)

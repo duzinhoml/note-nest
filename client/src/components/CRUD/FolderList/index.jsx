@@ -1,21 +1,14 @@
-import { useState } from 'react'
-import { useFolderList } from './FolderListContext.jsx';
-import { useNoteList } from "../NoteList/NoteListContext.jsx";
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
-// import AddNote from "../AddNote/index.jsx";
+import { useFolderList } from '../../../context/FolderListContext.jsx';
+import { useNoteList } from "../../../context/NoteListContext.jsx";
+
 
 function FolderList({ folders }) {
-    const { currentNote, setCurrentNote } = useNoteList();
-    const toggleCurrentNote = (note) => {
-        if (currentNote && currentNote._id === note._id) {
-            setCurrentNote(null);
-        }
-        else {
-            setCurrentNote(note);
-        }
-    };
-    console.log(currentNote);
+    const navigate = useNavigate();
 
+    // Current Folder
     const { currentFolder, setCurrentFolder } = useFolderList();
     const toggleCurrentFolder = (folder) => {
         if (currentFolder && currentFolder._id === folder._id) {
@@ -25,7 +18,20 @@ function FolderList({ folders }) {
             setCurrentFolder(folder);
         }
     };
-    console.log(currentFolder);
+
+    // Current Note
+    const { currentNote, setCurrentNote } = useNoteList();
+
+    const toggleCurrentNote = (note) => {
+        if (currentNote && currentNote._id === note._id) {
+            setCurrentNote(null);
+            navigate('/');
+        }
+        else {
+            setCurrentNote(note);
+            navigate(`/notes/${note._id}`);
+        }
+    };
 
     const [openFolders, setOpenFolders] = useState({})
 
@@ -50,13 +56,14 @@ function FolderList({ folders }) {
                                 textShadow: currentFolder && currentFolder._id === folder._id ? '2px 2px 4px rgba(0, 0, 0, 0.5)' : '',
                                 background: currentFolder && currentFolder._id === folder._id ? 'linear-gradient(to bottom, #F63366, #A71A3A)' : '#F63366',
                                 boxShadow: currentFolder && currentFolder._id === folder._id ? '3px 3px 10px rgba(0, 0, 0, 0.5)' : 'none',
-                                display: 'inline-block' 
+                                display: 'inline-block',
+                                cursor: 'pointer'
                             }}
                             onClick={() => toggleCurrentFolder(folder)}
                         >
-                            <span 
+                            <span
                                 id="arrow-dropdown"
-                                style={{ cursor: 'pointer', display: 'inline-block', width: '1rem' }} 
+                                style={{ cursor: 'default', display: 'inline-block', width: '1rem' }} 
                                 data-bs-toggle="collapse" 
                                 data-bs-target={`#collapseExample${folder._id}`}
                                 aria-expanded="false" 
@@ -69,25 +76,23 @@ function FolderList({ folders }) {
                         </h4>
                         <div className="card-body bg-light p-2">
                             <p>{`${folder.description}`}</p>
-                            {!folder.notes.length ? (
-                                <div class="collapse" id={`collapseExample${folder._id}`}>
+                            <div class="collapse" id={`collapseExample${folder._id}`}>
+                                {!folder.notes.length ? (
                                     <div class="card card-body p-2">
                                         No notes available
                                     </div>
-                                </div>
-                            ) : (
-                                folder.notes.map(note => (
-                                    <div key={note._id} class="collapse" id={`collapseExample${folder._id}`}>
+                                ) : (
+                                    folder.notes.map(note => (
                                         <div 
-                                            class={`'card card-body p-2 mb-2' ${currentNote && currentNote._id === note._id ? 'bg-secondary bg-gradient' : ''}`} 
-                                            onClick={() => toggleCurrentNote(note)} 
+                                            class={`'card card-body p-2 mb-2' ${currentNote && currentNote._id === note._id ? 'bg-secondary bg-gradient' : ''}`} key={note._id}
+                                            onClick={() => toggleCurrentNote(note)}
                                             style={{ cursor: 'pointer', borderRadius: '10px' }}
                                         >
                                             {note.title}
                                         </div>
-                                    </div>
-                                )
-                            ))}
+                                    ))
+                                )}
+                            </div>
                         </div>
                     </div>
                 ))}

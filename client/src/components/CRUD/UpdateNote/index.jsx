@@ -1,23 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 
-import { QUERY_ME } from "../../../utils/queries";
-import { CREATE_NOTE } from "../../../utils/mutations";
+import { QUERY_ME } from "../../../utils/queries.js";
+import { UPDATE_NOTE } from "../../../utils/mutations.js";
 
 import { useOffcanvas } from "../../../context/OffcanvasContext.jsx";
+import { useNoteList } from "../../../context/NoteListContext.jsx";
 
-function AddNote({ folder, offcanvasWidth, titleRef, textRef, handleTextAreaInput }) {
+function UpdateNote({ offcanvasWidth, titleRef, textRef, handleTextAreaInput }) {
+    const navigate = useNavigate();
     const { isOffcanvasOpen } = useOffcanvas();
+    const { currentNote, setCurrentNote } = useNoteList();
 
-    const { _id } = folder || {};
-    const folderId = _id;
+    const { _id, title, text } = currentNote || {};
+    const noteId = _id;
+
+    console.log(`Update Note Comp: ${noteId}`)
 
     const [formData, setFormData] = useState({
         title: '',
         text: ''
     });
 
-    const [createNote, { error }] = useMutation(CREATE_NOTE, {
+    useEffect(() => {
+        if (currentNote) {
+            setFormData({
+                title,
+                text
+            })
+        }
+    }, [currentNote]);
+
+    const [updateNote, { error }] = useMutation(UPDATE_NOTE, {
         refetchQueries: [
             QUERY_ME
         ]
@@ -31,33 +46,36 @@ function AddNote({ folder, offcanvasWidth, titleRef, textRef, handleTextAreaInpu
         });
     };
 
+    console.log(`Update Note Title: ${formData.title}`)
+    console.log(`Update Note Text: ${formData.text}`)
+
     const handleFormSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            await createNote({
+            await updateNote({
                 variables: {
-                    folderId,
+                    noteId,
                     input: {
-                        ...formData,
+                        ...formData
                     }
                 }
             });
 
+            setCurrentNote(null);
             setFormData({
                 title: '',
                 text: ''
-            });
+            })
+            navigate('/');
         } 
         catch (err) {
             console.error(err)
         }
     }
 
-
-
     return (
-        <form id="addNoteForm" onSubmit={handleFormSubmit} className="w-100">
+        <form id="updateNoteForm" onSubmit={handleFormSubmit} className="w-100">
             <div 
                 id="main-content" 
                 className="flex-grow-1 p-3 text-light" 
@@ -100,4 +118,4 @@ function AddNote({ folder, offcanvasWidth, titleRef, textRef, handleTextAreaInpu
     );
 };
 
-export default AddNote;
+export default UpdateNote;

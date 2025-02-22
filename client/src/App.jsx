@@ -7,9 +7,9 @@ import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@ap
 import { setContext } from '@apollo/client/link/context';
 import { Outlet } from 'react-router-dom';
 
-import { FolderListProvider } from './components/CRUD/FolderList/FolderListContext.jsx';
-import { NoteListProvider } from './components/CRUD/NoteList/NoteListContext.jsx';
-import { OffcanvasProvider } from './components/Dashboard/OffcanvasContext.jsx';
+import { FolderListProvider } from './context/FolderListContext.jsx';
+import { NoteListProvider } from './context/NoteListContext.jsx';
+import { OffcanvasProvider } from './context/OffcanvasContext.jsx';
 
 import Navbar from './components/Navbar.jsx';
 

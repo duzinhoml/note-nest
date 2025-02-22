@@ -1,78 +1,21 @@
 import { useState, useEffect, useRef } from "react";
-import { useFolderList } from "../CRUD/FolderList/FolderListContext.jsx";
-import { useNoteList } from "../CRUD/NoteList/NoteListContext.jsx";
-import { useOffcanvas } from "./OffcanvasContext.jsx";
-import { useMutation } from "@apollo/client";
 
-import { QUERY_ME } from "../../utils/queries.js";
-import { CREATE_NOTE } from "../../utils/mutations.js";
+import { useFolderList } from "../../context/FolderListContext.jsx";
+import { useNoteList } from "../../context/NoteListContext.jsx";
+import { useOffcanvas } from "../../context/OffcanvasContext.jsx";
 
 import FolderList from "../CRUD/FolderList/index.jsx";
-// import AddNote from "../CRUD/AddNote/index.jsx";
+import AddNote from "../CRUD/AddNote/index.jsx";
+import UpdateNote from "../CRUD/UpdateNote/index.jsx";
 
-function Dashboard({ folders, title }) {
+function Dashboard({ folders, heading }) {
+    // Current Folder
     const { currentFolder } = useFolderList();
-    let folderId = null;
-    if (currentFolder) {
-        const { _id } = currentFolder;
-        folderId = _id;
-    }
 
-    const [formData, setFormData] = useState({
-        title: '',
-        text: ''
-    });
+    // Current Note
+    const { currentNote } = useNoteList();    
 
-    const [createNote, { error }] = useMutation(CREATE_NOTE, {
-            refetchQueries: [
-                QUERY_ME
-            ]
-        });
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
-    };
-
-    const handleFormSubmit = async (e) => {
-        e.preventDefault();
-
-        try {
-            if (currentFolder && folderId) {
-                await createNote({
-                    variables: {
-                        folderId,
-                        input: {
-                            ...formData
-                        }
-                    }
-                })
-            }
-            else {
-                await createNote({
-                    variables: {
-                        input: {
-                            ...formData
-                        }
-                    }
-                });
-            };
-
-          setFormData({
-            title: '',
-            text: ''
-          });
-        } 
-        catch (err) {
-            console.error(err);
-        }
-    }
-
-    const { currentNote } = useNoteList();
-
+    // Offcanvas handling
     const { isOffcanvasOpen, toggleOffcanvas } = useOffcanvas();
     const [offcanvasWidth, setOffcanvasWidth] = useState(window.innerWidth < 768 ? 150 : 250);
 
@@ -85,6 +28,7 @@ function Dashboard({ folders, title }) {
         return () => window.removeEventListener('resize', handleResize);
     }, [])
 
+    // Textarea Re-size
     const titleRef = useRef(null);
     const textRef = useRef(null);
 
@@ -107,7 +51,7 @@ function Dashboard({ folders, title }) {
                     style={{ width: isOffcanvasOpen ? `${offcanvasWidth}px` : "0", transition: "width 0.3s ease-in-out" }}
                 >
                     <div class="offcanvas-header ml-background" style={{ paddingBottom: '11px' }}>
-                        <h5 class="offcanvas-title text-light" id="offcanvasScrollingLabel">{title}</h5>
+                        <h5 class="offcanvas-title text-light" id="offcanvasScrollingLabel">{heading}</h5>
                         <button 
                             type="button" 
                             class="btn-close" 
@@ -123,54 +67,32 @@ function Dashboard({ folders, title }) {
                     </div>
                 </div>
 
-                <form id="addNoteForm" onSubmit={handleFormSubmit} className="w-100">
-                    <div 
-                        id="main-content" 
-                        className="flex-grow-1 p-3 text-light" 
-                        style={{ marginLeft: isOffcanvasOpen ? `${offcanvasWidth}px` : "0", transition: "margin-left 0.3s ease-in-out" }}
-                    >
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label" style={{ fontSize: '20px'}}>Note Title</label>
-                            <textarea 
-                                ref={titleRef}
-                                class="form-control bg-secondary" 
-                                id="exampleFormControlTextarea1"
-                                name='title'
-                                value={currentNote ? currentNote.title : formData.title}
-                                rows={1}
-                                placeholder="Please provide a title for the note..."
-                                onChange={handleInputChange}
-                                onInput={() => handleTextAreaInput(titleRef)}
-                                style={{ fontSize: isOffcanvasOpen && offcanvasWidth === 150 ? '0.865rem' : '16px', overflow: 'hidden' }}
-                            ></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleFormControlTextarea1" class="form-label" style={{ fontSize: '20px'}}>Note Content</label>
-                            <textarea 
-                                ref={textRef}
-                                class="form-control bg-secondary" 
-                                id="exampleFormControlTextarea2" 
-                                name='text'
-                                value={currentNote ? currentNote.text : formData.text}
-                                rows={3} 
-                                placeholder="Please enter the content of the note..."
-                                onChange={handleInputChange}
-                                onInput={() => handleTextAreaInput(textRef)}
-                                style={{ fontSize: isOffcanvasOpen && offcanvasWidth === 150 ? '0.865rem' : '16px', overflow: 'hidden' }}
-                            ></textarea>
-                        </div>
-                    </div>
-                    {/* <AddNote/> */}
-                </form>
+                {currentNote ? (
+                    <UpdateNote
+                        offcanvasWidth={offcanvasWidth}
+                        titleRef={titleRef}
+                        textRef={textRef}
+                        handleTextAreaInput={handleTextAreaInput}
+                        // note={currentNote}
+                    />
+                ) : (
+                    <AddNote
+                        offcanvasWidth={offcanvasWidth}
+                        titleRef={titleRef}
+                        textRef={textRef}
+                        handleTextAreaInput={handleTextAreaInput}
+                        folder={currentFolder}
+                    />
+                )}
             </div>
             <button 
-                form="addNoteForm"
+                form={!currentNote ? 'addNoteForm' : 'updateNoteForm'}
                 type="submit" 
                 className="btn btn-primary p-0 position-fixed d-flex justify-content-center align-items-center" 
                 style={{ 
                     backgroundColor: '#F63366',
                     borderColor: '#ba0837',
-                    fontSize: '3vh',
+                    fontSize: '2vh',
                     zIndex: 1000,
                     cursor: 'pointer',
                     height: '8vh', 
@@ -180,7 +102,7 @@ function Dashboard({ folders, title }) {
                     borderRadius: '50%',
                     }}
             >
-                Add
+                {!currentNote ? 'Add' : 'Update'}
             </button>
         </div>
     );

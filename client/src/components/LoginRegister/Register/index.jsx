@@ -205,7 +205,7 @@ function Register({ setAccountStep }) {
                                 type="button" 
                                 className='position-absolute top-0 start-0 translate-middle btn btn-sm rounded-pill' 
                                 style={{ 
-                                    backgroundColor: currentStep === 1? '#F63366' : '#c2c2c2',
+                                    backgroundColor:'#F63366',
                                     width: '2rem', 
                                     height: '2rem' }}
                             >1</button>

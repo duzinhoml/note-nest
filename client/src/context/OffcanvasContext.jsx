@@ -10,7 +10,7 @@ export const OffcanvasProvider = ({ children }) => {
     };
 
     return (
-        <OffcanvasContext.Provider value={{ isOffcanvasOpen, toggleOffcanvas }}>
+        <OffcanvasContext.Provider value={{ isOffcanvasOpen, setIsOffcanvasOpen, toggleOffcanvas }}>
             {children}
         </OffcanvasContext.Provider>
     );

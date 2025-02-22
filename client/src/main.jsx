@@ -16,10 +16,10 @@ const router = createBrowserRouter([
                 index: true,
                 element: <Home/>
             },
-            // {
-            //     path: '/notes/:noteId',
-            //     element: <SingleNote/>
-            // }
+            {
+                path: '/notes/:noteId',
+                element: <Home/>
+            }
         ]
     }
 ]);
