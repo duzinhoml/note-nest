@@ -44,6 +44,7 @@ export const QUERY_ME = gql`
                 _id
                 title
                 text
+                createdAt
             }
         }
     }

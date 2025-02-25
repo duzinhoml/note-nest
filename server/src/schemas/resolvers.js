@@ -316,11 +316,6 @@ const resolvers = {
                     }
                     return `The note '${note.title}' has been successfully deleted.`;
                 }
-
-                // Once users are created, use this
-                // const result = await Note.findOneAndUpdate(
-                //     {}
-                // )
             } 
             catch (err) {
                 return `Failed to delete note: ${err.message}`;
