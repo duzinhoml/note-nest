@@ -4,26 +4,26 @@ function Header({ heading }) {
 
     return (
         <div 
-            className="m-3 text-light d-flex justify-content-between align-items-center" 
-            style={{ maxWidth: '58rem', width: '100%', maxHeight: '3rem', height: '100%' }}
+            className="text-light ml-background m-0 mt-2 p-0 col-12" 
+            // style={{ border: '2px solid rgba(0, 255, 4, 0.1)' }}
         >
-            <h4>{heading ? heading : 'All Notes'}</h4>
-            <div className="d-flex align-items-center flex-grow-1 justify-content-end">
-                <div class="input-group" style={{ maxWidth: '18.75rem', width: '100%', height: '2.75rem' }}>
-                    <span class="input-group-text" id="basic-addon1">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </span>
-                    <input 
-                        type="text" 
-                        class="form-control" 
-                        placeholder="Search by title, content, or tags..." 
-                        aria-label="search" 
-                        aria-describedby="basic-addon1"
-                        style={{ fontSize: '0.875rem' }}
-                    />
+            <nav class="navbar ml-background w-100">
+                <div class="container-fluid d-flex justify-content-between">
+                    <h3 style={{ color: 'white' }}>{heading}</h3>
+                    <form class="d-flex flex-grow-1" style={{ maxWidth: '330px' }}role="search">
+                        <span className="input-group-text rounded-end-0" id="basic-addon-1" style={{ cursor: 'pointer' }}>
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </span>
+                        <input 
+                            class="form-control me-2 rounded-start-0" 
+                            type="search" 
+                            placeholder="Search by title, content, or tags..." 
+                            aria-label="Search" 
+                            aria-describedby="basic-addon1"
+                        />
+                    </form>
                 </div>
-                <i class="fa-solid fa-gear ms-4" style={{ fontSize: '1.25rem' }}></i>
-            </div>
+            </nav>
         </div>
     );
 };

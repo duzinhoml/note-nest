@@ -5,9 +5,14 @@
   text-align: center;
 } */
 
-html, body, .ml-background {
-  background-color: #262730;
+* {
+  margin: 0;
+  padding: 0;
 }
+
+html, body, .ml-background {
+  background-color: #262731;
+} */
 
 button {
   border-color: #ba0837;

@@ -48,66 +48,128 @@ function AddNote() {
     }
 
     return (
-        <form id="testAddNoteForm" onSubmit={handleFormSubmit}>
-            <div 
-                className="text-light" 
-                style={{ 
-                    maxWidth: '40.75vw', 
-                    width: '100%', 
-                    maxHeight: '56.88vw', 
-                    margin: '0 16px 16px' 
-                }}
-            >
-                    <hr style={{ width: '100%', border: 'none' }}/>
+        // <form id="testAddNoteForm" className="col-6 bg-secondary bg-gradient" onSubmit={handleFormSubmit}>
+        //     <div 
+        //         className="text-light" 
+        //         style={{ 
+        //             // maxWidth: '45.75vw', 
+        //             // width: '100%', 
+        //             maxHeight: '56.88vw', 
+        //         }}
+        //     >
 
-                <div>
-                    <input 
-                        type="text" 
-                        name="title"
-                        value={formData.title}
-                        placeholder="Enter a title..."
-                        onChange={handleInputChange}
-                    />
-                    {/* <h3>Enter a title...</h3> */}
-                </div>
+        //         <div>
+        //             <input 
+        //                 type="text" 
+        //                 name="title"
+        //                 value={formData.title}
+        //                 placeholder="Enter a title..."
+        //                 onChange={handleInputChange}
+        //             />
+        //             {/* <h3>Enter a title...</h3> */}
+        //         </div>
 
-                <div className="row row-cols-1 row-cols-md-2 mt-3">
-                    <div className="col">
+        //         <div className="row row-cols-1 row-cols-md-2 mt-3">
+        //             <div className="col">
+        //                 <span className="me-2"><i class="fa-solid fa-tag"></i></span>
+        //                 Tags
+        //             </div>
+        //             <div className="col">Dev, React</div>
+        //             <div className="col">
+        //                 <span className="me-2"><i class="fa-solid fa-clock"></i></span>
+        //                 Last edited
+        //             </div>
+        //             <div className="col">Not yet saved</div>
+        //         </div>
+
+
+        //         <div className="mt-4">
+        //             <textarea 
+        //                 className="bg-info-subtle text-light w-100"
+        //                 type="text"
+        //                 name="text"
+        //                 value={formData.text}
+        //                 placeholder="Start typing your note here..."
+        //                 onChange={handleInputChange}
+        //                 style={{ 
+        //                     height: '46.38vw', 
+        //                     border: 'none', 
+        //                     resize: 'none'
+        //                 }}
+        //             ></textarea>
+        //         </div>
+
+        //         <div className="d-flex flex-column flex-md-row mt-3">
+        //             <button 
+        //                 form="testUpdateNoteForm"
+        //                 className="btn btn-primary me-md-3 mb-2 mb-md-0"
+        //                 type="submit"
+        //                 style={{ 
+        //                     backgroundColor: '#F63366',
+        //                     borderColor: '#ba0837'
+        //                 }}
+        //             >
+        //                 Save Note
+        //             </button>
+        //             <button className="btn btn-secondary">
+        //                 Cancel
+        //             </button>
+        //         </div>
+        //     </div>
+        // </form>
+        <form 
+            id="testUpdateNoteForm" 
+            className="text-light col p-0 pt-4" 
+            onSubmit={handleFormSubmit}
+            style={{ 
+                // border: '2px solid rgba(0, 255, 4, 0.1)' ,
+                borderTop: '1px solid hsl(0, 0.00%, 36%)',
+            }}
+        >
+            <div className="container-fluid text-light">
+                <h3>Enter a title...</h3>
+
+                <div className="row mt-3" style={{ fontSize: '14px' }}>
+                    <div className="col-3">
                         <span className="me-2"><i class="fa-solid fa-tag"></i></span>
                         Tags
                     </div>
-                    <div className="col">Dev, React</div>
-                    <div className="col">
+                    <div className="col-auto">
+                        {'Add tags separated by commas (e.g. Work, Planning)'}
+                    </div>
+                </div>
+                <div className="row mt-2" style={{ fontSize: '14px' }}>
+                    <div className="col-3">
                         <span className="me-2"><i class="fa-solid fa-clock"></i></span>
                         Last edited
                     </div>
-                    <div className="col">Not yet saved</div>
+                    <div className="col-auto">Not yet saved</div>
                 </div>
 
-                <hr className="mt-4" style={{ width: '100%' }}/>
+                <hr/>
 
-                <div className="mt-4">
+                <div className="mt-3">
                     <textarea 
-                        className="ml-background text-light"
+                        className="ml-background w-100 text-light"
                         type="text"
                         name="text"
                         value={formData.text}
                         placeholder="Start typing your note here..."
                         onChange={handleInputChange}
-                        style={{ 
-                            maxWidth: '37.5vw', 
-                            width: '100%', 
-                            height: '46.38vw', 
-                            border: 'none', 
+                        style={{
+                            height: '46vw',
+                            border: 'none',
                             resize: 'none'
                         }}
                     ></textarea>
                 </div>
 
-                <div className="d-flex flex-column flex-md-row mt-3">
+                <hr />
+
+                <div className="mt-3">
                     <button 
                         form="testUpdateNoteForm"
-                        className="btn btn-primary me-md-3 mb-2 mb-md-0"
+                        className="btn text-light me-3"
                         type="submit"
                         style={{ 
                             backgroundColor: '#F63366',
@@ -116,10 +178,9 @@ function AddNote() {
                     >
                         Save Note
                     </button>
-                    <button className="btn btn-secondary">
-                        Cancel
-                    </button>
+                    <button className="btn btn-secondary">Cancel</button>
                 </div>
+
             </div>
         </form>
     );

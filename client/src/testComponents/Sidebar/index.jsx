@@ -1,51 +1,72 @@
 
-
 function Sidebar() {
 
     return (
         <div 
-            className="text-light" 
+            className="text-light ml-background col-2 m-3 mt-3 p-0" 
             style={{ 
-                maxWidth: '19vw', 
-                width: '100%',
-                margin: '1.67vw 1.11vw 1.11vw'
-            }}>
-            <div id="header" className='d-flex justify-content-between'>
-                <h5 className="mb-4 text-truncate">
+                // border: '2px solid rgba(0, 255, 4, 0.1)',
+            }}
+        >
+            <div className="pb-3">
+                <h3>
                     <span className="me-2"><i class="fa-solid fa-pencil"></i></span>
-                    Notes
-                </h5>
+                    NoteNest
+                </h3>
+                {/* <hr /> */}
             </div>
-            <div id="content">
-                <div id="notes">
-                    <div className="d-flex justify-content-between align-items-center">
-                        <p className="text-truncate">
+
+            {/* <div className="card border-0">
+                <ul className="list-group list-group-flush">
+                    <li className="list-group-item ml-background d-flex justify-content-between border-0 text-light">
+                        <div>
                             <span className="me-2"><i class="fa-solid fa-house"></i></span>
                             All Notes
-                        </p>
-                        <p>{'>'}</p>
-                    </div>
-                    <p className="text-truncate">
+                        </div>
+                        <span><i class="fa-solid fa-chevron-right"></i></span>
+                    </li>
+                    <li className="list-group-item ml-background text-light">
                         <span className="me-2"><i class="fa-solid fa-box-archive"></i></span>
                         Archived Notes
-                    </p>
-                </div>
-                <hr style={{ width: '100%' }}/>
-                <div id="tags">
-                    <p className="text-white-50">Tags</p>
-                    <p className="text-truncate">
+                    </li>
+                </ul>
+            </div> */}
+            <div>
+                <ul className="list-group list-group-flush">
+                    <li className="list-group-item ml-background d-flex justify-content-between text-light border-bottom-0 rounded">
+                        <div>
+                            <span className="me-2"><i class="fa-solid fa-house"></i></span>
+                            All Notes
+                        </div>
+                        <span><i class="fa-solid fa-chevron-right"></i></span>
+                    </li>
+                    <li className="list-group-item ml-background text-light rounded">
+                            <span className="me-2"><i class="fa-solid fa-box-archive"></i></span>
+                            Archived Notes
+                    </li>
+                </ul>
+            </div>
+
+            <hr />
+
+            <div className="mt-3">
+                <ul className="list-group list-group-flush">
+                    <li className="list-group-item ml-background text-truncate text-white-50 border-bottom-0">
+                        Tags
+                    </li>
+                    <li className="list-group-item ml-background text-truncate text-light border-bottom-0">
                         <span className="me-2"><i class="fa-solid fa-tag"></i></span>
                         Cooking
-                    </p>
-                    <p className="text-truncate">
+                    </li>
+                    <li className="list-group-item ml-background text-truncate text-light border-bottom-0">
                         <span className="me-2"><i class="fa-solid fa-tag"></i></span>
                         Dev
-                    </p>
-                    <p className="text-truncate">
+                    </li>
+                    <li className="list-group-item ml-background text-truncate text-light border-bottom-0">
                         <span className="me-2"><i class="fa-solid fa-tag"></i></span>
                         Fitness
-                    </p>
-                </div>
+                    </li>
+                </ul>
             </div>
         </div>
     );

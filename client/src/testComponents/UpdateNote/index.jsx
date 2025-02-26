@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 
 import { QUERY_ME } from "../../utils/queries";
@@ -7,6 +8,7 @@ import { UPDATE_NOTE } from "../../utils/mutations";
 import { useNoteList } from "../../context/NoteListContext";
 
 function UpdateNote() {
+    const navigate = useNavigate();
     const { currentNote, setCurrentNote } = useNoteList();
 
     const { _id, title, text } = currentNote || {};
@@ -58,7 +60,7 @@ function UpdateNote() {
                 title: '',
                 text: ''
             })
-            window.location.reload();
+            navigate('/testing');
         } 
         catch (err) {
             console.error(err)
@@ -66,78 +68,70 @@ function UpdateNote() {
     }
 
     return (
-        <form id="testUpdateNoteForm" onSubmit={handleFormSubmit}>
-            <div 
-                className="text-light" 
-                style={{ 
-                    maxWidth: '40.75vw', 
-                    width: '100%', 
-                    maxHeight: '56.88vw', 
-                    margin: '0 16px 16px' 
-                }}
-            >
-                    <hr style={{ width: '100%', border: 'none' }}/>
+        <form 
+            id="testUpdateNoteForm" 
+            className="text-light col p-0 pt-4" 
+            onSubmit={handleFormSubmit}
+            style={{ 
+                // border: '2px solid rgba(0, 255, 4, 0.1)',
+                borderTop: '1px solid hsl(0, 0.00%, 36%)'
+            }}
+        >
+            <div className="container-fluid text-light">
+                <h3>{formData.title}</h3>
 
-                <div>
-                    <input 
-                        type="text" 
-                        name="title"
-                        value={formData.title}
-                        placeholder="Enter a title..."
-                        onChange={handleInputChange}
-                    />
-                    {/* <h3>Enter a title...</h3> */}
-                </div>
-
-                <div className="row row-cols-1 row-cols-md-2 mt-3">
-                    <div className="col">
+                <div className="row mt-3" style={{ fontSize: '14px' }}>
+                    <div className="col-3">
                         <span className="me-2"><i class="fa-solid fa-tag"></i></span>
                         Tags
                     </div>
-                    <div className="col">Dev, React</div>
-                    <div className="col">
+                    <div className="col-auto">
+                        Dev, React
+                    </div>
+                </div>
+                <div className="row mt-2" style={{ fontSize: '14px' }}>
+                    <div className="col-3">
                         <span className="me-2"><i class="fa-solid fa-clock"></i></span>
                         Last edited
                     </div>
-                    <div className="col">{currentNote ? currentNote.createdAt : 'Not yet saved'}</div>
+                    <div className="col-auto">{currentNote.createdAt}</div>
                 </div>
 
-                <hr className="mt-4" style={{ width: '100%' }}/>
+                <hr/>
 
-                <div className="mt-4">
+                <div className="mt-3">
                     <textarea 
-                        className="ml-background text-light"
+                        className="ml-background w-100 text-light"
                         type="text"
                         name="text"
                         value={formData.text}
                         placeholder="Start typing your note here..."
                         onChange={handleInputChange}
-                        style={{ 
-                            maxWidth: '37.5vw', 
-                            width: '100%', 
-                            height: '46.38vw', 
-                            border: 'none', 
+                        style={{
+                            height: '46vw',
+                            border: 'none',
                             resize: 'none'
                         }}
                     ></textarea>
                 </div>
 
-                <div className="d-flex flex-column flex-md-row mt-3">
+                <hr />
+
+                <div className="mt-3">
                     <button 
                         form="testUpdateNoteForm"
-                        className="btn btn-primary me-md-3 mb-2 mb-md-0"
+                        className="btn text-light me-3"
                         type="submit"
                         style={{ 
                             backgroundColor: '#F63366',
                             borderColor: '#ba0837'
                         }}
                     >
-                        Update Note
+                        Save Note
                     </button>
-                    <button className="btn btn-secondary">
-                        Cancel
-                    </button>
+                    <button className="btn btn-secondary">Cancel</button>
                 </div>
+
             </div>
         </form>
     );

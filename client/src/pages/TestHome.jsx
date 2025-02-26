@@ -45,35 +45,6 @@ function TestHome() {
     }
 
     return (
-        // <div className='d-flex'>
-        //     <Sidebar />
-        //     <div 
-        //         className="vertical-line" 
-        //         style={{
-        //             width: '1px',
-        //             backgroundColor: 'rgb(91, 91, 91)',
-        //             height: '100vh',
-        //             margin: '0 2px'
-        //         }} 
-        //     />
-        //     <div className="d-flex flex-column flex-grow-1">
-        //         <Header />
-        //         <div className="d-flex flex-grow-1">
-        //             <Notes/>
-        //             <div
-        //                 className="vertical-line"
-        //                 style={{
-        //                     width: '1px',
-        //                     backgroundColor: 'rgb(91, 91, 91)',
-        //                     height: '100%',
-        //                     margin: '0 2px'
-        //                 }}
-        //             />
-        //             <SingleNote/>
-        //             <NoteActions/>
-        //         </div>
-        //     </div>
-        // </div>
         <>
             {!user.notes.length ? (
                 <Dashboard/>
