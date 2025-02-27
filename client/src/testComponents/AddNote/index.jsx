@@ -7,7 +7,8 @@ import { CREATE_NOTE } from "../../utils/mutations";
 function AddNote() {
     const [formData, setFormData] = useState({
         title: '',
-        text: ''
+        text: '',
+        tags: []
     });
 
     const [createNote, { error }] = useMutation(CREATE_NOTE, {
@@ -30,7 +31,6 @@ function AddNote() {
         try {
             await createNote({
                 variables: {
-                    folderId,
                     input: {
                         ...formData,
                     }
@@ -39,7 +39,9 @@ function AddNote() {
 
             setFormData({
                 title: '',
-                text: ''
+                text: '',
+                tags: []
+                // tags: 'Add tags separated by commas (e.g. Work, Planning)'
             });
         } 
         catch (err) {
@@ -127,7 +129,16 @@ function AddNote() {
             }}
         >
             <div className="container-fluid text-light">
-                <h3>Enter a title...</h3>
+                <textarea
+                    className="ml-background text-light"
+                    type="text"
+                    name="title"
+                    value={formData.title}
+                    onChange={handleInputChange}
+                    placeholder="Enter a title..."
+                    style={{ border: 'none', resize: 'none' }}
+                >
+                </textarea>
 
                 <div className="row mt-3" style={{ fontSize: '14px' }}>
                     <div className="col-3">
@@ -135,7 +146,12 @@ function AddNote() {
                         Tags
                     </div>
                     <div className="col-auto">
-                        {'Add tags separated by commas (e.g. Work, Planning)'}
+                        <input 
+                            type="text" 
+                            name="tags"
+                            value={formData.tags}
+                            onChange={handleInputChange}
+                            placeholder="Tags..."/>
                     </div>
                 </div>
                 <div className="row mt-2" style={{ fontSize: '14px' }}>

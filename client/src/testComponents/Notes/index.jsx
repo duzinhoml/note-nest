@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useNoteList } from "../../context/NoteListContext";
 
 function Notes({ notes }) {
-    console.log(notes);
     const navigate = useNavigate();
 
     const { currentNote, setCurrentNote } = useNoteList();
@@ -123,7 +122,7 @@ function Notes({ notes }) {
                                     {note.tags ?
                                         note.tags.map(tag => (
                                             <div className="d-inline-flex flex-wrap mt-2">
-                                                <p className="me-2 p-1 bg-secondary bg-gradient rounded" style={{ fontSize: '12px' }}>{tag.name}</p>
+                                                <p className="me-2 p-1 bg-secondary bg-gradient rounded" style={{ fontSize: '12px' }}>{tag}</p>
                                             </div>
                                         )) : ('')
                                     }

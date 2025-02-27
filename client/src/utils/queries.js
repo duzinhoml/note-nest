@@ -16,6 +16,7 @@ export const QUERY_USER = gql`
                 _id
                 title
                 text
+                tags
             }
         }
     }
@@ -36,6 +37,7 @@ export const QUERY_ME = gql`
                     _id
                     title
                     text
+                    tags
                     createdAt
                 }
                 createdAt
@@ -44,6 +46,7 @@ export const QUERY_ME = gql`
                 _id
                 title
                 text
+                tags
                 createdAt
             }
         }
@@ -60,6 +63,7 @@ export const QUERY_FOLDERS = gql`
                 _id
                 title
                 text
+                tags
             }
             createdAt
         }
@@ -76,6 +80,7 @@ export const QUERY_SINGLE_FOLDER = gql`
                 _id
                 title
                 text
+                tags
             }
             createdAt
         }
@@ -88,6 +93,7 @@ export const QUERY_NOTES = gql`
             _id
             title
             text
+            tags
             createdAt
         }
     }
@@ -99,6 +105,7 @@ export const QUERY_SINGLE_NOTE = gql`
             _id
             title
             text
+            tags
             createdAt
         }
     }

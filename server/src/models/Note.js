@@ -12,6 +12,12 @@ const noteSchema = new Schema(
             required: true,
             trim: true
         },
+        tags: [
+            {
+                type: String,
+                trim: true
+            }
+        ],
         createdAt: {
             type: Date,
             default: Date.now,

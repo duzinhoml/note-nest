@@ -68,6 +68,7 @@ export const UPDATE_NOTE = gql`
             _id
             title
             text
+            tags
             createdAt
         }
     }
@@ -98,5 +99,19 @@ export const DELETE_NOTE_FROM_FOLDER = gql`
 export const DELETE_NOTE = gql`
     mutation deleteNote($noteId: ID!) {
         deleteNote(noteId: $noteId)
+    }
+`;
+
+export const DELETE_TAG_FROM_NOTE = gql`
+    mutation deleteTagFromNote($noteId: ID!, $tagId: ID!) {
+        deleteTagFromNote(noteId: $noteId, tagId: $tagId) {
+            _id
+            title
+            text
+            tags {
+                _id
+                name
+            }
+        }
     }
 `;

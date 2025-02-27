@@ -4,12 +4,15 @@ import { useMutation } from "@apollo/client";
 
 import { QUERY_ME } from "../../utils/queries";
 import { UPDATE_NOTE } from "../../utils/mutations";
+import { DELETE_NOTE } from "../../utils/mutations";
 
 import { useNoteList } from "../../context/NoteListContext";
 
 function UpdateNote() {
     const navigate = useNavigate();
     const { currentNote, setCurrentNote } = useNoteList();
+    console.log(currentNote.tags)
+
 
     const { _id, title, text } = currentNote || {};
     const noteId = _id;
@@ -28,7 +31,13 @@ function UpdateNote() {
         }
     }, [currentNote]);
 
-    const [updateNote, { error }] = useMutation(UPDATE_NOTE, {
+    const [updateNote, { error: updateError }] = useMutation(UPDATE_NOTE, {
+        refetchQueries: [
+            QUERY_ME
+        ]
+    });
+
+    const [deleteNote, { error: deleteError }] = useMutation(DELETE_NOTE, {
         refetchQueries: [
             QUERY_ME
         ]
@@ -86,7 +95,13 @@ function UpdateNote() {
                         Tags
                     </div>
                     <div className="col-auto">
-                        Dev, React
+                        {currentNote.tags.length === 0 ? (
+                            'Add tags'
+                        ) : (
+                            currentNote.tags.map(tag => (
+                                <span key={tag} className="badge bg-secondary text-light me-1">{tag}</span>
+                            ))
+                        )}
                     </div>
                 </div>
                 <div className="row mt-2" style={{ fontSize: '14px' }}>

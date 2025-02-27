@@ -24,6 +24,7 @@ const typeDefs = `
         _id: ID!
         title: String!
         text: String!
+        tags: [String]
         folderId: ID
         createdAt: String!
     }
@@ -49,6 +50,7 @@ const typeDefs = `
     input CreateNoteInput {
         title: String!
         text: String!
+        tags: [String]
     }
 
     input UpdateUserInput {
@@ -66,6 +68,7 @@ const typeDefs = `
     input UpdateNoteInput {
         title: String
         text: String
+        tags: [String]
     }
 
     type Query {
@@ -92,6 +95,7 @@ const typeDefs = `
         deleteFolder(folderId: ID!): String
         deleteNoteFromFolder(folderId: ID!, noteId: ID!): Folder
         deleteNote(noteId: ID!): String
+        deleteTagFromNote(noteId: ID!, tagId: ID!): Note
     }
 `;
 

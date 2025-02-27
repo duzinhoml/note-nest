@@ -15,22 +15,7 @@ function Sidebar() {
                 </h3>
                 {/* <hr /> */}
             </div>
-
-            {/* <div className="card border-0">
-                <ul className="list-group list-group-flush">
-                    <li className="list-group-item ml-background d-flex justify-content-between border-0 text-light">
-                        <div>
-                            <span className="me-2"><i class="fa-solid fa-house"></i></span>
-                            All Notes
-                        </div>
-                        <span><i class="fa-solid fa-chevron-right"></i></span>
-                    </li>
-                    <li className="list-group-item ml-background text-light">
-                        <span className="me-2"><i class="fa-solid fa-box-archive"></i></span>
-                        Archived Notes
-                    </li>
-                </ul>
-            </div> */}
+            
             <div>
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item ml-background d-flex justify-content-between text-light border-bottom-0 rounded">

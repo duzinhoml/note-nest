@@ -42,7 +42,7 @@ const resolvers = {
             return folder;
         },
         notes: async () => {
-            return await Note.find({});
+            return await Note.find({}).populate('tags');
         },
         note: async (_, { noteId }) => {
             const note = await Note.findOne({ _id: noteId });
@@ -198,16 +198,27 @@ const resolvers = {
         updateNote: async (_, { noteId, input }, context) => {
             try {
                 if (context.user) {
-                    const note = await Note.findOneAndUpdate(
+                    const note = await Note.findOne({ _id: noteId });
+
+                    const existingTags = note.tags.map(tag => tag.name);
+                    const newTags = input.tags.filter(tag => !existingTags.includes(tag.name));
+
+                    const updatedNote = await Note.findOneAndUpdate(
                         { _id: noteId },
-                        { $set: { ...input }},
+                        { $addToSet: { 
+                            title: input.title,
+                            text: input.text,
+                            tags: {
+                                $each: newTags
+                            }
+                         }},
                         { new: true }
-                    );
+                    ).populate('tags');
     
                     if (!note) {
                         return 'Note not found';
                     }
-                    return note;
+                    return updatedNote;
                 }
             } 
             catch (err) {
@@ -319,6 +330,24 @@ const resolvers = {
             } 
             catch (err) {
                 return `Failed to delete note: ${err.message}`;
+            }
+        },
+        deleteTagFromNote: async (_, { noteId, tagId }, context) => {
+            try {
+                if (context.user) {
+                    return await Note.findOneAndUpdate(
+                        { _id: noteId },
+                        { $pull: {
+                            tags: { 
+                                _id: tagId
+                            }
+                        }},
+                        { new: true }
+                    );
+                };
+            } 
+            catch (err) {
+                return `Failed to delete tag: ${err.message}`;
             }
         }
     }
