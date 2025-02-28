@@ -8,7 +8,6 @@ import { setContext } from '@apollo/client/link/context';
 import { Outlet } from 'react-router-dom';
 
 import { SidebarProvider } from './testComponents/Sidebar/context.jsx';
-import { NoteActionsProvider } from './testComponents/NoteActions/context.jsx';
 
 // import { FolderListProvider } from './context/FolderListContext.jsx';
 import { NoteListProvider } from './context/NoteListContext.jsx';
@@ -42,20 +41,17 @@ function App() {
     <>
       <ApolloProvider client={client}>
 
-        {/* <FolderListProvider> */}
         <SidebarProvider>
-          <NoteActionsProvider>
-            <NoteListProvider>
-              {/* <OffcanvasProvider> */}
-
-                {/* <Navbar/> */}
-                <Outlet />
-
-              {/* </OffcanvasProvider> */}
-            </NoteListProvider>
-          </NoteActionsProvider>
+        {/* <FolderListProvider> */}
+          <NoteListProvider>
+            {/* <OffcanvasProvider> */}
+              {/* <Navbar/> */}
+              <Outlet />
+            {/* </OffcanvasProvider> */}
+          </NoteListProvider>
         {/* </FolderListProvider> */}
         </SidebarProvider>
+        
       </ApolloProvider>
     </>
   )
