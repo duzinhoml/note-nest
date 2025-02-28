@@ -1,8 +1,8 @@
 import { useState, useEffect, useLayoutEffect } from 'react';
 import { useQuery } from '@apollo/client';
 
-// import Login from '../components/LoginRegister/Login/index.jsx';
-// import Register from '../components/LoginRegister/Register/index.jsx';
+import Login from '../components/LoginRegister/Login/index.jsx';
+import Register from '../components/LoginRegister/Register/index.jsx';
 
 import { QUERY_ME } from '../utils/queries.js';
 
@@ -16,7 +16,7 @@ import Auth from '../utils/auth.js';
 import Dashboard from '../testComponents/Dashboard/index.jsx';
 
 function TestHome() {
-    // const [accountStep, setAccountStep] = useState('login');
+    const [accountStep, setAccountStep] = useState('login');
     const { loading, error, data } = useQuery(QUERY_ME);
     const [loginCheck, setLoginCheck] = useState(false);
 
@@ -46,7 +46,29 @@ function TestHome() {
 
     return (
         <>
-            {!user.notes.length ? (
+            {!loginCheck ? (
+                    accountStep === 'login' ? (
+                        <Login setAccountStep={setAccountStep}/>
+                    ) : (
+                        <Register setAccountStep={setAccountStep}/>
+                    )
+            ) : (
+                !user.notes.length ? (
+                    <Dashboard
+                        notes={[]}
+                        heading={`${user.fullName}, start nesting your thoughts today!`}
+                    />
+                ) : (
+                    <Dashboard
+                        folders={user.folders}
+                        notes={user.notes}
+                        heading={`${user.fullName}'s Notes`}
+                    />
+                )
+            )}
+
+            {/* Original */}
+            {/* {!user.notes.length ? (
                 <Dashboard/>
             ) : (
                 <Dashboard
@@ -54,7 +76,7 @@ function TestHome() {
                     notes={user.notes}
                     heading={`${user.fullName}'s Notes`}
                 />
-            )}
+            )} */}
         </>
     );
 };

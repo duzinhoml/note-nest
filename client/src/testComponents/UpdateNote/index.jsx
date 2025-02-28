@@ -4,7 +4,6 @@ import { useMutation } from "@apollo/client";
 
 import { QUERY_ME } from "../../utils/queries";
 import { UPDATE_NOTE } from "../../utils/mutations";
-import { DELETE_NOTE } from "../../utils/mutations";
 
 import { useNoteList } from "../../context/NoteListContext";
 
@@ -30,12 +29,6 @@ function UpdateNote() {
     }, [currentNote]);
 
     const [updateNote, { error: updateError }] = useMutation(UPDATE_NOTE, {
-        refetchQueries: [
-            QUERY_ME
-        ]
-    });
-
-    const [deleteNote, { error: deleteError }] = useMutation(DELETE_NOTE, {
         refetchQueries: [
             QUERY_ME
         ]

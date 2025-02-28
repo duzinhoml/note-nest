@@ -9,6 +9,10 @@ import { useNoteList } from "../../context/NoteListContext";
 
 import '../Dashboard/index.css';
 
+// TO BE REMOVED
+import Auth from '../../utils/auth.js';
+// 
+
 function NoteActions() {
     const navigate = useNavigate();
     const { currentNote, setCurrentNote } = useNoteList();
@@ -84,6 +88,18 @@ function NoteActions() {
                         <span className="me-2"><i class="fa-solid fa-trash"></i></span>
                         Delete Note
                     </button>
+
+                    {/* TO BE REMOVED */}
+                    <button 
+                        type="button"
+                        className={`btn btn-light mt-2 text-start w-100 border-secondary`}
+                        onClick={() => Auth.logout()}
+                        style={{ borderColor: '#ba0837', cursor: 'pointer' }}
+                    >
+                        Logout
+                    </button>
+                    {/*  */}
+
                 </div>
             </div>
         </div>
