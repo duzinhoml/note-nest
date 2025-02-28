@@ -11,8 +11,6 @@ import { useNoteList } from "../../context/NoteListContext";
 function UpdateNote() {
     const navigate = useNavigate();
     const { currentNote, setCurrentNote } = useNoteList();
-    console.log(currentNote.tags)
-
 
     const { _id, title, text } = currentNote || {};
     const noteId = _id;
@@ -77,9 +75,10 @@ function UpdateNote() {
     }
 
     return (
+        // Removed 'col'
         <form 
             id="testUpdateNoteForm" 
-            className="text-light col p-0 pt-4" 
+            className="text-light p-0 pt-4 single-note" 
             onSubmit={handleFormSubmit}
             style={{ 
                 // border: '2px solid rgba(0, 255, 4, 0.1)',
@@ -123,7 +122,7 @@ function UpdateNote() {
                         placeholder="Start typing your note here..."
                         onChange={handleInputChange}
                         style={{
-                            height: '46vw',
+                            height: '32vw',
                             border: 'none',
                             resize: 'none'
                         }}

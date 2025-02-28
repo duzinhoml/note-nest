@@ -1,0 +1,18 @@
+/* .ml-background: #262731 */
+
+.sidebar-notes {
+    background-color: hsl(235, 13%, 37%);
+}
+
+.sidebar-interact {
+    cursor: pointer;
+}
+
+.sidebar-interact:hover {
+    background-color: hsl(235, 13%, 57%);
+}
+
+.sidebar-tags {
+    background-color: hsl(235, 13%, 37%);
+}
+

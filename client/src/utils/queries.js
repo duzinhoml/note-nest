@@ -47,6 +47,7 @@ export const QUERY_ME = gql`
                 title
                 text
                 tags
+                isArchived
                 createdAt
             }
         }

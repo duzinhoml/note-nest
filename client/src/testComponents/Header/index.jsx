@@ -1,10 +1,11 @@
-
+import '../Dashboard/index.css';
 
 function Header({ heading }) {
 
     return (
+        // Removed 'col-12'
         <div 
-            className="text-light ml-background m-0 mt-2 p-0 col-12" 
+            className="text-light ml-background m-0 mt-2 mb-2 p-0 header" 
             // style={{ border: '2px solid rgba(0, 255, 4, 0.1)' }}
         >
             <nav class="navbar ml-background w-100">

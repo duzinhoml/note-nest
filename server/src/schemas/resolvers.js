@@ -199,25 +199,35 @@ const resolvers = {
             try {
                 if (context.user) {
                     const note = await Note.findOne({ _id: noteId });
-
-                    const existingTags = note.tags.map(tag => tag.name);
-                    const newTags = input.tags.filter(tag => !existingTags.includes(tag.name));
-
-                    const updatedNote = await Note.findOneAndUpdate(
-                        { _id: noteId },
-                        { $addToSet: { 
-                            title: input.title,
-                            text: input.text,
-                            tags: {
-                                $each: newTags
-                            }
-                         }},
-                        { new: true }
-                    ).populate('tags');
-    
+                    
                     if (!note) {
                         return 'Note not found';
                     }
+                    // const existingTags = note.tags.map(tag => tag.name);
+                    // const newTags = input.tags.filter(tag => !existingTags.includes(tag.name));
+
+                    const updateFields = {
+                        ...(input.title && { title: input.title }),
+                        ...(input.text && { text: input.text }),
+                        ...(typeof input.isArchived === "boolean" && { isArchived: input.isArchived })
+                    };
+
+                    const updateQuery = { $set: updateFields };
+
+                    if (input.tags && input.tags.length > 0) {
+                        updateQuery.$addToSet = { tags: { $each: input.tags } };
+                    }            
+
+                    const updatedNote = await Note.findOneAndUpdate(
+                        { _id: noteId },
+                        updateQuery,
+                        { new: true, runValidators: true }
+                    );
+            
+                    if (!updatedNote) {
+                        throw new Error("Failed to update note");
+                    }
+    
                     return updatedNote;
                 }
             } 

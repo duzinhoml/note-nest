@@ -7,11 +7,14 @@ import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@ap
 import { setContext } from '@apollo/client/link/context';
 import { Outlet } from 'react-router-dom';
 
-import { FolderListProvider } from './context/FolderListContext.jsx';
-import { NoteListProvider } from './context/NoteListContext.jsx';
-import { OffcanvasProvider } from './context/OffcanvasContext.jsx';
+import { SidebarProvider } from './testComponents/Sidebar/context.jsx';
+import { NoteActionsProvider } from './testComponents/NoteActions/context.jsx';
 
-import Navbar from './components/Navbar.jsx';
+// import { FolderListProvider } from './context/FolderListContext.jsx';
+import { NoteListProvider } from './context/NoteListContext.jsx';
+// import { OffcanvasProvider } from './context/OffcanvasContext.jsx';
+
+// import Navbar from './components/Navbar.jsx';
 
 const httpLink = createHttpLink({
   uri: process.env.NODE_ENV === 'production' ? '/graphql' : 'http://localhost:3001/graphql'
@@ -39,17 +42,20 @@ function App() {
     <>
       <ApolloProvider client={client}>
 
-        <FolderListProvider>
-          <NoteListProvider>
-            <OffcanvasProvider>
+        {/* <FolderListProvider> */}
+        <SidebarProvider>
+          <NoteActionsProvider>
+            <NoteListProvider>
+              {/* <OffcanvasProvider> */}
 
-              <Navbar/>
-              <Outlet />
+                {/* <Navbar/> */}
+                <Outlet />
 
-            </OffcanvasProvider>
-          </NoteListProvider>
-        </FolderListProvider>
-        
+              {/* </OffcanvasProvider> */}
+            </NoteListProvider>
+          </NoteActionsProvider>
+        {/* </FolderListProvider> */}
+        </SidebarProvider>
       </ApolloProvider>
     </>
   )

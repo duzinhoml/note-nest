@@ -25,6 +25,7 @@ const typeDefs = `
         title: String!
         text: String!
         tags: [String]
+        isArchived: Boolean
         folderId: ID
         createdAt: String!
     }
@@ -69,6 +70,7 @@ const typeDefs = `
         title: String
         text: String
         tags: [String]
+        isArchived: Boolean
     }
 
     type Query {

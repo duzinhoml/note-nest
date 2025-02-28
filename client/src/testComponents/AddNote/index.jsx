@@ -4,6 +4,8 @@ import { useMutation } from "@apollo/client";
 import { QUERY_ME } from "../../utils/queries";
 import { CREATE_NOTE } from "../../utils/mutations";
 
+import '../Dashboard/index.css';
+
 function AddNote() {
     const [formData, setFormData] = useState({
         title: '',
@@ -119,9 +121,12 @@ function AddNote() {
         //         </div>
         //     </div>
         // </form>
+
+
+        // Removed 'col'
         <form 
             id="testUpdateNoteForm" 
-            className="text-light col p-0 pt-4" 
+            className="text-light p-0 pt-4 single-note" 
             onSubmit={handleFormSubmit}
             style={{ 
                 // border: '2px solid rgba(0, 255, 4, 0.1)' ,
@@ -173,7 +178,7 @@ function AddNote() {
                         placeholder="Start typing your note here..."
                         onChange={handleInputChange}
                         style={{
-                            height: '46vw',
+                            height: '32vw',
                             border: 'none',
                             resize: 'none'
                         }}

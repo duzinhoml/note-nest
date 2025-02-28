@@ -1,33 +1,42 @@
+import { useState } from 'react';
+import { useSidebar } from './context.jsx';
 
-function Sidebar() {
+import '../Dashboard/index.css';
+import './index.css';
+
+function Sidebar({ notes }) {
+    const { noteSelection, tagSelection, toggleAllNotes, toggleArchivedNotes, toggleTagSelection } = useSidebar();
 
     return (
+        // Removed 'col-2'
         <div 
-            className="text-light ml-background col-2 m-3 mt-3 p-0" 
+            className="text-light ml-background m-3 mt-3 p-0 sidebar" 
             style={{ 
                 // border: '2px solid rgba(0, 255, 4, 0.1)',
             }}
         >
-            <div className="pb-3">
+            <div className="pb-3 ms-2">
                 <h3>
                     <span className="me-2"><i class="fa-solid fa-pencil"></i></span>
                     NoteNest
                 </h3>
-                {/* <hr /> */}
             </div>
             
             <div>
                 <ul className="list-group list-group-flush">
-                    <li className="list-group-item ml-background d-flex justify-content-between text-light border-bottom-0 rounded">
+                    <li className={`list-group-item ml-background ${noteSelection === 'all' ? 'd-flex justify-content-between sidebar-notes' : ''} text-light border-bottom-0 rounded sidebar-interact`} onClick={() => toggleAllNotes()}>
                         <div>
-                            <span className="me-2"><i class="fa-solid fa-house"></i></span>
+                            <span className="me-2"><i class="fa-solid fa-house" style={{ color: noteSelection === 'all' ? '#F63366' : '#f8f9fa' }}></i></span>
                             All Notes
                         </div>
-                        <span><i class="fa-solid fa-chevron-right"></i></span>
+                        {noteSelection === 'all' ? (<span><i class="fa-solid fa-chevron-right" style={{ color: '#F63366' }}></i></span>) : ''}
                     </li>
-                    <li className="list-group-item ml-background text-light rounded">
-                            <span className="me-2"><i class="fa-solid fa-box-archive"></i></span>
+                    <li className={`list-group-item ml-background ${noteSelection === 'archived' ? 'd-flex justify-content-between sidebar-notes' : ''} text-light rounded sidebar-interact`} onClick={() => toggleArchivedNotes()}>
+                        <div>
+                            <span className="me-2" style={{ marginLeft: '1px', color: noteSelection === 'archived' ? '#F63366' : '#f8f9fa' }}><i class="fa-solid fa-box-archive"></i></span>
                             Archived Notes
+                        </div>
+                        {noteSelection === 'archived' ? (<span><i class="fa-solid fa-chevron-right" style={{ color: '#F63366' }}></i></span>) : ''}
                     </li>
                 </ul>
             </div>
@@ -39,18 +48,17 @@ function Sidebar() {
                     <li className="list-group-item ml-background text-truncate text-white-50 border-bottom-0">
                         Tags
                     </li>
-                    <li className="list-group-item ml-background text-truncate text-light border-bottom-0">
-                        <span className="me-2"><i class="fa-solid fa-tag"></i></span>
-                        Cooking
-                    </li>
-                    <li className="list-group-item ml-background text-truncate text-light border-bottom-0">
-                        <span className="me-2"><i class="fa-solid fa-tag"></i></span>
-                        Dev
-                    </li>
-                    <li className="list-group-item ml-background text-truncate text-light border-bottom-0">
-                        <span className="me-2"><i class="fa-solid fa-tag"></i></span>
-                        Fitness
-                    </li>
+                    {notes &&
+                        notes.map(note => (
+                            note.tags &&
+                                note.tags.map(tag => (
+                                <li key={tag} className={`list-group-item ml-background text-truncate text-light border-bottom-0 rounded sidebar-interact ${tagSelection === tag ? 'sidebar-tags' : ''}`} onClick={() => toggleTagSelection(tag)}>
+                                    <span className="me-2" style={{ marginLeft: '1px', color: tagSelection === tag ? '#F63366' : '#f8f9fa' }}><i class="fa-solid fa-tag"></i></span>
+                                    {tag}
+                                </li>
+                            ))
+                        ))
+                    }
                 </ul>
             </div>
         </div>
