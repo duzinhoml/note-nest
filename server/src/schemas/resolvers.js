@@ -21,13 +21,15 @@ const resolvers = {
         },
         me: async (_, _args, context) => {
             if (context.user) {
-                return await User.findOne({ _id: context.user._id })
+                const user = await User.findOne({ _id: context.user._id })
                     .populate('folders')
                     .populate({
                         path: 'folders',
                         populate: 'notes'
                     })
                     .populate('notes');
+
+                return user.toJSON();
             }
             throw new AuthenticationError('Not Authenticated');
         },

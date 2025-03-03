@@ -1,0 +1,40 @@
+.noteList-notes {
+    cursor: pointer;
+    background-color: hsl(235, 13%, 27%);
+    
+    border-radius: 6px;
+    border-top-left-radius: 6px !important;
+    border-top-right-radius: 6px !important;
+    border-bottom-left-radius: 6px !important;
+    border-bottom-right-radius: 6px !important;
+    border-bottom: 1px solid #262731 !important;
+
+    &:hover {
+        background-color: hsl(235, 13%, 57%);
+        border-radius: 6px;
+        border-bottom: 1px solid #262731 !important;
+    }
+}
+
+.noteList-interact {
+    cursor: pointer;
+    border-bottom: 1px solid hsl(0, 0.00%, 31%) !important;
+}
+
+.noteList-interact:hover {
+    background-color: hsl(235, 13%, 57%);
+    border-radius: 6px;
+    border-bottom: 1px solid #262731 !important;
+}
+
+.noteList-tags-active {
+    background-color: hsl(235, 13%, 47%);
+}
+
+.noteList-notes:hover .noteList-tags-active {
+    background-color: hsl(235, 13%, 37%);
+}
+
+.noteList-tags {
+    background-color: hsl(235, 13%, 37%);
+}

@@ -25,18 +25,18 @@ const noteSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
-            get: (timestamp) => {
-                const formattedDate = timestamp.toLocaleString('en-US', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: '2-digit',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit',
-                    hour12: true
-                  });
-                  return formattedDate.replace(/(\d{2}),/, '$1.');
-            }
+            // get: (timestamp) => {
+            //     const formattedDate = timestamp.toLocaleString('en-US', {
+            //         year: 'numeric',
+            //         month: 'short',
+            //         day: '2-digit',
+            //         hour: '2-digit',
+            //         minute: '2-digit',
+            //         second: '2-digit',
+            //         hour12: true
+            //       });
+            //       return formattedDate.replace(/(\d{2}),/, '$1.');
+            // }
         }
     },
     {
@@ -46,6 +46,17 @@ const noteSchema = new Schema(
         id: false
     }
 );
+
+noteSchema.virtual("createDate").get(function () {
+    const createdAt = new Date(this.createdAt);
+  
+    const day = createdAt.getDate().toString().padStart(2, '0');
+    const month = createdAt.toLocaleString('en-US', { month: 'short' });
+    const year = createdAt.getFullYear();
+  
+    return `${day} ${month}. ${year}`;
+  });
+  
 
 const Note = model('Note', noteSchema);
 

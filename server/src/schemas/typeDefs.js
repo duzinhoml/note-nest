@@ -27,7 +27,7 @@ const typeDefs = `
         tags: [String]
         isArchived: Boolean
         folderId: ID
-        createdAt: String!
+        createDate: String!
     }
 
     type Auth {

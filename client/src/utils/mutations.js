@@ -69,7 +69,7 @@ export const UPDATE_NOTE = gql`
             title
             text
             tags
-            createdAt
+            createDate
         }
     }
 `;

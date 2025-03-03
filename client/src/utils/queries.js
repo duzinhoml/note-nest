@@ -38,7 +38,7 @@ export const QUERY_ME = gql`
                     title
                     text
                     tags
-                    createdAt
+                    createDate
                 }
                 createdAt
             }
@@ -48,7 +48,7 @@ export const QUERY_ME = gql`
                 text
                 tags
                 isArchived
-                createdAt
+                createDate
             }
         }
     }
