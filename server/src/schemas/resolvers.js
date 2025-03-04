@@ -344,15 +344,13 @@ const resolvers = {
                 return `Failed to delete note: ${err.message}`;
             }
         },
-        deleteTagFromNote: async (_, { noteId, tagId }, context) => {
+        deleteTagFromNote: async (_, { noteId, tagName }, context) => {
             try {
                 if (context.user) {
                     return await Note.findOneAndUpdate(
                         { _id: noteId },
                         { $pull: {
-                            tags: { 
-                                _id: tagId
-                            }
+                            tags: tagName
                         }},
                         { new: true }
                     );

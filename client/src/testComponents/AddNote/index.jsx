@@ -5,12 +5,16 @@ import { QUERY_ME } from "../../utils/queries";
 import { CREATE_NOTE } from "../../utils/mutations";
 
 import '../Dashboard/index.css';
+import '../SingleNote/index.css';
 
 function AddNote() {
     const [formData, setFormData] = useState({
         text: '',
         tags: ''
     });
+
+    const title = formData.text.split('\n');
+    const tags = formData.tags ? formData.tags.split(', ') : [];
 
     const [createNote, { error }] = useMutation(CREATE_NOTE, {
         refetchQueries: [
@@ -42,7 +46,7 @@ function AddNote() {
 
             setFormData({
                 text: '',
-                tags: []
+                tags: ''
                 // tags: 'Add tags separated by commas (e.g. Work, Planning)'
             });
         } 
@@ -50,15 +54,6 @@ function AddNote() {
             console.error(err)
         }
     }
-
-
-
-    const title = formData.text.split('\n');
-
-    // WORK ON LATER
-    // const tags = formData.tags ? formData.tags.split(', ').map(tag => tag.trim()) : [];
-
-    // console.log('Tags: ', tags)
 
     return (
         // Removed 'col'
@@ -79,13 +74,17 @@ function AddNote() {
                         <span className="me-2"><i class="fa-solid fa-tag"></i></span>
                         Tags
                     </div>
-                    <div className="col-auto">
+                    <div className="col">
                         <input 
+                            className="ml-background text-light border-0 ps-1 note-input"
                             type="text" 
                             name="tags"
                             value={formData.tags}
                             onChange={handleInputChange}
-                            placeholder="Tags..."/>
+                            placeholder="Add tags separated by commas (e.g. Work, Planning)"
+                            autoComplete="off"
+                            style={{ width: '77%' }}
+                        />
                     </div>
                 </div>
                 <div className="row mt-2" style={{ fontSize: '14px' }}>
@@ -93,18 +92,19 @@ function AddNote() {
                         <span className="me-2"><i class="fa-solid fa-clock"></i></span>
                         Last edited
                     </div>
-                    <div className="col-auto">Not yet saved</div>
+                    <div className="col-auto ps-3">Not yet saved</div>
                 </div>
 
                 <hr/>
 
                 <div className="mt-3">
                     <textarea 
-                        className="ml-background w-100 text-light"
+                        className="ml-background w-100 text-light p-1 note-input"
                         type="text"
                         name="text"
                         value={formData.text}
                         placeholder="Start typing your note here..."
+                        autoComplete="off"
                         onChange={handleInputChange}
                         style={{
                             height: '32vw',

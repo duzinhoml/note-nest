@@ -49,14 +49,12 @@ function Sidebar({ notes }) {
                         Tags
                     </li>
                     {notes &&
-                        notes.map(note => (
-                            note.tags &&
-                                note.tags.map(tag => (
-                                <li key={tag} className={`list-group-item ml-background text-truncate text-light border-bottom-0 rounded sidebar-interact ${tagSelection === tag ? 'sidebar-tags' : ''}`} onClick={() => toggleTagSelection(tag)}>
-                                    <span className="me-2" style={{ marginLeft: '1px', color: tagSelection === tag ? '#F63366' : '#f8f9fa' }}><i class="fa-solid fa-tag"></i></span>
-                                    {tag}
-                                </li>
-                            ))
+                        [...new Set(notes.flatMap(note => note.tags))]
+                            .map(tag => (
+                            <li key={tag} className={`list-group-item ml-background text-truncate text-light border-bottom-0 rounded sidebar-interact ${tagSelection === tag ? 'sidebar-tags' : ''}`} onClick={() => toggleTagSelection(tag)}>
+                                <span className="me-2" style={{ marginLeft: '1px', color: tagSelection === tag ? '#F63366' : '#f8f9fa' }}><i class="fa-solid fa-tag"></i></span>
+                                {tag}
+                            </li>
                         ))
                     }
                 </ul>

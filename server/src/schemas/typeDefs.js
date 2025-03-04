@@ -97,7 +97,7 @@ const typeDefs = `
         deleteFolder(folderId: ID!): String
         deleteNoteFromFolder(folderId: ID!, noteId: ID!): Folder
         deleteNote(noteId: ID!): String
-        deleteTagFromNote(noteId: ID!, tagId: ID!): Note
+        deleteTagFromNote(noteId: ID!, tagName: String!): Note
     }
 `;
 

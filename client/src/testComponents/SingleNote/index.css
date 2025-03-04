@@ -1,0 +1,18 @@
+.note-input:focus {
+    border-radius: 6px;
+    outline: 1px solid #F63366;
+}
+
+.note-tags {
+    background-color: hsl(235, 13%, 37%);
+
+    &:hover::after {
+        font-family: "Font Awesome 6 Free";
+        content: ' \f2ed';
+        cursor: pointer;
+    }
+}
+
+::placeholder {
+    color: hsl(0, 0.00%, 61%);
+}

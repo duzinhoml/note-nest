@@ -103,15 +103,12 @@ export const DELETE_NOTE = gql`
 `;
 
 export const DELETE_TAG_FROM_NOTE = gql`
-    mutation deleteTagFromNote($noteId: ID!, $tagId: ID!) {
-        deleteTagFromNote(noteId: $noteId, tagId: $tagId) {
+    mutation deleteTagFromNote($noteId: ID!, $tagName: String!) {
+        deleteTagFromNote(noteId: $noteId, tagName: $tagName) {
             _id
             title
             text
-            tags {
-                _id
-                name
-            }
+            tags
         }
     }
 `;
