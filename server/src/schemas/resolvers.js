@@ -27,9 +27,21 @@ const resolvers = {
                         path: 'folders',
                         populate: 'notes'
                     })
-                    .populate('notes');
+                    .populate({
+                        path: 'notes',
+                        options: {
+                            sort: { updatedAt: -1 }
+                        }
+                    });
 
-                return user.toJSON();
+                const allTags = user.notes.flatMap(note => note.tags);
+                const uniqueTags = [...new Set(allTags.map(tag => tag))];
+                uniqueTags.sort();
+
+                return {
+                    ...user.toJSON(),
+                    tags: uniqueTags
+                }
             }
             throw new AuthenticationError('Not Authenticated');
         },
@@ -211,7 +223,7 @@ const resolvers = {
                     const updateFields = {
                         ...(input.title && { title: input.title }),
                         ...(input.text && { text: input.text }),
-                        ...(typeof input.isArchived === "boolean" && { isArchived: input.isArchived })
+                        ...(typeof input.isArchived === "boolean" && { isArchived: input.isArchived }),
                     };
 
                     const updateQuery = { $set: updateFields };

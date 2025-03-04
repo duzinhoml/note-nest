@@ -80,6 +80,7 @@ function Register({ setAccountStep }) {
                                             value={formData.firstName}
                                             onChange={handleInputChange}
                                             required
+                                            autoComplete='off'
                                             style={{ fontSize: '16px' }}
                                         />
                                     </div>
@@ -93,6 +94,7 @@ function Register({ setAccountStep }) {
                                             value={formData.lastName}
                                             onChange={handleInputChange}
                                             required
+                                            autoComplete='off'
                                             style={{ fontSize: '16px' }}
                                         />
                                     </div>
@@ -132,6 +134,7 @@ function Register({ setAccountStep }) {
                                             value={formData.email}
                                             onChange={handleInputChange}
                                             required
+                                            autoComplete='off'
                                             style={{ fontSize: '16px' }}
                                         />
                                     </div>
@@ -145,6 +148,7 @@ function Register({ setAccountStep }) {
                                             value={formData.username}
                                             onChange={handleInputChange}
                                             required
+                                            autoComplete='off'
                                             style={{ fontSize: '16px' }}
                                         />
                                     </div>
@@ -158,6 +162,7 @@ function Register({ setAccountStep }) {
                                             value={formData.password}
                                             onChange={handleInputChange}
                                             required
+                                            autoComplete='off'
                                             style={{ fontSize: '16px' }}
                                         />
                                     </div>

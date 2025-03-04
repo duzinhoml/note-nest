@@ -9,6 +9,7 @@ const typeDefs = `
         password: String!
         folders: [Folder]
         notes: [Note]
+        tags: [String]
         createdAt: String!
     }
 
@@ -28,6 +29,7 @@ const typeDefs = `
         isArchived: Boolean
         folderId: ID
         createDate: String!
+        updateDate: String!
     }
 
     type Auth {

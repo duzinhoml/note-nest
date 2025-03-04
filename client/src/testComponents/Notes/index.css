@@ -38,3 +38,10 @@
 .noteList-tags {
     background-color: hsl(235, 13%, 37%);
 }
+
+.creating {
+    background-color: hsl(235, 13%, 47%);
+    border-radius: 6px;
+    border-top-left-radius: 6px !important;
+    border-top-right-radius: 6px !important;
+}

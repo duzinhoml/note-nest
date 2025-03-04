@@ -112,6 +112,8 @@ function UpdateNote() {
         }
     }
 
+    console.log(currentNote)
+
     return (
         // Removed 'col'
         <form 
@@ -168,7 +170,7 @@ function UpdateNote() {
                         <span className="me-2"><i class="fa-solid fa-clock"></i></span>
                         Last edited
                     </div>
-                    <div className="col-auto ps-3">{currentNote.createDate}</div>
+                    <div className="col-auto ps-3">{currentNote.updateDate}</div>
                 </div>
 
                 <hr/>
@@ -182,7 +184,7 @@ function UpdateNote() {
                         placeholder="Start typing your note here..."
                         onChange={handleInputChange}
                         style={{
-                            height: '32vw',
+                            height: '34vw',
                             border: 'none',
                             resize: 'none'
                         }}

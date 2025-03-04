@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 
 import { useSidebar } from '../Sidebar/context.jsx';
+import { useInputRef } from '../AddNote/context.jsx';
+import { useNotes } from '../Notes/context.jsx';
 import { useNoteList } from "../../context/NoteListContext.jsx";
 
 import NoteList from './NoteList.jsx';
@@ -11,6 +13,8 @@ function Notes({ notes }) {
     const navigate = useNavigate();
 
     const { tagSelection } = useSidebar();
+    const { inputTextRef } = useInputRef();
+    const { setIsCreating } = useNotes();
     const { currentNote, setCurrentNote } = useNoteList();
 
     const toggleCurrentNote = (note) => {
@@ -23,6 +27,15 @@ function Notes({ notes }) {
             navigate(`/notes/${note._id}`);
         }
     };
+
+    const toggleCreate = () => {
+        setCurrentNote(null);
+        setIsCreating(true);
+
+        if (inputTextRef.current) {
+            inputTextRef.current.focus();
+        }
+    }
 
     const archivedNotes = notes.filter(note => note.isArchived === true);
     const activeNotes = notes.filter(note => note.isArchived === false);
@@ -42,6 +55,7 @@ function Notes({ notes }) {
             <div className="container-fluid d-flex flex-column">
                 <button 
                     className="btn btn-danger text-light mb-2 p-2"
+                    onClick={() => toggleCreate()}
                     style={{
                         backgroundColor: '#F63366',
                         borderColor: '#ba0837'

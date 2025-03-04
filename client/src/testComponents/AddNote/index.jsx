@@ -1,17 +1,25 @@
-import { useState } from "react";
 import { useMutation } from "@apollo/client";
 
 import { QUERY_ME } from "../../utils/queries";
 import { CREATE_NOTE } from "../../utils/mutations";
 
+import { useFormData } from "../UpdateNote/context.jsx";
+import { useInputRef } from "../AddNote/context.jsx";
+import { useNotes } from "../Notes/context.jsx";
+
 import '../Dashboard/index.css';
 import '../SingleNote/index.css';
 
 function AddNote() {
-    const [formData, setFormData] = useState({
-        text: '',
-        tags: ''
-    });
+    const { inputTextRef } = useInputRef();
+    const { setIsCreating } = useNotes();
+
+    const { formData, setFormData } = useFormData();
+    // const [formData, setFormData] = useState({
+    //     text: '',
+    //     tags: ''
+    // });
+
 
     const title = formData.text.split('\n');
     const tags = formData.tags ? formData.tags.split(', ') : [];
@@ -47,12 +55,22 @@ function AddNote() {
             setFormData({
                 text: '',
                 tags: ''
-                // tags: 'Add tags separated by commas (e.g. Work, Planning)'
             });
+
+            setIsCreating(false);
         } 
         catch (err) {
             console.error(err)
         }
+    };
+
+    const toggleCancelNote = () => {
+        setFormData({
+            text: '',
+            tags: ''
+        });
+        
+        setIsCreating(false);
     }
 
     return (
@@ -67,7 +85,7 @@ function AddNote() {
             }}
         >
             <div className="container-fluid text-light">
-                <h3>{title[0] ? title[0] : 'Enter a title...'}</h3>
+                <h3>{title[0] ? title[0] : 'Note Title'}</h3>
 
                 <div className="row mt-3" style={{ fontSize: '14px' }}>
                     <div className="col-3">
@@ -99,6 +117,7 @@ function AddNote() {
 
                 <div className="mt-3">
                     <textarea 
+                        ref={inputTextRef}
                         className="ml-background w-100 text-light p-1 note-input"
                         type="text"
                         name="text"
@@ -107,7 +126,7 @@ function AddNote() {
                         autoComplete="off"
                         onChange={handleInputChange}
                         style={{
-                            height: '32vw',
+                            height: '34vw',
                             border: 'none',
                             resize: 'none'
                         }}
@@ -128,7 +147,7 @@ function AddNote() {
                     >
                         Save Note
                     </button>
-                    <button className="btn btn-secondary">Cancel</button>
+                    <button className="btn btn-secondary" onClick={() => toggleCancelNote()}>Cancel</button>
                 </div>
 
             </div>

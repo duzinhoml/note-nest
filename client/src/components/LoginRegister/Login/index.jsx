@@ -62,6 +62,7 @@ function Login({ setAccountStep }) {
                                     value={formData.username}
                                     onChange={handleInputChange}
                                     required
+                                    autoComplete='off'
                                     style={{ fontSize: '16px' }}
                                 />
                             </div>
@@ -76,6 +77,7 @@ function Login({ setAccountStep }) {
                                     value={formData.password}
                                     onChange={handleInputChange}
                                     required
+                                    autoComplete='off'
                                     style={{ fontSize: '16px' }}
                                 />
                             </div>

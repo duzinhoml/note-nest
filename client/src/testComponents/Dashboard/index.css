@@ -12,6 +12,7 @@
 
 .sidebar {
     grid-area: sidebar;
+    overflow-y: scroll;
     /* background-color: hsl(240, 100%, 70%); */
 }
 
@@ -22,6 +23,8 @@
 
 .notes {
     grid-area: notes;
+    overflow-y: scroll;
+    margin-bottom: 20px;
     /* border-left: 1.5px solid hsl(0, 0.00%, 31%); */
     /* background-color: hsl(60, 100%, 70%); */
 }

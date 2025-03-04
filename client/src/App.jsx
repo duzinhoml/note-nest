@@ -8,12 +8,10 @@ import { setContext } from '@apollo/client/link/context';
 import { Outlet } from 'react-router-dom';
 
 import { SidebarProvider } from './testComponents/Sidebar/context.jsx';
-
-// import { FolderListProvider } from './context/FolderListContext.jsx';
+import { FormDataProvider } from './testComponents/UpdateNote/context.jsx';
+import { InputRefProvider } from './testComponents/AddNote/context.jsx';
+import { NotesProvider } from './testComponents/Notes/context.jsx';
 import { NoteListProvider } from './context/NoteListContext.jsx';
-// import { OffcanvasProvider } from './context/OffcanvasContext.jsx';
-
-// import Navbar from './components/Navbar.jsx';
 
 const httpLink = createHttpLink({
   uri: process.env.NODE_ENV === 'production' ? '/graphql' : 'http://localhost:3001/graphql'
@@ -42,14 +40,15 @@ function App() {
       <ApolloProvider client={client}>
 
         <SidebarProvider>
-        {/* <FolderListProvider> */}
-          <NoteListProvider>
-            {/* <OffcanvasProvider> */}
-              {/* <Navbar/> */}
-              <Outlet />
-            {/* </OffcanvasProvider> */}
-          </NoteListProvider>
-        {/* </FolderListProvider> */}
+          <FormDataProvider>
+            <InputRefProvider>
+              <NotesProvider>
+                <NoteListProvider>
+                  <Outlet />
+                </NoteListProvider>
+              </NotesProvider>
+            </InputRefProvider>
+          </FormDataProvider>
         </SidebarProvider>
         
       </ApolloProvider>
