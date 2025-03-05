@@ -1,8 +1,11 @@
 import { useState, useContext, createContext } from 'react';
+import { useSearch } from '../Header/context.jsx';
 
 const SidebarContext = createContext();
 
 export const SidebarProvider = ({ children }) => {
+    const { searchTerm, setSearchTerm } = useSearch();
+
     const [noteSelection, setNoteSelection] = useState('all');
     const [tagSelection, setTagSelection] = useState();
 
@@ -19,6 +22,7 @@ export const SidebarProvider = ({ children }) => {
             setTagSelection(null);
         }
         else {
+            setSearchTerm('');
             setTagSelection(tag)
         }
     }

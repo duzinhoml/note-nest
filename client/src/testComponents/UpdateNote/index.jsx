@@ -112,8 +112,6 @@ function UpdateNote() {
         }
     }
 
-    console.log(currentNote)
-
     return (
         // Removed 'col'
         <form 

@@ -1,11 +1,17 @@
 import { useState } from 'react';
+import { useSearch } from '../Header/context.jsx';
 import { useSidebar } from './context.jsx';
 
 import '../Dashboard/index.css';
 import './index.css';
 
-function Sidebar({ notes, tags }) {
-    const { noteSelection, tagSelection, toggleAllNotes, toggleArchivedNotes, toggleTagSelection } = useSidebar();
+function Sidebar({ tags }) {
+    const { searchTerm } = useSearch();
+    const { noteSelection, tagSelection, setTagSelection, toggleAllNotes, toggleArchivedNotes, toggleTagSelection } = useSidebar();
+
+    if (searchTerm) {
+        setTagSelection(null);
+    }
 
     return (
         // Removed 'col-2'
@@ -48,15 +54,6 @@ function Sidebar({ notes, tags }) {
                     <li className="list-group-item ml-background text-truncate text-white-50 border-bottom-0">
                         Tags
                     </li>
-                    {/* {notes &&
-                        [...new Set(notes.flatMap(note => note.tags))]
-                            .map(tag => (
-                            <li key={tag} className={`list-group-item ml-background text-truncate text-light border-bottom-0 rounded sidebar-interact ${tagSelection === tag ? 'sidebar-tags' : ''}`} onClick={() => toggleTagSelection(tag)}>
-                                <span className="me-2" style={{ marginLeft: '1px', color: tagSelection === tag ? '#F63366' : '#f8f9fa' }}><i class="fa-solid fa-tag"></i></span>
-                                {tag}
-                            </li>
-                        ))
-                    } */}
                     {tags &&
                         tags.map(tag => (
                             <li key={tag} className={`list-group-item ml-background text-truncate text-light border-bottom-0 rounded sidebar-interact ${tagSelection === tag ? 'sidebar-tags' : ''}`} onClick={() => toggleTagSelection(tag)}>

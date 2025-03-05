@@ -8,6 +8,7 @@ import { setContext } from '@apollo/client/link/context';
 import { Outlet } from 'react-router-dom';
 
 import { SidebarProvider } from './testComponents/Sidebar/context.jsx';
+import { SearchProvider } from './testComponents/Header/context.jsx';
 import { FormDataProvider } from './testComponents/UpdateNote/context.jsx';
 import { InputRefProvider } from './testComponents/AddNote/context.jsx';
 import { NotesProvider } from './testComponents/Notes/context.jsx';
@@ -39,17 +40,19 @@ function App() {
     <>
       <ApolloProvider client={client}>
 
+          <SearchProvider>
         <SidebarProvider>
-          <FormDataProvider>
-            <InputRefProvider>
-              <NotesProvider>
-                <NoteListProvider>
-                  <Outlet />
-                </NoteListProvider>
-              </NotesProvider>
-            </InputRefProvider>
-          </FormDataProvider>
+            <FormDataProvider>
+              <InputRefProvider>
+                <NotesProvider>
+                  <NoteListProvider>
+                    <Outlet />
+                  </NoteListProvider>
+                </NotesProvider>
+              </InputRefProvider>
+            </FormDataProvider>
         </SidebarProvider>
+          </SearchProvider>
         
       </ApolloProvider>
     </>

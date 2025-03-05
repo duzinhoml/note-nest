@@ -5,9 +5,11 @@ import { QUERY_ME } from "../../utils/queries.js";
 import { UPDATE_NOTE } from "../../utils/mutations.js";
 import { DELETE_NOTE } from "../../utils/mutations.js";
 
+import { useSidebar } from "../Sidebar/context.jsx";
 import { useNoteList } from "../../context/NoteListContext";
 
 import '../Dashboard/index.css';
+import './index.css';
 
 // TO BE REMOVED
 import Auth from '../../utils/auth.js';
@@ -15,6 +17,7 @@ import Auth from '../../utils/auth.js';
 
 function NoteActions() {
     const navigate = useNavigate();
+    const { noteSelection } = useSidebar();
     const { currentNote, setCurrentNote } = useNoteList();
 
     const { _id } = currentNote || {};
@@ -57,13 +60,32 @@ function NoteActions() {
                         isArchived: true
                     }
                 }
-            })
+            });
 
-            console.log('Successfully archived')
+            setCurrentNote(null);
+            navigate('/testing');
         } 
         catch (err) {
             console.error(err)
-            console.log('Failed to archive')
+        }
+    };
+
+    const handleUnarchiveNote = async () => {
+        try {
+            await updateNote({
+                variables: {
+                    noteId,
+                    input: {
+                        isArchived: false
+                    }
+                }
+            });
+
+            setCurrentNote(null);
+            navigate('/testing');
+        } 
+        catch (err) {
+            console.error(err)
         }
     }
 
@@ -78,16 +100,25 @@ function NoteActions() {
             
         >
 
-            <div className="container-fluid d-flex flex-column">
-                <div>
-                    <button className="btn btn-secondary mb-2 text-start w-100 border-secondary" onClick={() => handleArchiveNote()}>
-                        <span className="me-2"><i class="fa-solid fa-box-archive"></i></span>
-                        Archive Note
-                    </button>
-                    <button className="btn text-start text-light w-100" onClick={() => handleDeleteNote()} style={{ backgroundColor: '#F63366', borderColor: '#ba0837' }}>
-                        <span className="me-2"><i class="fa-solid fa-trash"></i></span>
-                        Delete Note
-                    </button>
+            <div className="container-fluid">
+                <div className="d-flex flex-column justify-content-between" style={{ height: '86vh' }}>
+                    <div>
+                        {noteSelection === 'all' ? 
+                            <button className="btn mb-2 text-start text-light w-100 note-actions-archive" onClick={() => handleArchiveNote()}>
+                                <span className="me-2"><i class="fa-solid fa-box-archive"></i></span>
+                                Archive Note
+                            </button>
+                            : 
+                            <button className="btn mb-2 text-start text-light w-100 note-actions-archive" onClick={() => handleUnarchiveNote()}>
+                                <span className="me-2"><i class="fa-solid fa-box-archive"></i></span>
+                                Unarchive Note
+                            </button>
+                        }
+                        <button className="btn text-start text-light w-100 note-actions-delete" onClick={() => handleDeleteNote()}>
+                            <span className="me-2"><i class="fa-solid fa-trash"></i></span>
+                            Delete Note
+                        </button>
+                    </div>
 
                     {/* TO BE REMOVED */}
                     <button 

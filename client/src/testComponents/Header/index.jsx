@@ -1,6 +1,21 @@
+import { useSearch } from './context.jsx';
+
 import '../Dashboard/index.css';
+import './index.css';
 
 function Header({ heading }) {
+    const { searchTerm, setSearchTerm } = useSearch();
+
+    const handleInputChange = (e) => {
+        const { value } = e.target;
+        setSearchTerm(value);
+    }
+
+    const clearSearch = () => {
+        if (searchTerm) {
+            setSearchTerm('');
+        }
+    }
 
     return (
         // Removed 'col-12'
@@ -12,13 +27,17 @@ function Header({ heading }) {
                 <div class="container-fluid d-flex justify-content-between">
                     <h3 style={{ color: 'white' }}>{heading}</h3>
                     <form class="d-flex flex-grow-1" style={{ maxWidth: '330px' }}role="search">
-                        <span className="input-group-text rounded-end-0" id="basic-addon-1" style={{ cursor: 'pointer' }}>
-                            <i class="fa-solid fa-magnifying-glass"></i>
+                        <span className="input-group-text rounded-end-0" id="basic-addon-1" style={{ cursor: searchTerm ? 'pointer' : 'default' }} onClick={() => clearSearch()}>
+                            {searchTerm ? <i class="fa-solid fa-xmark"></i> : <i class="fa-solid fa-magnifying-glass"></i>}
                         </span>
                         <input 
-                            class="form-control me-2 rounded-start-0" 
-                            type="search" 
+                            class="form-control me-2 rounded-start-0 header-input" 
+                            type="text"
+                            name="search"
+                            value={searchTerm}
                             placeholder="Search by title, content, or tags..." 
+                            autoComplete='off'
+                            onChange={handleInputChange}
                             aria-label="Search" 
                             aria-describedby="basic-addon1"
                         />
