@@ -49,6 +49,7 @@ export const QUERY_ME = gql`
                 tags
                 isArchived
                 createDate
+                createdAt
                 updateDate
                 updatedAt
             }

@@ -29,6 +29,7 @@ const typeDefs = `
         isArchived: Boolean
         folderId: ID
         createDate: String!
+        createdAt: String!
         updateDate: String!
         updatedAt: String!
     }

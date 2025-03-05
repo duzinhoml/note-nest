@@ -51,7 +51,16 @@ function NoteList({ notes, activeNotes, archivedNotes, activeTaggedNotes, archiv
                                     <p className={`me-2 p-1 ${currentNote && currentNote._id === note._id ? 'noteList-tags-active' : 'noteList-tags'} rounded`} style={{ fontSize: '12px' }}>{tag}</p>
                                 </div>
                             ))}
-                        <small className='mt-0 d-block'>{note.createDate}</small>
+                        <small className='mt-0 d-block'>
+                            {currentNote?.createdAt ? (() => {
+                                const createdAt = new Date(Number(currentNote.createdAt));
+                                const day = createdAt.getDate().toString().padStart(2, '0');
+                                const month = createdAt.toLocaleString('en-US', { month: 'short' });
+                                const year = createdAt.getFullYear();
+
+                                return `${day} ${month}. ${year}`;
+                            })() : "No date available"}
+                        </small>
                     </li>
                 )) : 
                 notes && noteSelection === 'all' ? (
