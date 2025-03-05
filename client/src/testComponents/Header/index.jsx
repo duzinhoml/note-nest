@@ -1,4 +1,4 @@
-import { useSearch } from './context.jsx';
+import { useSearch } from '../../context/SearchContext.jsx';
 
 import '../Dashboard/index.css';
 import './index.css';

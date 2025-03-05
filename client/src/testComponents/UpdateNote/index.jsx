@@ -79,7 +79,7 @@ function UpdateNote() {
                 text: '',
                 tags: ''
             })
-            navigate('/testing');
+            navigate('/');
         } 
         catch (err) {
             console.error(err)
@@ -105,7 +105,7 @@ function UpdateNote() {
             });
 
             setCurrentNote(null);
-            navigate('/testing');
+            navigate('/');
         }
         catch (err) {
             console.error(err)

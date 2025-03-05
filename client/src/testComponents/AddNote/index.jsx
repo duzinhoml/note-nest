@@ -3,9 +3,9 @@ import { useMutation } from "@apollo/client";
 import { QUERY_ME } from "../../utils/queries";
 import { CREATE_NOTE } from "../../utils/mutations";
 
-import { useFormData } from "../UpdateNote/context.jsx";
-import { useInputRef } from "../AddNote/context.jsx";
-import { useNotes } from "../Notes/context.jsx";
+import { useFormData } from "../../context/FormDataContext.jsx";
+import { useInputRef } from "../../context/InputRefContext.jsx";
+import { useNotes } from "../../context/NotesContext.jsx";
 
 import '../Dashboard/index.css';
 import '../SingleNote/index.css';

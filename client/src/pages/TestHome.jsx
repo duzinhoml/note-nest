@@ -1,19 +1,13 @@
 import { useState, useEffect, useLayoutEffect } from 'react';
 import { useQuery } from '@apollo/client';
+import { QUERY_ME } from '../utils/queries.js';
 
 import Login from '../components/LoginRegister/Login/index.jsx';
 import Register from '../components/LoginRegister/Register/index.jsx';
 
-import { QUERY_ME } from '../utils/queries.js';
+import Dashboard from '../testComponents/Dashboard/index.jsx';
 
 import Auth from '../utils/auth.js';
-
-// import Sidebar from '../testComponents/Sidebar/index.jsx';
-// import Header from '../testComponents/Header/index.jsx';
-// import Notes from '../testComponents/Notes/index.jsx';
-// import SingleNote from '../testComponents/SingleNote/index.jsx';
-// import NoteActions from '../testComponents/NoteActions/index.jsx';
-import Dashboard from '../testComponents/Dashboard/index.jsx';
 
 function TestHome() {
     const [accountStep, setAccountStep] = useState('login');
@@ -36,7 +30,7 @@ function TestHome() {
                 console.error('GraphQL Error:', error.message);
             }
         }
-    }, [loginCheck, error])
+    }, [loginCheck, error]);
 
     const user = data?.me || { notes: [] };
 
@@ -67,17 +61,6 @@ function TestHome() {
                     />
                 )
             )}
-
-            {/* Original */}
-            {/* {!user.notes.length ? (
-                <Dashboard/>
-            ) : (
-                <Dashboard
-                    folders={user.folders}
-                    notes={user.notes}
-                    heading={`${user.fullName}'s Notes`}
-                />
-            )} */}
         </>
     );
 };

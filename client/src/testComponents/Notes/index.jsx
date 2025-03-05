@@ -1,8 +1,9 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useSidebar } from '../Sidebar/context.jsx';
-import { useInputRef } from '../AddNote/context.jsx';
-import { useNotes } from '../Notes/context.jsx';
+import { useSidebar } from '../../context/SidebarContext.jsx';
+import { useInputRef } from '../../context/InputRefContext.jsx';
+import { useNotes } from '../../context/NotesContext.jsx';
 import { useNoteList } from "../../context/NoteListContext.jsx";
 
 import NoteList from './NoteList.jsx';
@@ -20,13 +21,29 @@ function Notes({ notes }) {
     const toggleCurrentNote = (note) => {
         if (currentNote && currentNote._id === note._id) {
             setCurrentNote(null);
-            navigate('/testing');
+            navigate('/');
         }
         else {
             setCurrentNote(note);
-            navigate(`/notes/${note._id}`);
+            navigate(`/note/${note._id}`);
         }
     };
+
+    useEffect(() => {
+        if ((currentNote && tagSelection) && currentNote.tags.includes(tagSelection)) {
+            navigate(`/note/${currentNote._id}/tag/${tagSelection}`);
+        }
+        else if ((currentNote && tagSelection) && !currentNote.tags.includes(tagSelection)) {
+            setCurrentNote(null);
+            navigate(`/tag/${tagSelection}`);
+        }
+        else if (currentNote && !tagSelection) {
+            navigate(`/note/${currentNote._id}`);
+        }
+        else if (!currentNote && tagSelection) {
+            navigate(`/tag/${tagSelection}`);
+        }
+    }, [currentNote, tagSelection]);
 
     const toggleCreate = () => {
         setCurrentNote(null);

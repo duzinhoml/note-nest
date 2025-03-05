@@ -7,11 +7,11 @@ import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@ap
 import { setContext } from '@apollo/client/link/context';
 import { Outlet } from 'react-router-dom';
 
-import { SidebarProvider } from './testComponents/Sidebar/context.jsx';
-import { SearchProvider } from './testComponents/Header/context.jsx';
-import { FormDataProvider } from './testComponents/UpdateNote/context.jsx';
-import { InputRefProvider } from './testComponents/AddNote/context.jsx';
-import { NotesProvider } from './testComponents/Notes/context.jsx';
+import { SidebarProvider } from './context/SidebarContext.jsx';
+import { SearchProvider } from './context/SearchContext.jsx';
+import { FormDataProvider } from './context/FormDataContext.jsx';
+import { InputRefProvider } from './context/InputRefContext.jsx';
+import { NotesProvider } from './context/NotesContext.jsx';
 import { NoteListProvider } from './context/NoteListContext.jsx';
 
 const httpLink = createHttpLink({
@@ -40,8 +40,8 @@ function App() {
     <>
       <ApolloProvider client={client}>
 
-          <SearchProvider>
-        <SidebarProvider>
+        <SearchProvider>
+          <SidebarProvider>
             <FormDataProvider>
               <InputRefProvider>
                 <NotesProvider>
@@ -51,8 +51,8 @@ function App() {
                 </NotesProvider>
               </InputRefProvider>
             </FormDataProvider>
-        </SidebarProvider>
-          </SearchProvider>
+          </SidebarProvider>
+        </SearchProvider>
         
       </ApolloProvider>
     </>

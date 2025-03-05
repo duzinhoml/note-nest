@@ -5,7 +5,7 @@ import { QUERY_ME } from "../../utils/queries.js";
 import { UPDATE_NOTE } from "../../utils/mutations.js";
 import { DELETE_NOTE } from "../../utils/mutations.js";
 
-import { useSidebar } from "../Sidebar/context.jsx";
+import { useSidebar } from "../../context/SidebarContext.jsx";
 import { useNoteList } from "../../context/NoteListContext";
 
 import '../Dashboard/index.css';
@@ -44,7 +44,7 @@ function NoteActions() {
             });
 
             setCurrentNote(null);
-            navigate('/testing');
+            navigate('/');
         } 
         catch (err) {
             console.error(err);
@@ -63,7 +63,7 @@ function NoteActions() {
             });
 
             setCurrentNote(null);
-            navigate('/testing');
+            navigate('/');
         } 
         catch (err) {
             console.error(err)
@@ -82,7 +82,7 @@ function NoteActions() {
             });
 
             setCurrentNote(null);
-            navigate('/testing');
+            navigate('/');
         } 
         catch (err) {
             console.error(err)

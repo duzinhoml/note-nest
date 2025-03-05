@@ -1,6 +1,5 @@
-import { useState } from 'react';
-import { useSearch } from '../Header/context.jsx';
-import { useSidebar } from './context.jsx';
+import { useSearch } from '../../context/SearchContext.jsx';
+import { useSidebar } from '../../context/SidebarContext.jsx';
 
 import '../Dashboard/index.css';
 import './index.css';

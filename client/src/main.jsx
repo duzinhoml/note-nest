@@ -17,18 +17,18 @@ const router = createBrowserRouter([
                 index: true,
                 element: <TestHome/>
             },
-            // {
-            //     path: '/notes/:noteId',
-            //     element: <Home/>
-            // },
             {
-                path: '/testing',
+                path: '/note/:noteId',
                 element: <TestHome/>
             },
             {
-                path: '/notes/:noteId',
+                path: '/tag/:tagName',
                 element: <TestHome/>
-            }
+            },
+            {
+                path: '/note/:noteId/tag/:tagName',
+                element: <TestHome/>
+            },
         ]
     }
 ]);
