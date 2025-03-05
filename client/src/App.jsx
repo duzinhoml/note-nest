@@ -9,6 +9,7 @@ import { Outlet } from 'react-router-dom';
 
 import { SidebarProvider } from './context/SidebarContext.jsx';
 import { SearchProvider } from './context/SearchContext.jsx';
+import { SettingsProvider } from './context/SettingsContext.jsx';
 import { FormDataProvider } from './context/FormDataContext.jsx';
 import { InputRefProvider } from './context/InputRefContext.jsx';
 import { NotesProvider } from './context/NotesContext.jsx';
@@ -42,15 +43,17 @@ function App() {
 
         <SearchProvider>
           <SidebarProvider>
-            <FormDataProvider>
-              <InputRefProvider>
-                <NotesProvider>
-                  <NoteListProvider>
-                    <Outlet />
-                  </NoteListProvider>
-                </NotesProvider>
-              </InputRefProvider>
-            </FormDataProvider>
+            <SettingsProvider>
+              <FormDataProvider>
+                <InputRefProvider>
+                  <NotesProvider>
+                    <NoteListProvider>
+                      <Outlet />
+                    </NoteListProvider>
+                  </NotesProvider>
+                </InputRefProvider>
+              </FormDataProvider>
+            </SettingsProvider>
           </SidebarProvider>
         </SearchProvider>
         

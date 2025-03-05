@@ -1,5 +1,6 @@
 import { User, Folder, Note } from '../models/index.js';
 import { signToken, AuthenticationError } from '../utils/auth.js';
+import bcrypt from 'bcryptjs';
 
 const resolvers = {
     Query: {
@@ -160,23 +161,40 @@ const resolvers = {
                 return `Failed to create note: ${err.message}`;
             }
         },
-        // updateUser: async (_, { userId, input}) => {
-        //     try {
-        //         const user = await User.findOneAndUpdate(
-        //             { _id: userId },
-        //             { $set: { ...input }},
-        //             { new: true }
-        //         ).populate('folders');
-
-        //         if (!user) {
-        //             return 'User not found'
-        //         }
-        //         return user;
-        //     } 
-        //     catch (err) {
-        //         return `Failed to update user: ${err.message}`;
-        //     }
-        // },
+        updateUser: async (_, { input }, context) => {
+            try {
+                if (!context.user) {
+                    throw new Error('Not authenticated');
+                }
+        
+                // Hash the password manually before updating (since middleware is skipped)
+                if (input.password) {
+                    const saltRounds = 10;
+                    input.password = await bcrypt.hash(input.password, saltRounds);
+                }
+        
+                const user = await User.findOneAndUpdate(
+                    { _id: context.user._id },
+                    { $set: input },
+                    { new: true }
+                );
+        
+                if (!user) {
+                    throw new Error('User not found or update failed');
+                }
+        
+                // const token = signToken(user.username, user.email, user._id);
+                // if (!token) {
+                //     throw new Error('Token generation failed');
+                // }
+        
+                // return { token, user };
+                return user;
+            } 
+            catch (err) {
+                throw new Error(`Failed to update user: ${err.message}`);
+            }
+        },        
         // updateFolder: async (_, { folderId, input }) => {
         //     try {
         //         let updateData = {

@@ -6,6 +6,7 @@ import App from './App.jsx'
 
 // FOR TESTING ONLY
 import TestHome from './pages/TestHome.jsx';
+import Settings from './pages/Settings.jsx';
 
 const router = createBrowserRouter([
     {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
                 path: '/note/:noteId/tag/:tagName',
                 element: <TestHome/>
             },
+            {
+                path: '/settings',
+                element: <Settings/>
+            }
         ]
     }
 ]);

@@ -93,7 +93,7 @@ const typeDefs = `
         createFolder(input: CreateFolderInput!): Folder
         createNote(folderId: ID, input: CreateNoteInput!): String
 
-        updateUser(userId: ID!, input: UpdateUserInput!): User
+        updateUser(input: UpdateUserInput!): User
         updateFolder(folderId: ID!, input: UpdateFolderInput!): Folder
         updateNote(noteId: ID!, input: UpdateNoteInput!): Note
 

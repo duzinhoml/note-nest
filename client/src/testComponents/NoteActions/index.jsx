@@ -11,10 +11,6 @@ import { useNoteList } from "../../context/NoteListContext";
 import '../Dashboard/index.css';
 import './index.css';
 
-// TO BE REMOVED
-import Auth from '../../utils/auth.js';
-// 
-
 function NoteActions() {
     const navigate = useNavigate();
     const { noteSelection } = useSidebar();
@@ -119,18 +115,6 @@ function NoteActions() {
                             Delete Note
                         </button>
                     </div>
-
-                    {/* TO BE REMOVED */}
-                    <button 
-                        type="button"
-                        className={`btn btn-light mt-2 text-start w-100 border-secondary`}
-                        onClick={() => Auth.logout()}
-                        style={{ borderColor: '#ba0837', cursor: 'pointer' }}
-                    >
-                        Logout
-                    </button>
-                    {/*  */}
-
                 </div>
             </div>
         </div>

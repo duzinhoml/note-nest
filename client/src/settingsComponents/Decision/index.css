@@ -1,0 +1,9 @@
+.decision-input {
+    border: none !important;
+    box-shadow: none !important;
+
+    &:focus {
+        border: none !important;
+        box-shadow: none !important;
+    }
+}

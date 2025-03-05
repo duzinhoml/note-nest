@@ -1,0 +1,40 @@
+.settings-options {
+    cursor: pointer;
+    background-color: hsl(235, 13%, 37%) !important;
+    
+    border-radius: 6px;
+    border-top-left-radius: 6px !important;
+    border-top-right-radius: 6px !important;
+    border-bottom-left-radius: 6px !important;
+    border-bottom-right-radius: 6px !important;
+    /* border-bottom: 1px solid #262731 !important; */
+
+    &:hover {
+        background-color: hsl(235, 13%, 57%) !important;
+        border-radius: 6px;
+        /* border-bottom: 1px solid #262731 !important; */
+    }
+}
+
+.settings-interact {
+    cursor: pointer;
+    /* background-color: hsl(235, 13%, 17%);
+    border-bottom: 1px solid hsl(235, 13%, 17%) !important; */
+}
+
+.settings-interact:hover {
+    background-color: hsl(235, 13%, 57%);
+    border-radius: 6px;
+    /* border-bottom: 1px solid #262731 !important; */
+}
+
+.settings-logout {
+    cursor: pointer;
+    background-color: hsl(235, 13%, 37%);
+
+    &:hover {
+        background-color: hsl(235, 13%, 57%) !important;
+        border-radius: 6px;
+        /* border-bottom: 1px solid #262731 !important; */
+    }
+}

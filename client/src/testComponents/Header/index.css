@@ -1,5 +1,43 @@
+.header-container {
+    display: grid;
+    grid-template-areas: 
+    "header search profile";
+    grid-template-columns: 1.8fr 0.8fr 41.5938px;
+    width: 100%;
+}
+
+.header-title {
+    grid-area: header;
+}
+
+.search {
+    grid-area: search;
+}
+
+.profile {
+    grid-area: profile;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 50%;
+    transform: scale(1.1);
+
+    background-color: hsl(235, 13%, 57%);
+    border-color: hsl(235, 13%, 37%);
+
+    &:hover {
+        background-color: hsl(235, 13%, 47%);
+    }
+
+    &:active {
+        background-color: hsl(235, 13%, 37%) !important;
+        border-color: hsl(235, 13%, 27%) !important;
+    }
+}
+
 .header-input {
-    /* border-radius: 6px; */
     border: none;
     box-shadow: none;
 

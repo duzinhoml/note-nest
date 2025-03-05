@@ -1,4 +1,3 @@
-// import { useNoteList } from "../../context/NoteListContext.jsx";
 
 import Sidebar from "../Sidebar/index.jsx";
 import Header from "../Header/index.jsx";
@@ -12,7 +11,6 @@ function Dashboard({ notes, tags, heading }) {
     return (
         <div className="dashboard-container">
             <Sidebar notes={notes} tags={tags}/>
-            {/* <div className="p-0" style={{ width: '0.1px', height: '100%', backgroundColor: 'hsl(0, 0.00%, 21%)' }}></div> */}
             <Header heading={heading}/>
             <Notes notes={notes}/>
             <SingleNote/>
