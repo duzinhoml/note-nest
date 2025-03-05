@@ -30,6 +30,7 @@ const typeDefs = `
         folderId: ID
         createDate: String!
         updateDate: String!
+        updatedAt: String!
     }
 
     type Auth {

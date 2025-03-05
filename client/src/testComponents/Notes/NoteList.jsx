@@ -24,7 +24,7 @@ function NoteList({ notes, activeNotes, archivedNotes, activeTaggedNotes, archiv
         toggleCurrentNote(note);
     }
 
-    const searchedNotes = notes.filter(note => note.title.toLowerCase().includes(searchTerm.toLowerCase()));
+    const searchedNotes = notes.filter(note => note.text.toLowerCase().includes(searchTerm.toLowerCase()));
 
     const searchedTags = notes.filter(note => note.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())));
 
