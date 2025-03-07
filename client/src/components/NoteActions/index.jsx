@@ -6,7 +6,7 @@ import { UPDATE_NOTE } from "../../utils/mutations.js";
 import { DELETE_NOTE } from "../../utils/mutations.js";
 
 import { useSidebar } from "../../context/SidebarContext.jsx";
-import { useNoteList } from "../../context/NoteListContext";
+import { useNoteList } from "../../context/NoteListContext.jsx";
 
 import '../Dashboard/index.css';
 import './index.css';

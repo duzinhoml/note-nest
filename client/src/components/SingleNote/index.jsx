@@ -1,4 +1,4 @@
-import { useNoteList } from "../../context/NoteListContext";
+import { useNoteList } from "../../context/NoteListContext.jsx";
 
 import AddNote from "../AddNote/index.jsx";
 import UpdateNote from "../UpdateNote/index.jsx";

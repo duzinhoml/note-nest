@@ -3,7 +3,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import App from './App.jsx'
 
-// FOR TESTING ONLY
 import Home from './pages/Home.jsx';
 import Settings from './pages/Settings.jsx';
 

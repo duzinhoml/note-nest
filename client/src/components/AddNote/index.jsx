@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 
-import { QUERY_ME } from "../../utils/queries";
-import { CREATE_NOTE } from "../../utils/mutations";
+import { QUERY_ME } from "../../utils/queries.js";
+import { CREATE_NOTE } from "../../utils/mutations.js";
 
 import { useFormData } from "../../context/FormDataContext.jsx";
 import { useInputRef } from "../../context/InputRefContext.jsx";

@@ -5,7 +5,7 @@ import { QUERY_ME } from '../utils/queries.js';
 import Login from '../components/LoginRegister/Login/index.jsx';
 import Register from '../components/LoginRegister/Register/index.jsx';
 
-import Dashboard from '../testComponents/Dashboard/index.jsx';
+import Dashboard from '../components/Dashboard/index.jsx';
 
 import Auth from '../utils/auth.js';
 
