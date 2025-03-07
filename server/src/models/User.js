@@ -17,20 +17,36 @@ const userSchema = new Schema(
             type: String,
             required: true,
             trim: true,
-            unique: true
+            unique: true,
+            lowercase: true,
+            minLength: [3, 'Username must be at least 3 characters long.'],
+            maxLength: [30, 'Username cannot exceed 30 characters.'],
+            match: [/^[a-zA-Z0-9_-]+$/, 'Username can only contain letters, numbers, underscores, and dashes.']
         },
         email: {
             type: String,
             required: true,
             trim: true,
             unique: true,
-            match: [/.+@.+\..+/, 'Must match an email address!'],
+            lowercase: true,
+            match: [
+                /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
+                'Must match a valid email address!',
+            ],
+            lowercase: true
         },
         password: {
             type: String,
             required: true,
             trim: true,
-            minLength: 8
+            minLength: [8, 'Password must be at least 8 characters long.'],
+            maxLength: [50, 'Password cannot exceed 50 characters.'],
+            validate: {
+                validator: function(v) {
+                  return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(v);
+                },
+                message: 'Password must include at least one lowercase letter, one uppercase letter, one number, and one special character.',
+            }
         },
         folders: [
             {
@@ -66,6 +82,10 @@ const userSchema = new Schema(
             virtuals: true,
             getters: true
         },
+        toObject: {
+            virtuals: true,
+            getters: true
+        },
         id: false
     }
 );
@@ -79,6 +99,13 @@ userSchema
         const nameParts = v.split(' ');
         this.firstName = nameParts[0];
         this.lastName = nameParts.slice(1).join(' ');
+    });
+
+userSchema
+    .virtual('initials')
+    .get(function() {
+        const initials = this.firstName[0].toUpperCase() + this.lastName[0].toUpperCase();
+        return initials;
     });
 
 userSchema.pre('save', async function(next) {

@@ -5,12 +5,12 @@ import Decision from '../Decision/index.jsx';
 
 import './index.css';
 
-function Dashboard({ notes, tags, heading }) {
+function Dashboard({ notes, tags, heading, initials }) {
 
     return (
         <div className="settings-container">
             <Sidebar notes={notes} tags={tags}/>
-            <Header heading={heading}/>
+            <Header heading={heading} initials={initials}/>
             <Notes notes={notes}/>
             <Decision notes={notes}/>
         </div>

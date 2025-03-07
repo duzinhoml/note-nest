@@ -46,6 +46,27 @@ export const CREATE_NOTE = gql`
     }
 `;
 
+export const UPDATE_USER = gql`
+    mutation updateUser($input: UpdateUserInput!) {
+        updateUser(input: $input) {
+            fullName
+            username
+            email
+        }
+    }
+`;
+
+export const UPDATE_PASSWORD = gql`
+    mutation updatePassword($input: UpdatePasswordInput!) {
+        updatePassword(input: $input) {
+            _id
+            fullName
+            username
+            email
+        }
+    }
+`;
+
 export const UPDATE_FOLDER = gql`
     mutation updateFolder($folderId: ID!, $input: UpdateFolderInput!) {
         updateFolder(folderId: $folderId, input: $input) {

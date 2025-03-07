@@ -7,7 +7,7 @@ import '../Dashboard/index.css';
 // import '../../testComponents/Sidebar/index.css';
 import './index.css';
 
-function Notes({ notes }) {
+function Notes() {
     const navigate = useNavigate();
     const { settingsSelection, setSettingsSelection } = useSettings();
 
@@ -29,12 +29,12 @@ function Notes({ notes }) {
         >
             <div className="container-fluid d-flex flex-column">
                 <ul className="list-group list-group-flush">
-                    <li className={`list-group-item ml-background ${settingsSelection === 'editPassword' ? 'settings-options d-flex justify-content-between' : ''} text-light rounded settings-interact border-bottom-0`} onClick={() => toggleSettingsSelection('editPassword')}>
+                    <li className={`list-group-item ml-background ${settingsSelection === 'updatePassword' ? 'settings-options d-flex justify-content-between' : ''} text-light rounded settings-interact border-bottom-0`} onClick={() => toggleSettingsSelection('updatePassword')}>
                         <div>
-                            <span className="me-2"><i class="fa-solid fa-lock" style={{ color: settingsSelection === 'editPassword' ? '#F63366' : '#f8f9fa' }}></i></span>
+                            <span className="me-2"><i class="fa-solid fa-lock" style={{ color: settingsSelection === 'updatePassword' ? '#F63366' : '#f8f9fa' }}></i></span>
                             Change Password
                         </div>
-                        {settingsSelection === 'editPassword' ? (<span><i class="fa-solid fa-chevron-right" style={{ color: '#F63366' }}></i></span>) : ''}
+                        {settingsSelection === 'updatePassword' ? (<span><i class="fa-solid fa-chevron-right" style={{ color: '#F63366' }}></i></span>) : ''}
                     </li>
                     <li className={`list-group-item ml-background ${settingsSelection === 'deleteUser' ? 'settings-options d-flex justify-content-between' : ''} text-light rounded settings-interact border-bottom-0`} onClick={() => toggleSettingsSelection('deleteUser')}>
                         <div>

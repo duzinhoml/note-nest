@@ -45,3 +45,17 @@
     border-top-left-radius: 6px !important;
     border-top-right-radius: 6px !important;
 }
+
+.create-note {
+    background-color: hsl(344, 92%, 58%); 
+    border-color: hsl(344, 92%, 38%);
+
+    &:hover {
+        background-color: hsl(344, 92%, 48%);
+    }
+
+    &:active {
+        background-color: hsl(344, 92%, 38%) !important;
+        border-color: hsl(344, 92%, 28%) !important;
+    }
+}

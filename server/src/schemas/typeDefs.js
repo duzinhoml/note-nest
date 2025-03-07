@@ -2,6 +2,7 @@ const typeDefs = `
     type User {
         _id: ID!
         fullName: String
+        initials: String
         firstName: String!
         lastName: String!
         username: String!
@@ -64,6 +65,12 @@ const typeDefs = `
         password: String
     }
 
+    input UpdatePasswordInput {
+        currentPassword: String!
+        newPassword: String!
+        confirmPassword: String!
+    }
+
     input UpdateFolderInput {
         title: String
         description: String
@@ -94,10 +101,12 @@ const typeDefs = `
         createNote(folderId: ID, input: CreateNoteInput!): String
 
         updateUser(input: UpdateUserInput!): User
+        updatePassword(input: UpdatePasswordInput!): User
         updateFolder(folderId: ID!, input: UpdateFolderInput!): Folder
         updateNote(noteId: ID!, input: UpdateNoteInput!): Note
 
         deleteUser: String
+        deleteUserById(userId: ID!): String
         deleteFolder(folderId: ID!): String
         deleteNoteFromFolder(folderId: ID!, noteId: ID!): Folder
         deleteNote(noteId: ID!): String

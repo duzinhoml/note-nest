@@ -44,6 +44,7 @@ function Settings() {
                         notes={user.notes}
                         tags={user.tags}
                         heading={`Settings`}
+                        initials={user.initials}
                     />
                 </>
             )}

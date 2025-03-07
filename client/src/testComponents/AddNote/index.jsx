@@ -138,16 +138,12 @@ function AddNote() {
                 <div className="mt-3">
                     <button 
                         form="testUpdateNoteForm"
-                        className="btn text-light me-3"
+                        className="btn text-light me-3 confirm-note"
                         type="submit"
-                        style={{ 
-                            backgroundColor: '#F63366',
-                            borderColor: '#ba0837'
-                        }}
                     >
                         Save Note
                     </button>
-                    <button className="btn btn-secondary" onClick={() => toggleCancelNote()}>Cancel</button>
+                    <button className="btn text-light cancel-note" onClick={() => toggleCancelNote()}>Cancel</button>
                 </div>
 
             </div>

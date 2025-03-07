@@ -1,18 +1,17 @@
 import { useState, useEffect, useLayoutEffect } from 'react';
 import { useQuery } from '@apollo/client';
+import { QUERY_ME } from '../utils/queries.js';
 
 import Login from '../components/LoginRegister/Login/index.jsx';
 import Register from '../components/LoginRegister/Register/index.jsx';
-import Dashboard from '../components/Dashboard/index.jsx';
 
-import { QUERY_ME } from '../utils/queries.js';
+import Dashboard from '../testComponents/Dashboard/index.jsx';
 
 import Auth from '../utils/auth.js';
-// import AddNote from '../components/CRUD/AddNote/index.jsx';
 
 function Home() {
     const [accountStep, setAccountStep] = useState('login');
-    const { loading, error, data} = useQuery(QUERY_ME);
+    const { loading, error, data } = useQuery(QUERY_ME);
     const [loginCheck, setLoginCheck] = useState(false);
 
     const checkLogin = () => {
@@ -31,7 +30,7 @@ function Home() {
                 console.error('GraphQL Error:', error.message);
             }
         }
-    }, [loginCheck, error])
+    }, [loginCheck, error]);
 
     const user = data?.me || { notes: [] };
 
@@ -40,30 +39,30 @@ function Home() {
     }
 
     return (
-        <div className='ml-background'>
-            <div className="flex-row justify-center mb-3">
-                {!loginCheck ? (
-                        accountStep === 'login' ? (
-                            <Login setAccountStep={setAccountStep}/>
-                        ) : (
-                            <Register setAccountStep={setAccountStep}/>
-                        )
-                ) : (
-                    !user.notes.length ? (
-                        <Dashboard
-                            notes={[]}
-                            heading={`${user.fullName}, start nesting your thoughts today!`}
-                        />
+        <>
+            {!loginCheck ? (
+                    accountStep === 'login' ? (
+                        <Login setAccountStep={setAccountStep}/>
                     ) : (
-                        <Dashboard
-                            folders={user.folders}
-                            notes={user.notes}
-                            heading={`${user.fullName}'s Notes`}
-                        />
+                        <Register setAccountStep={setAccountStep}/>
                     )
-                )}
-            </div>
-        </div>
+            ) : (
+                !user.notes.length ? (
+                    <Dashboard
+                        notes={[]}
+                        heading={`${user.fullName}, start nesting your thoughts today!`}
+                    />
+                ) : (
+                    <Dashboard
+                        folders={user.folders}
+                        notes={user.notes}
+                        tags={user.tags}
+                        heading={`${user.fullName}'s Notes`}
+                        initials={user.initials}
+                    />
+                )
+            )}
+        </>
     );
 };
 

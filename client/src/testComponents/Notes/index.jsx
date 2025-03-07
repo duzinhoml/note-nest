@@ -9,6 +9,7 @@ import { useNoteList } from "../../context/NoteListContext.jsx";
 import NoteList from './NoteList.jsx';
 
 import '../Dashboard/index.css';
+import './index.css';
 
 function Notes({ notes }) {
     const navigate = useNavigate();
@@ -71,12 +72,8 @@ function Notes({ notes }) {
         >
             <div className="container-fluid d-flex flex-column">
                 <button 
-                    className="btn btn-danger text-light mb-2 p-2"
+                    className="btn text-light mb-2 p-2 create-note"
                     onClick={() => toggleCreate()}
-                    style={{
-                        backgroundColor: '#F63366',
-                        borderColor: '#ba0837'
-                    }}
                 >
                     + Create New Note
                 </button>

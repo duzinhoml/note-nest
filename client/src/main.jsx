@@ -2,10 +2,9 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import App from './App.jsx'
-// import Home from './pages/Home.jsx';
 
 // FOR TESTING ONLY
-import TestHome from './pages/TestHome.jsx';
+import Home from './pages/Home.jsx';
 import Settings from './pages/Settings.jsx';
 
 const router = createBrowserRouter([
@@ -16,19 +15,19 @@ const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <TestHome/>
+                element: <Home/>
             },
             {
                 path: '/note/:noteId',
-                element: <TestHome/>
+                element: <Home/>
             },
             {
                 path: '/tag/:tagName',
-                element: <TestHome/>
+                element: <Home/>
             },
             {
                 path: '/note/:noteId/tag/:tagName',
-                element: <TestHome/>
+                element: <Home/>
             },
             {
                 path: '/settings',

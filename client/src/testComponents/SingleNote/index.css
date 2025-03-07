@@ -16,3 +16,31 @@
 ::placeholder {
     color: hsl(0, 0.00%, 61%);
 }
+
+.confirm-note {
+    background-color: hsl(344, 92%, 58%); 
+    border-color: hsl(344, 92%, 38%);
+
+    &:hover {
+        background-color: hsl(344, 92%, 48%);
+    }
+
+    &:active {
+        background-color: hsl(344, 92%, 38%) !important;
+        border-color: hsl(344, 92%, 28%) !important;
+    }
+}
+
+.cancel-note {
+    background-color: hsl(235, 13%, 57%);
+    border-color: hsl(235, 13%, 37%);
+
+    &:hover {
+        background-color: hsl(235, 13%, 47%);
+    }
+
+    &:active {
+        background-color: hsl(235, 13%, 37%) !important;
+        border-color: hsl(235, 13%, 27%) !important;
+    }
+}

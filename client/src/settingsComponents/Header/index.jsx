@@ -4,7 +4,7 @@ import { useSearch } from '../../context/SearchContext.jsx';
 
 import '../Dashboard/index.css';
 
-function Header({ heading }) {
+function Header({ heading, initials }) {
     const navigate = useNavigate();
     const { searchTerm, setSearchTerm } = useSearch();
 
@@ -51,7 +51,7 @@ function Header({ heading }) {
                             aria-describedby="basic-addon1"
                         />
                     </form>
-                    <div className='profile' style={{ fontSize: '18px' }} onClick={() => navigate('/')}>ML</div>
+                    <div className='profile' style={{ fontSize: '18px' }} onClick={() => navigate('/')}>{initials}</div>
                 </div>
             </nav>
         </div>

@@ -70,13 +70,55 @@ const resolvers = {
     Mutation: {
         createUser: async (_, { input }) => {
             try {
+                input.username = input.username.trim().toLowerCase();
+                input.email = input.email.trim().toLowerCase();
+                input.password = input.password.trim();
+
+                // Username
+                if (input.username.length < 3) {
+                    throw new Error('Username must be at least 3 characters long.');
+                }
+                if (input.username.length > 30) {
+                    throw new Error('Username cannot exceed 30 characters.');
+                }
+                const usernameRegex = /^[a-zA-Z0-9_-]+$/;
+                if (!usernameRegex.test(input.username)) {
+                    throw new Error('Username can only contain letters, numbers, underscores, and dashes.');
+                }
+                const userUsername = await User.findOne({ username: input.username });
+                if (userUsername) {
+                    throw new Error('Username already exists.');
+                }
+
+                // Email
+                const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+                if (!emailRegex.test(input.email)) {
+                    throw new Error('Must match a valid email address.');
+                }
+                const userEmail = await User.findOne({ email: input.email });
+                if (userEmail) {
+                    throw new Error('Email already exists.');
+                }
+
+                // Password
+                if (input.password.length < 8) {
+                    throw new Error('Password must be at least 8 characters long.');
+                }
+                if (input.password.length > 50) {
+                    throw new Error('Password cannot exceed 50 characters.');
+                }
+                const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+                if (!passwordRegex.test(input.password)) {
+                    throw new Error('Password must include at least one lowercase letter, one uppercase letter, one number, and one special character.');
+                }
+
                 const user = await User.create({ ...input });
                 const token = signToken(user.username, user.email, user._id)
 
                 return { token, user };
             } 
             catch (err) {
-                return `Failed to create user: ${err.message}`;
+                throw new Error(`${err.message}`);
             }
         },
         login: async (_, { email, username, password }) => {
@@ -166,35 +208,79 @@ const resolvers = {
                 if (!context.user) {
                     throw new Error('Not authenticated');
                 }
-        
-                // Hash the password manually before updating (since middleware is skipped)
+
+                
                 if (input.password) {
                     const saltRounds = 10;
                     input.password = await bcrypt.hash(input.password, saltRounds);
                 }
-        
+                
                 const user = await User.findOneAndUpdate(
                     { _id: context.user._id },
                     { $set: input },
                     { new: true }
                 );
-        
+                
                 if (!user) {
                     throw new Error('User not found or update failed');
                 }
-        
-                // const token = signToken(user.username, user.email, user._id);
-                // if (!token) {
-                //     throw new Error('Token generation failed');
-                // }
-        
-                // return { token, user };
+                
                 return user;
             } 
             catch (err) {
                 throw new Error(`Failed to update user: ${err.message}`);
             }
         },        
+        updatePassword: async (_, { input }, context) => {
+            try {
+                if (!context.user) {
+                    throw new Error('Not authenticated');
+                }
+                
+                const user = await User.findOne({ _id: context.user._id});
+                
+                input.currentPassword = input.currentPassword.trim();
+
+                const correctPW = await user.isCorrectPassword(input.currentPassword);
+                if (!correctPW) {
+                    throw new Error('Incorrect password');
+                }
+                
+                if (input.newPassword.length < 8) {
+                    throw new Error('Password must be at least 8 characters long.');
+                }
+                if (input.newPassword.length > 50) {
+                    throw new Error('Password cannot exceed 50 characters.');
+                }
+                const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+                if (!passwordRegex.test(input.newPassword)) {
+                    throw new Error('Password must include at least one lowercase letter, one uppercase letter, one number, and one special character.');
+                }
+                
+                if (input.newPassword !== input.confirmPassword) {
+                    throw new Error('Passwords do not match');
+                }
+
+                const saltRounds = 10;
+                input.newPassword = await bcrypt.hash(input.newPassword, saltRounds);
+
+                const updatedUser = await User.findOneAndUpdate(
+                    { _id: context.user._id },
+                    { $set: {
+                        password: input.newPassword
+                    }},
+                    { new: true }
+                );
+
+                if (!updatedUser) {
+                    throw new Error('User not found or update failed');
+                }
+                return updatedUser;
+            } 
+            catch (err) {
+                throw new Error(`${err.message}`);
+            }
+        },
         // updateFolder: async (_, { folderId, input }) => {
         //     try {
         //         let updateData = {
@@ -304,6 +390,41 @@ const resolvers = {
             } 
             catch (err) {
                 return `Failed to delete user: ${err.message}`;
+            }
+        },
+        deleteUserById: async (_, { userId }) => {
+            try {
+                const user = await User.findOne({ _id: userId })
+                        .populate('folders')
+                        .populate({
+                            path: 'folders',
+                            populate: 'notes' })
+                        .populate('notes');
+                            
+                    if (!user) {
+                        throw new Error('User not found or update failed');
+                    }
+                    
+                    const userObj = user.toJSON();
+
+                    await Note.deleteMany({
+                        _id: { 
+                            $in: user.notes.map(note => note._id) 
+                        }
+                    });
+
+                    await Folder.deleteMany({
+                        _id: { 
+                            $in: user.folders.map(folder => folder._id) 
+                        }
+                    });
+                    
+                    await User.findOneAndDelete({ _id: userId });
+
+                    return `${userObj.fullName}, your account and it's associated notes have been deleted.`
+            } 
+            catch (err) {
+                throw new Error(err.message);
             }
         },
         deleteFolder: async (_, { folderId }, context) => {
