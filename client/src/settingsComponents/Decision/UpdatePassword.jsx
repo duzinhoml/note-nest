@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@apollo/client'
+import { useSettings } from '../../context/SettingsContext.jsx';
 
 import { QUERY_ME } from '../../utils/queries';
 import { UPDATE_PASSWORD } from '../../utils/mutations';
@@ -14,6 +15,8 @@ function UpdatePassword() {
         newPassword: '',
         confirmPassword: ''
     });
+
+    const { setSettingsSelection } = useSettings();
 
     const [updatePassword, { error }] = useMutation(UPDATE_PASSWORD, {
         refetchQueries: [
@@ -54,6 +57,7 @@ function UpdatePassword() {
                     }
                 }
             });
+            setSettingsSelection('');
             navigate('/');
         } 
         catch (err) {
@@ -79,16 +83,17 @@ function UpdatePassword() {
             <h4 className='mb-3'>Change Password</h4>
             <form 
                 id="updatePasswordForm" 
-                className="text-light p-0 pt-4 form-floating needs-validation novalidate"
+                className="text-light p-0 pt-4 needs-validation"
                 onSubmit={handleFormSubmit}
                 style={{ 
                     // border: '2px solid rgba(0, 255, 4, 0.1)' ,
                     borderTop: '1px solid hsl(0, 0.00%, 36%)',
                 }}
             >
-                <div className='mb-3'>
+                <div className='mb-3 form-floating'>
                     <input 
-                        className={`form-control ps-2 ${error && currentPWError ? 'is-invalid error' : 'decision-input'}`}
+                        id="currentPWInput"
+                        className={`form-control ${error && currentPWError ? 'is-invalid error' : 'decision-input'}`}
                         type="text" 
                         name="currentPassword"
                         value={formData.currentPassword}
@@ -98,11 +103,13 @@ function UpdatePassword() {
                         style={{ width: '60%' }}
                         required
                     />
+                    <label for="currentPWInput" style={{ color: 'grey' }}>Enter old password</label>
                     {error && incorrectPassword ? <div class="invalid-feedback error-feedback">Incorrect Password</div> : ''}
                 </div>
-                <div className='mb-3'>
+                <div className='mb-3 form-floating'>
                     <input 
-                        className={`form-control ps-2 ${error && newPWError ? 'is-invalid error' : 'decision-input'}`}
+                        id="newPWInput"
+                        className={`form-control ${error && newPWError ? 'is-invalid error' : 'decision-input'}`}
                         type="text" 
                         name="newPassword"
                         value={formData.newPassword}
@@ -112,13 +119,15 @@ function UpdatePassword() {
                         style={{ width: '60%' }}
                         required
                     />
+                    <label for="newPWInput" style={{ color: 'grey' }}>Enter new password</label>
                     {error && minChar ? <div className="invalid-feedback error-feedback">Password must be at least 8 characters long.</div> : ''}
                     {error && maxChar ? <div className="invalid-feedback error-feedback">Password cannot exceed 50 characters.</div> : ''}
                     {error && specialChar ? <div className="invalid-feedback error-feedback">Password must include at least one lowercase letter, one uppercase letter, one number, and one special character.</div> : ''}
                 </div>
-                <div>
+                <div className='form-floating'>
                     <input 
-                        className={`form-control ps-2 ${error && confirmPWError ? 'is-invalid error' : 'decision-input'}`}
+                        id="confirmPWInput"
+                        className={`form-control ${error && confirmPWError ? 'is-invalid error' : 'decision-input'}`}
                         type="text" 
                         name="confirmPassword"
                         value={formData.confirmPassword}
@@ -128,6 +137,7 @@ function UpdatePassword() {
                         style={{ width: '60%' }}
                         required
                     />
+                    <label for="confirmPWInput" style={{ color: 'grey' }}>Confirm new password</label>
                     {error && noMatch ? <div className="invalid-feedback error-feedback">Passwords do not match</div> : ''}
                 </div>
                 <div className="mt-3">

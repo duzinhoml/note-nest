@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useSearch } from '../../context/SearchContext.jsx';
+import { useSidebar } from '../../context/SidebarContext.jsx';
+import { useNoteList } from '../../context/NoteListContext.jsx';
 
 import '../Dashboard/index.css';
 import './index.css';
@@ -7,6 +9,8 @@ import './index.css';
 function Header({ heading, initials }) {
     const navigate = useNavigate();
     const { searchTerm, setSearchTerm } = useSearch();
+    const { setTagSelection } = useSidebar();
+    const { setCurrentNote } = useNoteList();
 
     const handleInputChange = (e) => {
         const { value } = e.target;
@@ -17,6 +21,12 @@ function Header({ heading, initials }) {
         if (searchTerm) {
             setSearchTerm('');
         }
+    }
+
+    const toSettings = () => {
+        setCurrentNote(null);
+        setTagSelection(null);
+        navigate('/settings');
     }
 
     return (
@@ -44,7 +54,7 @@ function Header({ heading, initials }) {
                             aria-describedby="search-input"
                         />
                     </form>
-                    <div className='profile' style={{ fontSize: '18px' }} onClick={() => navigate('/settings')}>{initials}</div>
+                    <div className='profile' style={{ fontSize: '18px' }} onClick={() => toSettings()}>{initials}</div>
                 </div>
             </nav>
         </div>

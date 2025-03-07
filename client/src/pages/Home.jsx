@@ -54,7 +54,6 @@ function Home() {
                     />
                 ) : (
                     <Dashboard
-                        folders={user.folders}
                         notes={user.notes}
                         tags={user.tags}
                         heading={`${user.fullName}'s Notes`}

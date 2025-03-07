@@ -1,12 +1,14 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSearch } from '../../context/SearchContext.jsx';
+import { useSettings } from '../../context/SettingsContext.jsx';
 
 import '../Dashboard/index.css';
 
 function Header({ heading, initials }) {
     const navigate = useNavigate();
     const { searchTerm, setSearchTerm } = useSearch();
+    const { setSettingsSelection } = useSettings();
 
     const handleInputChange = (e) => {
         const { value } = e.target;
@@ -18,13 +20,19 @@ function Header({ heading, initials }) {
             setSearchTerm('');
         }
     }
+
+    const toHome = () => {
+        setSettingsSelection('');
+        navigate('/');
+    }
     
     useEffect(() => {
         if (searchTerm) {
             setSearchTerm('');
+            setSettingsSelection('');
             navigate('/');
         }
-    }, [searchTerm])
+    }, [searchTerm]);
 
     return (
         // Removed 'col-12'
@@ -51,7 +59,7 @@ function Header({ heading, initials }) {
                             aria-describedby="basic-addon1"
                         />
                     </form>
-                    <div className='profile' style={{ fontSize: '18px' }} onClick={() => navigate('/')}>{initials}</div>
+                    <div className='profile' style={{ fontSize: '18px' }} onClick={() => toHome()}>{initials}</div>
                 </div>
             </nav>
         </div>
