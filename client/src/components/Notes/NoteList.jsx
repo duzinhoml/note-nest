@@ -37,7 +37,7 @@ function NoteList({ notes, activeNotes, archivedNotes, activeTaggedNotes, archiv
     return (
         <>
             {isCreating || formData.text.length ? (
-                <li className={`list-group-item mt-2 p-2 creating noteList-interact text-light border-bottom-0`}>
+                <li className={`list-group-item mt-2 p-2 creating noteList-interact text-light border-bottom-0`} style={{ cursor: 'default' }}>
                     <h5 className='mb-0'>{createNoteTitle}</h5>
                 </li>
             ) : ''}

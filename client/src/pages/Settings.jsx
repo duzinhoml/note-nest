@@ -41,6 +41,7 @@ function Settings() {
             ) : (
                 <>
                     <Dashboard
+                        user={user}
                         notes={user.notes}
                         tags={user.tags}
                         heading={`Settings`}

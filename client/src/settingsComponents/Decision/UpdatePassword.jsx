@@ -86,7 +86,6 @@ function UpdatePassword() {
                 className="text-light p-0 pt-4 needs-validation"
                 onSubmit={handleFormSubmit}
                 style={{ 
-                    // border: '2px solid rgba(0, 255, 4, 0.1)' ,
                     borderTop: '1px solid hsl(0, 0.00%, 36%)',
                 }}
             >
@@ -94,7 +93,7 @@ function UpdatePassword() {
                     <input 
                         id="currentPWInput"
                         className={`form-control ${error && currentPWError ? 'is-invalid error' : 'decision-input'}`}
-                        type="text" 
+                        type="password" 
                         name="currentPassword"
                         value={formData.currentPassword}
                         onChange={handleInputChange}
@@ -110,7 +109,7 @@ function UpdatePassword() {
                     <input 
                         id="newPWInput"
                         className={`form-control ${error && newPWError ? 'is-invalid error' : 'decision-input'}`}
-                        type="text" 
+                        type="password" 
                         name="newPassword"
                         value={formData.newPassword}
                         onChange={handleInputChange}
@@ -128,7 +127,7 @@ function UpdatePassword() {
                     <input 
                         id="confirmPWInput"
                         className={`form-control ${error && confirmPWError ? 'is-invalid error' : 'decision-input'}`}
-                        type="text" 
+                        type="password" 
                         name="confirmPassword"
                         value={formData.confirmPassword}
                         onChange={handleInputChange}

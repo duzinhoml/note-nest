@@ -45,3 +45,7 @@
         border-color: hsl(235, 13%, 27%) !important;
     }
 }
+
+.delete-message {
+    color: hsl(344, 92%, 58%);
+}

@@ -44,6 +44,10 @@
     border-radius: 6px;
     border-top-left-radius: 6px !important;
     border-top-right-radius: 6px !important;
+    border-bottom-left-radius: 6px !important;
+    border-bottom-right-radius: 6px !important;
+    
+    word-wrap: break-word;
 }
 
 .create-note {

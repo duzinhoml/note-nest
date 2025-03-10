@@ -5,6 +5,8 @@ import { CREATE_USER } from '../../../utils/mutations.js';
 
 import Auth from '../../../utils/auth.js';
 
+import './index.css';
+
 function Register({ setAccountStep }) {
     const [currentStep, setCurrentStep] = useState(1);
     const [formData, setFormData] = useState({
@@ -15,7 +17,11 @@ function Register({ setAccountStep }) {
         password: ''
     });
 
-    const [createUser, { error, data }] = useMutation(CREATE_USER);
+    const [createUser, { error }] = useMutation(CREATE_USER);
+
+    const emailError = error?.message?.includes('mail')
+    const userError = error?.message?.includes('Username');
+    const passError = error?.message?.includes('Password');
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -23,6 +29,10 @@ function Register({ setAccountStep }) {
             ...formData,
             [name]: value
         });
+
+        if (error) {
+            error.message = null;
+        }
     }
 
     const handleNextStep = (e) => {
@@ -70,11 +80,11 @@ function Register({ setAccountStep }) {
                         <div className="row gy-3">
                             {currentStep === 1 && (
                                 <>
-                                    <div className="col-12 has-validation">
+                                    <div className="col-12 has-validation form-floating">
                                         <input
+                                            id="firstNameInput"
                                             type="text"
-                                            className="form-control form-control-lg"
-                                            id="firstName"
+                                            className="form-control form-control-lg register-input"
                                             name="firstName"
                                             placeholder="First Name"
                                             value={formData.firstName}
@@ -83,12 +93,13 @@ function Register({ setAccountStep }) {
                                             autoComplete='off'
                                             style={{ fontSize: '16px' }}
                                         />
+                                        <label for="firstNameInput" className="ms-2" style={{ color: 'grey' }}>First Name</label>
                                     </div>
-                                    <div className="col-12">
+                                    <div className="col-12 form-floating">
                                         <input
+                                            id="lastNameInput"
                                             type="text"
-                                            className="form-control form-control-lg"
-                                            id="lastName"
+                                            className="form-control form-control-lg register-input"
                                             name="lastName"
                                             placeholder="Last Name"
                                             value={formData.lastName}
@@ -97,6 +108,7 @@ function Register({ setAccountStep }) {
                                             autoComplete='off'
                                             style={{ fontSize: '16px' }}
                                         />
+                                        <label for="lastNameInput" className="ms-2" style={{ color: 'grey' }}>Last Name</label>
                                     </div>
                                     <div className="col-12">
                                         <button
@@ -117,18 +129,17 @@ function Register({ setAccountStep }) {
                                                     Login
                                                 </span>
                                         </p>
-                                        {error && <div className="alert alert-danger">{error.message}</div>}
                                     </div>
                                 </>
                             )}
 
                             {currentStep === 2 && (
                                 <>
-                                    <div className="col-12">
+                                    <div className="col-12 form-floating">
                                         <input
+                                            id="emailInput"
                                             type="email"
-                                            className="form-control form-control-lg"
-                                            id="email"
+                                            className={`form-control form-control-lg ${error && emailError ? 'register-error' : 'register-input'}`}
                                             name="email"
                                             placeholder="Email"
                                             value={formData.email}
@@ -137,12 +148,13 @@ function Register({ setAccountStep }) {
                                             autoComplete='off'
                                             style={{ fontSize: '16px' }}
                                         />
+                                        <label for="emailInput" className="ms-2" style={{ color: 'grey' }}>Email</label>
                                     </div>
-                                    <div className="col-12 col-md-6">
+                                    <div className="col-12 col-md-6 form-floating">
                                         <input
+                                            id="usernameInput"
                                             type="text"
-                                            className="form-control form-control-lg"
-                                            id="username"
+                                            className={`form-control form-control-lg ${error && userError ? 'register-error' : 'register-input'}`}
                                             name="username"
                                             placeholder="Username"
                                             value={formData.username}
@@ -151,12 +163,13 @@ function Register({ setAccountStep }) {
                                             autoComplete='off'
                                             style={{ fontSize: '16px' }}
                                         />
+                                        <label for="usernameInput" className="ms-2" style={{ color: 'grey' }}>Username</label>
                                     </div>
-                                    <div className="col-12 col-md-6">
+                                    <div className="col-12 col-md-6 form-floating">
                                         <input
+                                            id="passwordInput"
                                             type="password"
-                                            className="form-control form-control-lg"
-                                            id="password"
+                                            className={`form-control form-control-lg ${error && passError ? 'register-error' : 'register-input'}`}
                                             name="password"
                                             placeholder="Password"
                                             value={formData.password}
@@ -165,23 +178,23 @@ function Register({ setAccountStep }) {
                                             autoComplete='off'
                                             style={{ fontSize: '16px' }}
                                         />
+                                        <label for="passwordInput" className="ms-2" style={{ color: 'grey' }}>Password</label>
                                     </div>
                                     <div className="col-12">
                                         <button
                                             type="button"
-                                            className="btn btn-secondary btn-lg w-100 text-dark"
+                                            className="btn btn-lg w-100 text-dark previous-btn"
                                             onClick={handlePrevStep}
-                                            style={{ backgroundColor: '#c2c2c2', borderColor: '#a8a8a8' }}
                                         >
                                             Previous
                                         </button>
                                         <button
                                             type="submit"
-                                            className="btn btn-primary btn-lg w-100 mt-3"
-                                            style={{ backgroundColor: '#F63366', borderColor: '#ba0837' }}
+                                            className="btn btn-lg w-100 mt-3 sign-up-btn"
                                         >
                                             Sign Up
                                         </button>
+                                        {error && <div className="register-error-feedback mt-3 mb-2">{error.message}</div>}
                                     </div>
                                 </>
                             )}

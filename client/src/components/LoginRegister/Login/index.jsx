@@ -5,6 +5,8 @@ import { LOGIN_USER } from '../../../utils/mutations';
 
 import Auth from '../../../utils/auth.js';
 
+import './index.css';
+
 function Login({ setAccountStep }) {
     const [formData, setFormData] = useState({
         username: '',
@@ -19,6 +21,10 @@ function Login({ setAccountStep }) {
             ...formData,
             [name]: value
         });
+
+        if (error) {
+            error.message = null;
+        }
     };
 
     const handleFormSubmit = async (e) => {
@@ -52,11 +58,11 @@ function Login({ setAccountStep }) {
                     <form className="border border-5 rounded p-4" onSubmit={handleFormSubmit}>
                         <h2 className="text-center mb-4 text-light">Login</h2>
                         <div className="row gy-3">
-                            <div className="col-12 has-validation">
+                            <div className="col-12 has-validation form-floating">
                                 <input
+                                    id="usernameLoginInput"
                                     type="text"
-                                    className="form-control form-control-lg"
-                                    id="username"
+                                    className="form-control form-control-lg login-input"
                                     name="username"
                                     placeholder="Username"
                                     value={formData.username}
@@ -65,13 +71,14 @@ function Login({ setAccountStep }) {
                                     autoComplete='off'
                                     style={{ fontSize: '16px' }}
                                 />
+                                <label for="usernameLoginInput" className="ms-2" style={{ color: 'grey' }}>Username</label>
                             </div>
 
-                            <div className="col-12">
+                            <div className="col-12 form-floating">
                                 <input
+                                    id="passwordLoginInput"
                                     type="password"
-                                    className="form-control form-control-lg"
-                                    id="password"
+                                    className="form-control form-control-lg login-input"
                                     name="password"
                                     placeholder="Password"
                                     value={formData.password}
@@ -80,13 +87,13 @@ function Login({ setAccountStep }) {
                                     autoComplete='off'
                                     style={{ fontSize: '16px' }}
                                 />
+                                <label for="passwordLoginInput" className="ms-2" style={{ color: 'grey' }}>Password</label>
                             </div>
 
                             <div className="col-12">
                                 <button
                                     type="submit"
-                                    className="btn btn-primary btn-lg w-100"
-                                    style={{ backgroundColor: '#F63366', borderColor: '#ba0837' }}
+                                    className="btn btn-lg w-100 text-light login-btn"
                                 >
                                     Login
                                 </button>
@@ -96,7 +103,7 @@ function Login({ setAccountStep }) {
                                 <p className="text-center text-light">
                                     Don't have an account? <span onClick={() => setAccountStep('register')} style={{ cursor: 'pointer', textDecoration: 'underline', color: '#F63366' }}>Sign up</span>
                                 </p>
-                                {error && <div className="alert alert-danger">{error.message}</div>}
+                                {error && <div className="login-error-feedback mt-3 mb-2">{error.message}</div>}
                             </div>
                         </div>
                     </form>

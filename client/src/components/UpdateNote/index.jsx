@@ -112,6 +112,15 @@ function UpdateNote() {
         }
     }
 
+    const cancelNoteUpdate = () => {
+        setFormData({
+            text: '',
+            tags: ''
+        });
+        setCurrentNote(null);
+        navigate('/');
+    }
+
     return (
         // Removed 'col'
         <form 
@@ -124,7 +133,7 @@ function UpdateNote() {
             }}
         >
             <div className="container-fluid text-light">
-                <h3>{updatedTitle[0] ? updatedTitle[0] : currentNote.title}</h3>
+                <h3 className="note-title">{updatedTitle[0] ? updatedTitle[0] : currentNote.title}</h3>
 
                 <div className="row mt-3" style={{ fontSize: '14px' }}>
                     <div className="col-3">
@@ -145,11 +154,14 @@ function UpdateNote() {
                             />
                         ) : (
                             !isEditing ? 
-                                currentNote.tags.map(tag => (
-                                    <span key={tag} className="text-light me-1 rounded p-1 note-tags" onClick={() => toggleTagDelete(tag)}>{tag}</span>
-                                )) : (
+                                <div className="d-flex flex-wrap">
+                                    {currentNote.tags.map(tag => (
+                                        <span key={tag} className="text-light me-1 mb-1 rounded p-1 note-tags" onClick={() => toggleTagDelete(tag)}>{tag}</span>
+                                    ))}
+                                    {!isEditing && currentNote.tags.length ? <i class="fa-solid fa-pen-to-square ms-1" style={{ cursor: 'pointer', fontSize: '16px', marginTop: '5px' }} onClick={() => toggleTagEdit()}></i> : ''}
+                                </div> : (
                                     <input 
-                                        className="ml-background text-light border-0 note-input"
+                                        className="ml-background text-light border-0 note-input py-1"
                                         type="text" 
                                         name="tags"
                                         value={formData.tags}
@@ -160,10 +172,9 @@ function UpdateNote() {
                                     />
                                 )
                         )}
-                        {!isEditing && currentNote.tags.length ? <i class="fa-solid fa-pen-to-square ms-1" style={{ cursor: 'pointer', fontSize: '16px' }} onClick={() => toggleTagEdit()}></i> : ''}
                     </div>
                 </div>
-                <div className="row mt-2" style={{ fontSize: '14px' }}>
+                <div className="row mt-1" style={{ fontSize: '14px' }}>
                     <div className="col-3">
                         <span className="me-2"><i class="fa-solid fa-clock"></i></span>
                         Last edited
@@ -204,7 +215,7 @@ function UpdateNote() {
 
                 <hr />
 
-                <div className="mt-3">
+                <div className="my-3">
                     <button 
                         form="testUpdateNoteForm"
                         className="btn text-light me-3 confirm-note"
@@ -212,7 +223,7 @@ function UpdateNote() {
                     >
                         Save Note
                     </button>
-                    <button className="btn text-light cancel-note">Cancel</button>
+                    <button className="btn text-light cancel-note" onClick={() => cancelNoteUpdate()}>Cancel</button>
                 </div>
 
             </div>

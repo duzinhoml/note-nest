@@ -70,7 +70,7 @@ const resolvers = {
     Mutation: {
         createUser: async (_, { input }) => {
             try {
-                input.username = input.username.trim().toLowerCase();
+                input.username = input.username.trim()
                 input.email = input.email.trim().toLowerCase();
                 input.password = input.password.trim();
 
@@ -81,9 +81,9 @@ const resolvers = {
                 if (input.username.length > 30) {
                     throw new Error('Username cannot exceed 30 characters.');
                 }
-                const usernameRegex = /^[a-zA-Z0-9_-]+$/;
+                const usernameRegex = /^[a-z0-9_-]+$/;
                 if (!usernameRegex.test(input.username)) {
-                    throw new Error('Username can only contain letters, numbers, underscores, and dashes.');
+                    throw new Error('Username can only contain lowercase letters, numbers, underscores, and dashes.');
                 }
                 const userUsername = await User.findOne({ username: input.username });
                 if (userUsername) {
@@ -126,12 +126,12 @@ const resolvers = {
                  $or: [{ email }, { username }] 
             });
             if (!user) {
-                throw new AuthenticationError('Could not authenticate user.');
+                throw new AuthenticationError('User not found.');
             }
 
             const correctPw = await user.isCorrectPassword(password);
             if (!correctPw) {
-                throw new AuthenticationError('Not Authenticated');
+                throw new AuthenticationError('Not Authenticated.');
             }
 
             const token = signToken(user.username, user.email, user._id);
@@ -281,38 +281,6 @@ const resolvers = {
                 throw new Error(`${err.message}`);
             }
         },
-        // updateFolder: async (_, { folderId, input }) => {
-        //     try {
-        //         let updateData = {
-        //             $set: {
-        //                 title: input.title,
-        //                 description: input.description
-        //             }
-        //         };
-
-        //         if (input.notes && input.notes !== "") {
-        //             updateData.$addToSet = {
-        //                 notes: {
-        //                     $each: [input.notes]
-        //                 }
-        //             }
-        //         };
-
-        //         const folder = await Folder.findOneAndUpdate(
-        //             { _id: folderId },
-        //             updateData,
-        //             { new: true }
-        //         ).populate('notes');
-
-        //         if (!folder) {
-        //             return 'Folder not found';
-        //         }
-        //         return folder;
-        //     } 
-        //     catch (err) {
-        //         return `Failed to update folder: ${err.message}`;
-        //     }
-        // },
         updateNote: async (_, { noteId, input }, context) => {
             try {
                 if (context.user) {
@@ -321,8 +289,6 @@ const resolvers = {
                     if (!note) {
                         return 'Note not found';
                     }
-                    // const existingTags = note.tags.map(tag => tag.name);
-                    // const newTags = input.tags.filter(tag => !existingTags.includes(tag.name));
 
                     const updateFields = {
                         ...(input.title && { title: input.title }),
@@ -353,9 +319,13 @@ const resolvers = {
                 return `Failed to update note: ${err.message}`;
             }
         },
-        deleteUser: async (_, _args, context) => {
+        deleteUser: async (_, { confirmDelete }, context) => {
             try {
                 if (context.user) {
+                    if (confirmDelete !== context.user.username) {
+                        throw new Error('Incorrect confirmation');
+                    }
+
                     const user = await User.findOne({ _id: context.user._id})
                         .populate('folders')
                         .populate({
@@ -389,7 +359,7 @@ const resolvers = {
                 throw new AuthenticationError('You must be logged in to delete your account.');
             } 
             catch (err) {
-                return `Failed to delete user: ${err.message}`;
+                throw new Error(`${err.message}`);
             }
         },
         deleteUserById: async (_, { userId }) => {

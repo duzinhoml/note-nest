@@ -8,6 +8,10 @@
 
 .header-title {
     grid-area: header;
+    font-size: clamp(1rem, 5vw, 1.7rem);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .search {

@@ -1,10 +1,21 @@
+.note-title {
+    word-wrap: break-word;
+    max-width: 610px;
+}
+
 .note-input:focus {
     border-radius: 6px;
     outline: 1px solid #F63366;
 }
 
+.note-tags-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .note-tags {
     background-color: hsl(235, 13%, 37%);
+    white-space: wrap;
 
     &:hover::after {
         font-family: "Font Awesome 6 Free";

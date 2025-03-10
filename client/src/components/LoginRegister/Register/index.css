@@ -1,0 +1,48 @@
+.register-input {
+    border: 1px solid hsl(235, 13%, 37%);
+
+    &:focus {
+        box-shadow: 2px 2px 3px hsl(235, 13%, 57%), -2px 2px 3px hsl(235, 13%, 57%), -2px -2px 3px hsl(235, 13%, 57%),  2px -2px 3px hsl(235, 13%, 57%) !important;;
+    }
+}
+
+.previous-btn {
+    background-color: hsl(235, 13%, 57%);
+    border-color: hsl(235, 13%, 37%);
+
+    &:hover {
+        background-color: hsl(235, 13%, 47%);
+    }
+
+    &:active {
+        background-color: hsl(235, 13%, 37%) !important;
+        border-color: hsl(235, 13%, 27%) !important;
+    }
+}
+
+.sign-up-btn {
+    background-color: hsl(344, 92%, 58%); 
+    border-color: hsl(344, 92%, 38%);
+
+    &:hover {
+        background-color: hsl(344, 92%, 48%);
+    }
+
+    &:active {
+        background-color: hsl(344, 92%, 38%) !important;
+        border-color: hsl(344, 92%, 28%) !important;
+    }
+}
+
+.register-error {
+    border: 2px solid hsl(344, 92%, 58%) !important;
+
+    &:focus {
+        box-shadow: 1px 1px 3px hsl(344, 92%, 58%), -1px 1px 3px hsl(344, 92%, 58%), -1px -1px 3px hsl(344, 92%, 58%),  1px -1px 3px hsl(344, 92%, 58%) !important;
+    }
+}
+
+.register-error-feedback {
+    text-align: center;
+    color: hsl(0, 0%, 79%);
+}

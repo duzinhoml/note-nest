@@ -105,7 +105,7 @@ const typeDefs = `
         updateFolder(folderId: ID!, input: UpdateFolderInput!): Folder
         updateNote(noteId: ID!, input: UpdateNoteInput!): Note
 
-        deleteUser: String
+        deleteUser(confirmDelete: String!): String
         deleteUserById(userId: ID!): String
         deleteFolder(folderId: ID!): String
         deleteNoteFromFolder(folderId: ID!, noteId: ID!): Folder

@@ -50,13 +50,14 @@ function Home() {
                 !user.notes.length ? (
                     <Dashboard
                         notes={[]}
-                        heading={`${user.fullName}, start nesting your thoughts today!`}
+                        heading={`${user.firstName}, start nesting your thoughts today!`}
+                        initials={user.initials}
                     />
                 ) : (
                     <Dashboard
                         notes={user.notes}
                         tags={user.tags}
-                        heading={`${user.fullName}'s Notes`}
+                        heading={`${user.firstName}'s Notes`}
                         initials={user.initials}
                     />
                 )

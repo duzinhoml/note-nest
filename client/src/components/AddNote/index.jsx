@@ -85,7 +85,7 @@ function AddNote() {
             }}
         >
             <div className="container-fluid text-light">
-                <h3>{title[0] ? title[0] : 'Note Title'}</h3>
+                <h3 className="note-title">{title[0] ? title[0] : 'Note Title'}</h3>
 
                 <div className="row mt-3" style={{ fontSize: '14px' }}>
                     <div className="col-3">
@@ -105,7 +105,7 @@ function AddNote() {
                         />
                     </div>
                 </div>
-                <div className="row mt-2" style={{ fontSize: '14px' }}>
+                <div className="row mt-3" style={{ fontSize: '14px' }}>
                     <div className="col-3">
                         <span className="me-2"><i class="fa-solid fa-clock"></i></span>
                         Last edited
@@ -135,7 +135,7 @@ function AddNote() {
 
                 <hr />
 
-                <div className="mt-3">
+                <div className="my-3">
                     <button 
                         form="testUpdateNoteForm"
                         className="btn text-light me-3 confirm-note"

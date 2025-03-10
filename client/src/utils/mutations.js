@@ -96,8 +96,8 @@ export const UPDATE_NOTE = gql`
 `;
 
 export const DELETE_USER = gql`
-    mutation deleteUser {
-        deleteUser
+    mutation deleteUser($confirmDelete: String!) {
+        deleteUser(confirmDelete: $confirmDelete)
     }
 `;
 

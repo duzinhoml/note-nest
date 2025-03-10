@@ -37,7 +37,7 @@ function Header({ heading, initials }) {
         >
             <nav class="navbar ml-background w-100">
                 <div class="header-container">
-                    <h3 className="header-title" style={{ color: 'white' }}>{heading}</h3>
+                    <h3 className="text-light header-title">{heading}</h3>
                     <form class="d-flex flex-grow-1 search" style={{ maxWidth: '330px' }} role="search">
                         <span className="input-group-text rounded-end-0" id="search-input" style={{ cursor: searchTerm ? 'pointer' : 'default' }} onClick={() => clearSearch()}>
                             {searchTerm ? <i class="fa-solid fa-xmark"></i> : <i class="fa-solid fa-magnifying-glass"></i>}

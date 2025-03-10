@@ -22,7 +22,7 @@ function Sidebar({ tags }) {
         >
             <div className="pb-3 ms-2">
                 <h3>
-                    <span className="me-2"><i class="fa-solid fa-pencil"></i></span>
+                    {/* <span className="me-2"><i class="fa-solid fa-pencil"></i></span> */}
                     NoteNest
                 </h3>
             </div>
