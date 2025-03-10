@@ -7,7 +7,7 @@
 }
 
 .error {
-    border: 1px solid hsl(344, 92%, 58%) !important;
+    border: 2px solid hsl(344, 92%, 58%) !important;
 
     &:focus {
         box-shadow: 1px 1px 3px hsl(344, 92%, 58%), -1px 1px 3px hsl(344, 92%, 58%), -1px -1px 3px hsl(344, 92%, 58%),  1px -1px 3px hsl(344, 92%, 58%) !important;

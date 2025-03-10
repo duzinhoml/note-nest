@@ -15,6 +15,8 @@ function Login({ setAccountStep }) {
 
     const [login, { error, data }] = useMutation(LOGIN_USER);
 
+    const loginError = error?.message?.includes('Please');
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -55,14 +57,14 @@ function Login({ setAccountStep }) {
                 </div>
 
                 <div className="col-12 col-md-5 ps-md-5">
-                    <form className="border border-5 rounded p-4" onSubmit={handleFormSubmit}>
+                    <form className="border border-5 rounded p-4 needs-validation" onSubmit={handleFormSubmit}>
                         <h2 className="text-center mb-4 text-light">Login</h2>
                         <div className="row gy-3">
                             <div className="col-12 has-validation form-floating">
                                 <input
                                     id="usernameLoginInput"
                                     type="text"
-                                    className="form-control form-control-lg login-input"
+                                    className={`form-control form-control-lg ${error && loginError ? 'is-invalid login-error' : 'login-input'}`}
                                     name="username"
                                     placeholder="Username"
                                     value={formData.username}
@@ -78,7 +80,7 @@ function Login({ setAccountStep }) {
                                 <input
                                     id="passwordLoginInput"
                                     type="password"
-                                    className="form-control form-control-lg login-input"
+                                    className={`form-control form-control-lg ${error && loginError ? 'is-invalid login-error' : 'login-input'}`}
                                     name="password"
                                     placeholder="Password"
                                     value={formData.password}

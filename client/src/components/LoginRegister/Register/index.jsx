@@ -75,7 +75,7 @@ function Register({ setAccountStep }) {
 
                 <div className="col-12 col-md-5 ps-md-5">
 
-                    <form className="border border-5 rounded p-4 position-relative" onSubmit={currentStep === 1 ? handleNextStep : handleFormSubmit}>
+                    <form className="border border-5 rounded p-4 position-relative needs-validation" onSubmit={currentStep === 1 ? handleNextStep : handleFormSubmit}>
                         <h2 className="text-center mb-4 text-light">Create Account</h2>
                         <div className="row gy-3">
                             {currentStep === 1 && (
@@ -139,7 +139,7 @@ function Register({ setAccountStep }) {
                                         <input
                                             id="emailInput"
                                             type="email"
-                                            className={`form-control form-control-lg ${error && emailError ? 'register-error' : 'register-input'}`}
+                                            className={`form-control form-control-lg ${error && emailError ? 'is-invalid register-error' : 'register-input'}`}
                                             name="email"
                                             placeholder="Email"
                                             value={formData.email}
@@ -154,7 +154,7 @@ function Register({ setAccountStep }) {
                                         <input
                                             id="usernameInput"
                                             type="text"
-                                            className={`form-control form-control-lg ${error && userError ? 'register-error' : 'register-input'}`}
+                                            className={`form-control form-control-lg ${error && userError ? 'is-invalid register-error' : 'register-input'}`}
                                             name="username"
                                             placeholder="Username"
                                             value={formData.username}
@@ -169,7 +169,7 @@ function Register({ setAccountStep }) {
                                         <input
                                             id="passwordInput"
                                             type="password"
-                                            className={`form-control form-control-lg ${error && passError ? 'register-error' : 'register-input'}`}
+                                            className={`form-control form-control-lg ${error && passError ? 'is-invalid register-error' : 'register-input'}`}
                                             name="password"
                                             placeholder="Password"
                                             value={formData.password}
@@ -183,14 +183,14 @@ function Register({ setAccountStep }) {
                                     <div className="col-12">
                                         <button
                                             type="button"
-                                            className="btn btn-lg w-100 text-dark previous-btn"
+                                            className="btn btn-lg w-100 text-light previous-btn"
                                             onClick={handlePrevStep}
                                         >
                                             Previous
                                         </button>
                                         <button
                                             type="submit"
-                                            className="btn btn-lg w-100 mt-3 sign-up-btn"
+                                            className="btn btn-lg w-100 mt-3 text-light sign-up-btn"
                                         >
                                             Sign Up
                                         </button>

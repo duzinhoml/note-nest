@@ -126,12 +126,12 @@ const resolvers = {
                  $or: [{ email }, { username }] 
             });
             if (!user) {
-                throw new AuthenticationError('User not found.');
+                throw new AuthenticationError('User not found. Please check your username or create a new account.');
             }
 
             const correctPw = await user.isCorrectPassword(password);
             if (!correctPw) {
-                throw new AuthenticationError('Not Authenticated.');
+                throw new AuthenticationError('Incorrect username or password. Please try again.');
             }
 
             const token = signToken(user.username, user.email, user._id);
