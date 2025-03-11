@@ -93,7 +93,7 @@ function Register({ setAccountStep }) {
                                             autoComplete='off'
                                             style={{ fontSize: '16px' }}
                                         />
-                                        <label for="firstNameInput" className="ms-2" style={{ color: 'grey' }}>First Name</label>
+                                        <label htmlFor="firstNameInput" className="ms-2" style={{ color: 'grey' }}>First Name</label>
                                     </div>
                                     <div className="col-12 form-floating">
                                         <input
@@ -108,7 +108,7 @@ function Register({ setAccountStep }) {
                                             autoComplete='off'
                                             style={{ fontSize: '16px' }}
                                         />
-                                        <label for="lastNameInput" className="ms-2" style={{ color: 'grey' }}>Last Name</label>
+                                        <label htmlFor="lastNameInput" className="ms-2" style={{ color: 'grey' }}>Last Name</label>
                                     </div>
                                     <div className="col-12">
                                         <button
@@ -148,7 +148,7 @@ function Register({ setAccountStep }) {
                                             autoComplete='off'
                                             style={{ fontSize: '16px' }}
                                         />
-                                        <label for="emailInput" className="ms-2" style={{ color: 'grey' }}>Email</label>
+                                        <label htmlFor="emailInput" className="ms-2" style={{ color: 'grey' }}>Email</label>
                                     </div>
                                     <div className="col-12 col-md-6 form-floating">
                                         <input
@@ -163,7 +163,7 @@ function Register({ setAccountStep }) {
                                             autoComplete='off'
                                             style={{ fontSize: '16px' }}
                                         />
-                                        <label for="usernameInput" className="ms-2" style={{ color: 'grey' }}>Username</label>
+                                        <label htmlFor="usernameInput" className="ms-2" style={{ color: 'grey' }}>Username</label>
                                     </div>
                                     <div className="col-12 col-md-6 form-floating">
                                         <input
@@ -178,7 +178,7 @@ function Register({ setAccountStep }) {
                                             autoComplete='off'
                                             style={{ fontSize: '16px' }}
                                         />
-                                        <label for="passwordInput" className="ms-2" style={{ color: 'grey' }}>Password</label>
+                                        <label htmlFor="passwordInput" className="ms-2" style={{ color: 'grey' }}>Password</label>
                                     </div>
                                     <div className="col-12">
                                         <button

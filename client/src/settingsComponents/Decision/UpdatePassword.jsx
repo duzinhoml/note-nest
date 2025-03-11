@@ -102,7 +102,7 @@ function UpdatePassword() {
                         style={{ width: '60%' }}
                         required
                     />
-                    <label for="currentPWInput" style={{ color: 'grey' }}>Enter old password</label>
+                    <label htmlFor="currentPWInput" style={{ color: 'grey' }}>Enter old password</label>
                     {error && incorrectPassword ? <div className="invalid-feedback error-feedback">Incorrect Password</div> : ''}
                 </div>
                 <div className='mb-3 form-floating'>
@@ -118,7 +118,7 @@ function UpdatePassword() {
                         style={{ width: '60%' }}
                         required
                     />
-                    <label for="newPWInput" style={{ color: 'grey' }}>Enter new password</label>
+                    <label htmlFor="newPWInput" style={{ color: 'grey' }}>Enter new password</label>
                     {error && minChar ? <div className="invalid-feedback error-feedback">Password must be at least 8 characters long.</div> : ''}
                     {error && maxChar ? <div className="invalid-feedback error-feedback">Password cannot exceed 50 characters.</div> : ''}
                     {error && specialChar ? <div className="invalid-feedback error-feedback">Password must include at least one lowercase letter, one uppercase letter, one number, and one special character.</div> : ''}
@@ -136,7 +136,7 @@ function UpdatePassword() {
                         style={{ width: '60%' }}
                         required
                     />
-                    <label for="confirmPWInput" style={{ color: 'grey' }}>Confirm new password</label>
+                    <label htmlFor="confirmPWInput" style={{ color: 'grey' }}>Confirm new password</label>
                     {error && noMatch ? <div className="invalid-feedback error-feedback">Passwords do not match</div> : ''}
                 </div>
                 <div className="mt-3">

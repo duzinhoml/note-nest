@@ -73,7 +73,7 @@ function Login({ setAccountStep }) {
                                     autoComplete='off'
                                     style={{ fontSize: '16px' }}
                                 />
-                                <label for="usernameLoginInput" className="ms-2" style={{ color: 'grey' }}>Username</label>
+                                <label htmlFor="usernameLoginInput" className="ms-2" style={{ color: 'grey' }}>Username</label>
                             </div>
 
                             <div className="col-12 form-floating">
@@ -89,7 +89,7 @@ function Login({ setAccountStep }) {
                                     autoComplete='off'
                                     style={{ fontSize: '16px' }}
                                 />
-                                <label for="passwordLoginInput" className="ms-2" style={{ color: 'grey' }}>Password</label>
+                                <label htmlFor="passwordLoginInput" className="ms-2" style={{ color: 'grey' }}>Password</label>
                             </div>
 
                             <div className="col-12">
