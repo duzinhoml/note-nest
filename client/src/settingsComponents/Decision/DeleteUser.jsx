@@ -90,7 +90,7 @@ function DeleteUser({ user }) {
                         required
                     />
                     <label for="confirmDeleteInput" style={{ color: 'grey' }}>{`To confirm, type "${user.username}"`}</label>
-                    {error ? <div class="invalid-feedback error-feedback">{error.message}</div> : ''}
+                    {error ? <div className="invalid-feedback error-feedback">{error.message}</div> : ''}
                 </div>
                 <div className="mt-3">
                     <button 

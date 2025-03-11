@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries.js';
 
 import Dashboard from '../settingsComponents/Dashboard/index.jsx';
+import Error from './Error.jsx';
 
 import Auth from '../utils/auth.js';
 
@@ -37,7 +38,10 @@ function Settings() {
     return (
         <>
             {!loginCheck ? (
-                <h1 className='text-light'>You need to be logged in to access this page.</h1>
+                <Error 
+                    messageTitle={"Hold on! You need to log in first."} 
+                    messageDirection={"Please log in to access this page."}
+                />
             ) : (
                 <>
                     <Dashboard

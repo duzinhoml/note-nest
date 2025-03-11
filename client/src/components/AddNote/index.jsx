@@ -89,7 +89,7 @@ function AddNote() {
 
                 <div className="row mt-3" style={{ fontSize: '14px' }}>
                     <div className="col-3">
-                        <span className="me-2"><i class="fa-solid fa-tag"></i></span>
+                        <span className="me-2"><i className="fa-solid fa-tag"></i></span>
                         Tags
                     </div>
                     <div className="col">
@@ -107,7 +107,7 @@ function AddNote() {
                 </div>
                 <div className="row mt-3" style={{ fontSize: '14px' }}>
                     <div className="col-3">
-                        <span className="me-2"><i class="fa-solid fa-clock"></i></span>
+                        <span className="me-2"><i className="fa-solid fa-clock"></i></span>
                         Last edited
                     </div>
                     <div className="col-auto ps-3">Not yet saved</div>

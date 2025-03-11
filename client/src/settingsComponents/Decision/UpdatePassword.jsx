@@ -103,7 +103,7 @@ function UpdatePassword() {
                         required
                     />
                     <label for="currentPWInput" style={{ color: 'grey' }}>Enter old password</label>
-                    {error && incorrectPassword ? <div class="invalid-feedback error-feedback">Incorrect Password</div> : ''}
+                    {error && incorrectPassword ? <div className="invalid-feedback error-feedback">Incorrect Password</div> : ''}
                 </div>
                 <div className='mb-3 form-floating'>
                     <input 

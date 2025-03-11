@@ -16,6 +16,10 @@
     background-color: hsl(344, 92%, 58%); 
     border-color: hsl(344, 92%, 38%);
 
+    span {
+        margin-left: 1px;
+    }
+
     &:hover {
         background-color: hsl(344, 92%, 48%);
     }

@@ -13,7 +13,7 @@ import './index.css';
 
 function NoteActions() {
     const navigate = useNavigate();
-    const { noteSelection } = useSidebar();
+    const { noteSelection, setTagSelection } = useSidebar();
     const { currentNote, setCurrentNote } = useNoteList();
 
     const { _id } = currentNote || {};
@@ -40,6 +40,7 @@ function NoteActions() {
             });
 
             setCurrentNote(null);
+            setTagSelection(null);
             navigate('/');
         } 
         catch (err) {
@@ -101,17 +102,17 @@ function NoteActions() {
                     <div>
                         {noteSelection === 'all' ? 
                             <button className="btn mb-2 text-start text-light w-100 note-actions-archive" onClick={() => handleArchiveNote()}>
-                                <span className="me-2"><i class="fa-solid fa-box-archive"></i></span>
+                                <span className="me-2"><i className="fa-solid fa-box-archive"></i></span>
                                 Archive Note
                             </button>
                             : 
                             <button className="btn mb-2 text-start text-light w-100 note-actions-archive" onClick={() => handleUnarchiveNote()}>
-                                <span className="me-2"><i class="fa-solid fa-box-archive"></i></span>
+                                <span className="me-2"><i className="fa-solid fa-box-archive"></i></span>
                                 Unarchive Note
                             </button>
                         }
                         <button className="btn text-start text-light w-100 note-actions-delete" onClick={() => handleDeleteNote()}>
-                            <span className="me-2"><i class="fa-solid fa-trash"></i></span>
+                            <span className="me-2"><i className="fa-solid fa-trash"></i></span>
                             Delete Note
                         </button>
                     </div>

@@ -74,6 +74,16 @@ const resolvers = {
                 input.email = input.email.trim().toLowerCase();
                 input.password = input.password.trim();
 
+                // Email
+                const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+                if (!emailRegex.test(input.email)) {
+                    throw new Error('Must match a valid email address.');
+                }
+                const userEmail = await User.findOne({ email: input.email });
+                if (userEmail) {
+                    throw new Error('Email already exists.');
+                }
+
                 // Username
                 if (input.username.length < 3) {
                     throw new Error('Username must be at least 3 characters long.');
@@ -88,16 +98,6 @@ const resolvers = {
                 const userUsername = await User.findOne({ username: input.username });
                 if (userUsername) {
                     throw new Error('Username already exists.');
-                }
-
-                // Email
-                const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-                if (!emailRegex.test(input.email)) {
-                    throw new Error('Must match a valid email address.');
-                }
-                const userEmail = await User.findOne({ email: input.email });
-                if (userEmail) {
-                    throw new Error('Email already exists.');
                 }
 
                 // Password

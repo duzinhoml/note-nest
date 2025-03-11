@@ -9,7 +9,7 @@ export const SidebarProvider = ({ children }) => {
     const { searchTerm, setSearchTerm } = useSearch();
 
     const [noteSelection, setNoteSelection] = useState('all');
-    const [tagSelection, setTagSelection] = useState();
+    const [tagSelection, setTagSelection] = useState(null);
 
     const toggleAllNotes = () => {
         setNoteSelection('all');

@@ -7,6 +7,7 @@ import { UPDATE_NOTE } from "../../utils/mutations";
 import { DELETE_TAG_FROM_NOTE } from "../../utils/mutations";
 
 import { useNoteList } from "../../context/NoteListContext";
+import { useSidebar } from "../../context/SidebarContext";
 
 import '../Dashboard/index.css';
 import '../Notes/index.css';
@@ -17,6 +18,7 @@ function UpdateNote() {
 
     const [isEditing, setIsEditing] = useState(false);
     const { currentNote, setCurrentNote } = useNoteList();
+    const { setTagSelection } = useSidebar();
 
     const { _id, title, text } = currentNote || {};
     const noteId = _id;
@@ -105,12 +107,13 @@ function UpdateNote() {
             });
 
             setCurrentNote(null);
+            setTagSelection(null);
             navigate('/');
         }
         catch (err) {
             console.error(err)
         }
-    }
+    };
 
     const cancelNoteUpdate = () => {
         setFormData({
@@ -119,7 +122,7 @@ function UpdateNote() {
         });
         setCurrentNote(null);
         navigate('/');
-    }
+    };
 
     return (
         // Removed 'col'
@@ -137,7 +140,7 @@ function UpdateNote() {
 
                 <div className="row mt-3" style={{ fontSize: '14px' }}>
                     <div className="col-3">
-                        <span className="me-2"><i class="fa-solid fa-tag"></i></span>
+                        <span className="me-2"><i className="fa-solid fa-tag"></i></span>
                         Tags
                     </div>
                     <div className="col ps-3">
@@ -158,7 +161,7 @@ function UpdateNote() {
                                     {currentNote.tags.map(tag => (
                                         <span key={tag} className="text-light me-1 mb-1 rounded p-1 note-tags" onClick={() => toggleTagDelete(tag)}>{tag}</span>
                                     ))}
-                                    {!isEditing && currentNote.tags.length ? <i class="fa-solid fa-pen-to-square ms-1" style={{ cursor: 'pointer', fontSize: '16px', marginTop: '5px' }} onClick={() => toggleTagEdit()}></i> : ''}
+                                    {!isEditing && currentNote.tags.length ? <i className="fa-solid fa-pen-to-square ms-1" style={{ cursor: 'pointer', fontSize: '16px', marginTop: '5px' }} onClick={() => toggleTagEdit()}></i> : ''}
                                 </div> : (
                                     <input 
                                         className="ml-background text-light border-0 note-input py-1"
@@ -176,7 +179,7 @@ function UpdateNote() {
                 </div>
                 <div className="row mt-1" style={{ fontSize: '14px' }}>
                     <div className="col-3">
-                        <span className="me-2"><i class="fa-solid fa-clock"></i></span>
+                        <span className="me-2"><i className="fa-solid fa-clock"></i></span>
                         Last edited
                     </div>
                     <div className="col-auto ps-3">

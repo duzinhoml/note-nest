@@ -5,12 +5,13 @@ import App from './App.jsx'
 
 import Home from './pages/Home.jsx';
 import Settings from './pages/Settings.jsx';
+import Error from './pages/Error.jsx';
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <App/>,
-        errorElement: <div className='text-light'>Uh-oh! Try Again!</div>,
+        errorElement: <Error/>,
         children: [
             {
                 index: true,

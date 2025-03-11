@@ -35,15 +35,15 @@ function Header({ heading, initials }) {
             className="text-light ml-background m-0 my-2 me-4 p-0 header" 
             // style={{ border: '2px solid rgba(0, 255, 4, 0.1)' }}
         >
-            <nav class="navbar ml-background w-100">
-                <div class="header-container">
+            <nav className="navbar ml-background w-100">
+                <div className="header-container">
                     <h3 className="text-light header-title">{heading}</h3>
-                    <form class="d-flex flex-grow-1 search" style={{ maxWidth: '330px' }} role="search">
+                    <form className="d-flex flex-grow-1 search" style={{ maxWidth: '330px' }} role="search">
                         <span className="input-group-text rounded-end-0" id="search-input" style={{ cursor: searchTerm ? 'pointer' : 'default' }} onClick={() => clearSearch()}>
-                            {searchTerm ? <i class="fa-solid fa-xmark"></i> : <i class="fa-solid fa-magnifying-glass"></i>}
+                            {searchTerm ? <i className="fa-solid fa-xmark"></i> : <i className="fa-solid fa-magnifying-glass"></i>}
                         </span>
                         <input 
-                            class="form-control me-2 rounded-start-0 header-input" 
+                            className="form-control me-2 rounded-start-0 header-input" 
                             type="text"
                             name="search"
                             value={searchTerm}
