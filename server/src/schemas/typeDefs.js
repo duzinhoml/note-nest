@@ -7,7 +7,6 @@ const typeDefs = `
         lastName: String!
         username: String!
         email: String!
-        password: String!
         folders: [Folder]
         notes: [Note]
         tags: [String]
