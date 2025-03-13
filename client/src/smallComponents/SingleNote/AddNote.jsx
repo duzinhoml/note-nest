@@ -84,7 +84,7 @@ function AddNote() {
         >
             <div className="my-3 d-flex align-items-center justify-content-between">
                 <div className="ms-1" onClick={() => toggleCancelNote()}>
-                    <button className="btn text-light small-cancel-note">
+                    <button className="btn text-light go-back">
                         <span className="me-2"><i className="fa-solid fa-angle-left"></i></span>
                         <span>Go Back</span>
                     </button>

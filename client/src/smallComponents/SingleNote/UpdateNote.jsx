@@ -201,17 +201,17 @@ function UpdateNote() {
             >
                 <div className="my-3 d-flex align-items-center justify-content-between">
                     <div className="ms-1" onClick={() => cancelNoteUpdate()}>
-                        <button className="btn text-light small-cancel-note">
+                        <button className="btn text-light go-back">
                             <span className="me-2"><i className="fa-solid fa-angle-left"></i></span>
                             <span>Go Back</span>
                         </button>
                     </div>
 
                     <div className="text-end d-flex align-items-center">
-                        <button className="btn m-0 p-0 text-light" onClick={() => handleDeleteNote()}>
+                        <button className="btn m-0 p-0 text-light border-0" onClick={() => handleDeleteNote()}>
                             <span className="me-3"><i className="fa-solid fa-trash"></i></span>
                         </button>
-                        <button className="btn m-0 p-0 text-light" onClick={() => handleArchiveNote()}>
+                        <button className="btn m-0 p-0 text-light border-0" onClick={() => handleArchiveNote()}>
                             {currentNote.isArchived === false ? 
                                 <span><i className="fa-solid fa-box-archive"></i></span>
                                 :
