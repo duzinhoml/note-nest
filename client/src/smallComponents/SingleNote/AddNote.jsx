@@ -106,25 +106,25 @@ function AddNote() {
                 <h3 className="note-title">{title[0] ? title[0] : 'Note Title'}</h3>
 
                 <div className="row mt-3" style={{ fontSize: '14px' }}>
-                    <div className="col-3">
+                    <div className="col-4 col-md-3">
                         <span className="me-2"><i className="fa-solid fa-tag"></i></span>
                         Tags
                     </div>
-                    <div className="col">
+                    <div className="col me-2">
                         <input 
                             className="ml-background text-light border-0 ps-1 note-input"
                             type="text" 
                             name="tags"
                             value={formData.tags}
                             onChange={handleInputChange}
-                            placeholder="Add tags separated by commas (e.g. Work, Planning)"
+                            placeholder="(e.g. Work, Planning)"
                             autoComplete="off"
-                            style={{ width: '77%' }}
+                            style={{ width: '90%' }}
                         />
                     </div>
                 </div>
                 <div className="row mt-3" style={{ fontSize: '14px' }}>
-                    <div className="col-3">
+                    <div className="col-4 col-md-3">
                         <span className="me-2"><i className="fa-solid fa-clock"></i></span>
                         Last edited
                     </div>

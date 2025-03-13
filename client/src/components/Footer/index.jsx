@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import { useActivePage } from '../../context/ActivePageContext';
 import { useSettings } from '../../context/SettingsContext';
 import { useSidebar } from '../../context/SidebarContext';
+import { useNotes } from '../../context/NotesContext';
+import { useFormData } from '../../context/FormDataContext';
 import { useNoteList } from '../../context/NoteListContext';
 
 import '../Dashboard/index.css';
@@ -11,6 +13,8 @@ function Footer() {
     const { activePage, setActivePage } = useActivePage();
     const { setSettingsSelection } = useSettings();
     const { toggleAllNotes, toggleArchivedNotes, setTagSelection } = useSidebar();
+    const { setIsCreating } = useNotes();
+    const { setFormData } = useFormData();
     const { setCurrentNote } = useNoteList();
 
     const handleSelection = (page, notes) => {
@@ -25,6 +29,11 @@ function Footer() {
 
         setCurrentNote(null);
         setTagSelection(null);
+        setIsCreating(false);
+        setFormData({ 
+            text: '', 
+            tags: '' 
+        });
         setSettingsSelection(null);
         navigate(`/`);
     }
