@@ -33,27 +33,27 @@ function Footer() {
         <>
             <div className="footer">
                 <button className={`btn my-1 px-3 ${activePage === 'notes' ? 'active-page-icon' : ''}`} onClick={() => handleSelection('notes', 'all')}>
-                    <span style={{ fontSize: '25px', color: activePage === 'notes' ? '#F63366' : '#f8f9fa' }}>
+                    <span style={{ fontSize: '20px', color: activePage === 'notes' ? '#F63366' : '#f8f9fa' }}>
                         <i className="fa-solid fa-house"></i>
                     </span>
                 </button>
                 <button className={`btn my-1 px-3 ${activePage === 'search' ? 'active-page-icon' : ''}`} onClick={() => handleSelection('search', 'all')}>
-                    <span style={{ fontSize: '25px', color: activePage === 'search' ? '#F63366' : '#f8f9fa' }}>
+                    <span style={{ fontSize: '20px', color: activePage === 'search' ? '#F63366' : '#f8f9fa' }}>
                         <i className="fa-solid fa-magnifying-glass"></i>
                     </span>
                 </button>
                 <button className={`btn my-1 px-3 ${activePage === 'archive' ? 'active-page-icon' : ''}`} onClick={() => handleSelection('archive', 'archived')}>
-                    <span style={{ fontSize: '25px', color: activePage === 'archive' ? '#F63366' : '#f8f9fa' }}>
+                    <span style={{ fontSize: '20px', color: activePage === 'archive' ? '#F63366' : '#f8f9fa' }}>
                         <i className="fa-solid fa-box-archive"></i>
                     </span>
                 </button>
                 <button className={`btn my-1 px-3 ${activePage === 'tags' ? 'active-page-icon' : ''}`} onClick={() => handleSelection('tags', 'all')}>
-                    <span style={{ fontSize: '25px', color: activePage === 'tags' ? '#F63366' : '#f8f9fa' }}>
+                    <span style={{ fontSize: '20px', color: activePage === 'tags' ? '#F63366' : '#f8f9fa' }}>
                         <i className="fa-solid fa-tag"></i>
                     </span>
                 </button>
                 <button className={`btn my-1 px-3 ${activePage === 'settings' ? 'active-page-icon' : ''}`} onClick={() => handleSelection('settings', null)}>
-                    <span style={{ fontSize: '25px', color: activePage === 'settings' ? '#F63366' : '#f8f9fa' }}>
+                    <span style={{ fontSize: '20px', color: activePage === 'settings' ? '#F63366' : '#f8f9fa' }}>
                         <i className="fa-solid fa-gear"></i>
                     </span>
                 </button>

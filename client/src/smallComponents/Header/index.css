@@ -3,5 +3,5 @@
 }
 
 .small-header-title {
-    font-size: clamp(1rem, 5vw, 1.7rem);
+    font-size: clamp(1.9rem, 5vw, 2.2rem);
 }
