@@ -235,7 +235,7 @@ function UpdateNote() {
                     <h3 className="note-title">{updatedTitle[0] ? updatedTitle[0] : currentNote.title}</h3>
 
                     <div className="row mt-3" style={{ fontSize: '14px' }}>
-                        <div className="col-3">
+                        <div className="col-4 col-md-3">
                             <span className="me-2"><i className="fa-solid fa-tag"></i></span>
                             Tags
                         </div>
@@ -247,9 +247,9 @@ function UpdateNote() {
                                     name="tags"
                                     value={formData.tags}
                                     onChange={handleInputChange}
-                                    placeholder="Add tags separated by commas (e.g. Work, Planning)"
+                                    placeholder="(e.g. Work, Planning)"
                                     autoComplete="off"
-                                    style={{ width: '77%' }}
+                                    style={{ width: '90%' }}
                                 />
                             ) : (
                                 !isEditing ? 
@@ -265,16 +265,16 @@ function UpdateNote() {
                                             name="tags"
                                             value={formData.tags}
                                             onChange={handleInputChange}
-                                            placeholder="Add tags separated by commas (e.g. Work, Planning)"
+                                            placeholder="(e.g. Work, Planning)"
                                             autoComplete="off"
-                                            style={{ width: '77%' }}
+                                            style={{ width: '90%' }}
                                         />
                                     )
                             )}
                         </div>
                     </div>
                     <div className="row mt-1" style={{ fontSize: '14px' }}>
-                        <div className="col-3">
+                        <div className="col-4 col-md-3">
                             <span className="me-2"><i className="fa-solid fa-clock"></i></span>
                             Last edited
                         </div>

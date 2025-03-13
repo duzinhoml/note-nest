@@ -84,6 +84,19 @@ function SmallNotes({ notes }) {
                         + Create New Note
                     </button>}
 
+                    <h3 
+                        className='text-white-50 mt-1'
+                        style={{ textOverflow: 'ellipsis', whiteSpace: 'wrap' }}
+                    >
+                        {!notes || notes.length === 0 ? 
+                            <>
+                                No notes available. <br />
+                                Start nesting your thoughts today!
+                            </>
+                            : ''}
+                    </h3>
+                    <p className='text-white-50'>{searchTerm && notes ? `All notes matching "${searchTerm}" are displayed below.` : ''}</p>
+
                     <div>
                         <ul className="list-group list-group-flush">
                             <NoteList 

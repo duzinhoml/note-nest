@@ -27,7 +27,16 @@ function Tags({ notes, tags }) {
             {!tagSelection ? <div className="mt-3" style={{ paddingBottom: '60px' }}>
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item ml-background text-truncate text-white-50 border-bottom-0">
-                        <h3>Tags</h3>
+                        <h3 
+                            style={{ textOverflow: 'ellipsis', whiteSpace: 'wrap' }}
+                        >
+                            {!tags || tags.length === 0 ? 
+                                <>
+                                    No tags available. <br />
+                                    Add some tags to organize your notes!
+                                </>
+                                : 'Tags'}
+                        </h3>
                     </li>
                     {tags &&
                         tags.map(tag => (

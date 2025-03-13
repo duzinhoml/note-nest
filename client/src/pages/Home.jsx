@@ -49,6 +49,7 @@ function Home() {
             ) : (
                 !user.notes.length ? (
                     <Dashboard
+                        user={user}
                         notes={[]}
                         heading={`${user.firstName}, start nesting your thoughts today!`}
                         initials={user.initials}
