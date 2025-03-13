@@ -55,6 +55,7 @@ function Home() {
                     />
                 ) : (
                     <Dashboard
+                        user={user}
                         notes={user.notes}
                         tags={user.tags}
                         heading={`${user.firstName}'s Notes`}

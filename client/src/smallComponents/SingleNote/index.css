@@ -1,0 +1,17 @@
+.small-confirm-note {
+    color: hsl(344, 92%, 58%);
+
+    &:active {
+        color: hsl(210, 17%, 98%);
+        background-color: hsl(344, 92%, 58%) !important;
+        border-color: hsl(344, 92%, 38%) !important;
+    }
+}
+
+.small-cancel-note {
+
+    &:active {
+        background-color: hsl(235, 13%, 57%) !important;
+        border-color: hsl(235, 13%, 37%) !important;
+    }
+}

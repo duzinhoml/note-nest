@@ -1,0 +1,7 @@
+.small-bg {
+    background-color: hsl(235, 13%, 27%);
+}
+
+.small-header-title {
+    font-size: clamp(1rem, 5vw, 1.7rem);
+}

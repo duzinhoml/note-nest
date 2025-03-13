@@ -7,6 +7,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@ap
 import { setContext } from '@apollo/client/link/context';
 import { Outlet } from 'react-router-dom';
 
+import { ActivePageProvider } from './context/ActivePageContext.jsx';
 import { SidebarProvider } from './context/SidebarContext.jsx';
 import { SearchProvider } from './context/SearchContext.jsx';
 import { SettingsProvider } from './context/SettingsContext.jsx';
@@ -41,21 +42,23 @@ function App() {
     <>
       <ApolloProvider client={client}>
 
-        <SearchProvider>
-          <SidebarProvider>
-            <SettingsProvider>
-              <FormDataProvider>
-                <InputRefProvider>
-                  <NotesProvider>
-                    <NoteListProvider>
-                      <Outlet />
-                    </NoteListProvider>
-                  </NotesProvider>
-                </InputRefProvider>
-              </FormDataProvider>
-            </SettingsProvider>
-          </SidebarProvider>
-        </SearchProvider>
+        <ActivePageProvider>
+          <SearchProvider>
+            <SidebarProvider>
+              <SettingsProvider>
+                <FormDataProvider>
+                  <InputRefProvider>
+                    <NotesProvider>
+                      <NoteListProvider>
+                        <Outlet />
+                      </NoteListProvider>
+                    </NotesProvider>
+                  </InputRefProvider>
+                </FormDataProvider>
+              </SettingsProvider>
+            </SidebarProvider>
+          </SearchProvider>
+        </ActivePageProvider>
         
       </ApolloProvider>
     </>

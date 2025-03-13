@@ -2,9 +2,10 @@
     display: grid;
     grid-template-areas: 
     "sidebar header header header"
-    "sidebar notes single-note note-actions";
+    "sidebar notes single-note note-actions"
+    "active-page footer footer footer";
     grid-template-columns: 0.6fr 0.7fr 1.6fr 0.7fr;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto 1fr auto;
     height: 100vh;
     width: 100%;
 }
@@ -34,6 +35,17 @@
     grid-area: note-actions;
 }
 
+.active-page {
+    grid-area: active-page;
+    display: none;
+}
+
+.footer {
+    grid-area: footer;
+    display: none;
+}
+
+/* Error Page */
 .error-page-btn {
     background-color: hsl(344, 92%, 58%); 
     border-color: hsl(344, 92%, 38%);
@@ -46,4 +58,43 @@
         background-color: hsl(344, 92%, 38%) !important;
         border-color: hsl(344, 92%, 28%) !important;
     }
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+    .dashboard-container {
+        grid-template-areas: 
+        "header"
+        "active-page"
+        "footer";
+        grid-template-columns: auto;
+        grid-template-rows: auto 1fr auto;
+    }
+
+
+    .active-page {
+        display: flex;
+    }
+
+    .sidebar,
+    .notes,
+    .single-note,
+    .note-actions {
+        display: none;
+    }
+
+    .footer {
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+        display: flex;
+        justify-content: space-around;
+        background-color: hsl(235, 13%, 27%);
+        border-color: hsl(235, 13%, 27%);
+
+        .active-page-icon {
+            background-color: hsl(235, 13%, 37%);
+        }
+    }
+
 }
