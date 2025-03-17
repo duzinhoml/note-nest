@@ -9,7 +9,7 @@ function SmallHeader() {
             style={{
                 borderBottomLeftRadius: '6px',
                 borderBottomRightRadius: '6px',
-                borderBottom: '1px solid hsl(0, 0.00%, 36%)',
+                borderBottom: '2px solid hsl(235, 13%, 37%)',
             }}
         >
             <nav className="navbar small-bg w-100">
